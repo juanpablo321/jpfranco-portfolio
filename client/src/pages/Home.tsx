@@ -97,7 +97,7 @@ export default function Home() {
         <div className="container relative z-10 text-center">
           <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-extrabold text-background leading-tight">
-              Estratega de Crecimiento Digital |{" "}
+              Estratega de Expansión Digital |{" "}
               <span className="gradient-text">
                 Experto en eCommerce & Marketplaces
               </span>
