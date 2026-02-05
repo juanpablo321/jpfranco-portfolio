@@ -103,7 +103,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-background/70 text-sm">
-            © 2025 Juan Pablo Franco - Estratega de Crecimiento Digital. Todos
+            © 2026 Juan Pablo Franco - Estratega de Crecimiento Digital. Todos
             los derechos reservados.
           </p>
           <div className="flex gap-4">
