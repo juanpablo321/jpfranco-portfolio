@@ -804,20 +804,7 @@ export default function Home() {
                     Contacto Directo
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                        <Globe size={20} />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-background">Email</p>
-                        <a
-                          href="mailto:juanpablo321@gmail.com"
-                          className="text-background/80 hover:text-background transition-colors"
-                        >
-                          juanpablo321@gmail.com
-                        </a>
-                      </div>
-                    </div>
+
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
                         <Globe size={20} />

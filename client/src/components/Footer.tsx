@@ -71,15 +71,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contacto</h4>
             <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-background/80">
-                <Mail size={18} />
-                <a
-                  href="mailto:juanpablo321@gmail.com"
-                  className="hover:text-background transition-colors"
-                >
-                  juanpablo321@gmail.com
-                </a>
-              </li>
+
               <li className="flex items-center gap-2 text-background/80">
                 <Phone size={18} />
                 <a
