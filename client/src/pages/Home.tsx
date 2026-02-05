@@ -685,7 +685,8 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className="container">
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/90 via-foreground/80 to-foreground/70"></div>
+        <div className="container relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
               Conectemos <span className="gradient-text">Juntos</span>
@@ -698,7 +699,7 @@ export default function Home() {
 
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Contact Form */}
-            <Card className="floating-card bg-background/10 backdrop-blur-md border-background/20">
+            <Card className="floating-card bg-foreground/40 backdrop-blur-md border-background/30">
               <CardContent className="pt-6">
                 <form onSubmit={handleContactSubmit} className="space-y-4">
                   <div>
@@ -709,7 +710,7 @@ export default function Home() {
                       id="name"
                       name="name"
                       required
-                      className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
+                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
                       placeholder="Tu nombre"
                     />
                   </div>
@@ -722,7 +723,7 @@ export default function Home() {
                       name="email"
                       type="email"
                       required
-                      className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
+                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
                       placeholder="tu@email.com"
                     />
                   </div>
@@ -733,7 +734,7 @@ export default function Home() {
                     <Input
                       id="company"
                       name="company"
-                      className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
+                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
                       placeholder="Tu empresa"
                     />
                   </div>
@@ -742,7 +743,7 @@ export default function Home() {
                       Servicio de Interés *
                     </Label>
                     <Select name="service" required>
-                      <SelectTrigger className="bg-background/20 border-background/30 text-background">
+                      <SelectTrigger className="bg-foreground/30 border-background/40 text-background">
                         <SelectValue placeholder="Selecciona un servicio" />
                       </SelectTrigger>
                       <SelectContent>
@@ -777,7 +778,7 @@ export default function Home() {
                       name="message"
                       required
                       rows={4}
-                      className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
+                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
                       placeholder="Cuéntame sobre tu proyecto..."
                     />
                   </div>
@@ -797,7 +798,7 @@ export default function Home() {
 
             {/* Contact Info */}
             <div className="space-y-6">
-              <Card className="floating-card bg-background/10 backdrop-blur-md border-background/20">
+              <Card className="floating-card bg-foreground/40 backdrop-blur-md border-background/30">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-bold mb-4 text-background">
                     Contacto Directo
@@ -865,7 +866,7 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="floating-card bg-background/10 backdrop-blur-md border-background/20">
+              <Card className="floating-card bg-foreground/40 backdrop-blur-md border-background/30">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-bold mb-4 text-background">
                     Agenda una Consulta
