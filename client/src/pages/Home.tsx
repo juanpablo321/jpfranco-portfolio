@@ -68,7 +68,7 @@ export default function Home() {
 
   const handleContactSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Message sent! I'll respond within 24 hours.");
+    toast.success("¡Mensaje enviado! Te responderé en menos de 24 horas.");
     (e.target as HTMLFormElement).reset();
   };
 
@@ -97,14 +97,14 @@ export default function Home() {
         <div className="container relative z-10 text-center">
           <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-extrabold text-background leading-tight">
-              Digital Growth Strategist |{" "}
+              Estratega de Crecimiento Digital |{" "}
               <span className="gradient-text">
-                eCommerce & Marketplace Expert
+                Experto en eCommerce & Marketplaces
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-background/90 max-w-3xl mx-auto">
-              Transforming businesses through data-driven digital commerce
-              strategies across LATAM, Europe & North America
+              Transformando negocios a través de estrategias de comercio digital
+              basadas en datos en LATAM, Europa y Norteamérica
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
@@ -112,7 +112,7 @@ export default function Home() {
                 onClick={scrollToContact}
                 className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 py-6"
               >
-                Schedule Consultation
+                Agendar Consulta
               </Button>
               <Button
                 size="lg"
@@ -123,21 +123,21 @@ export default function Home() {
                 }}
                 className="bg-background/10 backdrop-blur-sm border-background/30 text-background hover:bg-background/20 text-lg px-8 py-6"
               >
-                View Case Studies
+                Ver Casos de Éxito
               </Button>
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-background/90 text-sm md:text-base pt-8">
               <div className="flex items-center gap-2">
                 <Award className="text-secondary" size={20} />
-                <span>15+ Years Experience</span>
+                <span>+15 Años de Experiencia</span>
               </div>
               <div className="flex items-center gap-2">
                 <Rocket className="text-secondary" size={20} />
-                <span>100+ Projects</span>
+                <span>+100 Proyectos</span>
               </div>
               <div className="flex items-center gap-2">
                 <Globe className="text-secondary" size={20} />
-                <span>Global Clients</span>
+                <span>Clientes Globales</span>
               </div>
             </div>
           </div>
@@ -161,11 +161,12 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              About <span className="gradient-text">Juan Pablo</span>
+              Sobre <span className="gradient-text">Juan Pablo</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A seasoned digital commerce expert with deep expertise in VTEX,
-              global project leadership, and B2B/B2C strategy execution
+              Un experto experimentado en comercio digital con profunda
+              experiencia en VTEX, liderazgo de proyectos globales y estrategia
+              B2B/B2C
             </p>
           </div>
 
@@ -175,10 +176,10 @@ export default function Home() {
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                   <Target className="text-background" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Strategic Leadership</h3>
+                <h3 className="text-xl font-bold mb-2">Liderazgo Estratégico</h3>
                 <p className="text-muted-foreground">
-                  Expert in team management, project execution, and
-                  cross-functional collaboration across global markets
+                  Experto en gestión de equipos, ejecución de proyectos y
+                  colaboración multifuncional en mercados globales
                 </p>
               </CardContent>
             </Card>
@@ -188,10 +189,10 @@ export default function Home() {
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                   <Layers className="text-background" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Technical Excellence</h3>
+                <h3 className="text-xl font-bold mb-2">Excelencia Técnica</h3>
                 <p className="text-muted-foreground">
-                  Platform integration, solution architecture, and seamless ERP
-                  connectivity for enterprise clients
+                  Integración de plataformas, arquitectura de soluciones y
+                  conectividad ERP para clientes empresariales
                 </p>
               </CardContent>
             </Card>
@@ -201,10 +202,10 @@ export default function Home() {
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                   <TrendingUp className="text-background" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Results-Driven</h3>
+                <h3 className="text-xl font-bold mb-2">Orientado a Resultados</h3>
                 <p className="text-muted-foreground">
-                  Conversion optimization, growth hacking, and data-driven
-                  strategies that deliver measurable ROI
+                  Optimización de conversión, growth hacking y estrategias
+                  basadas en datos que generan ROI medible
                 </p>
               </CardContent>
             </Card>
@@ -214,28 +215,30 @@ export default function Home() {
             <Card className="floating-card bg-card/80 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <p className="text-lg leading-relaxed mb-6">
-                  With over 15 years of experience in digital commerce, I
-                  specialize in transforming businesses through strategic
-                  eCommerce implementations and marketplace development. My
-                  expertise spans the entire digital commerce ecosystem, from
-                  platform selection and integration to conversion optimization
-                  and growth strategy.
+                  Con más de 15 años de experiencia en comercio digital, me
+                  especializo en transformar negocios a través de
+                  implementaciones estratégicas de eCommerce y desarrollo de
+                  marketplaces. Mi experiencia abarca todo el ecosistema del
+                  comercio digital, desde la selección e integración de
+                  plataformas hasta la optimización de conversión y estrategia
+                  de crecimiento.
                 </p>
                 <p className="text-lg leading-relaxed mb-6">
-                  As a former Product Manager and Partner Success leader at
-                  VTEX, I've led global B2B lead generation initiatives across
-                  16 sites in 9 languages, managed POC budgets for Tier 1/2
-                  clients in the US and Europe, and built thriving partner
-                  ecosystems across Latin America. My technical background
-                  enables me to bridge the gap between business objectives and
-                  technical implementation, ensuring seamless integration with
-                  legacy systems and modern cloud infrastructure.
+                  Como ex Product Manager y líder de Partner Success en VTEX, he
+                  liderado iniciativas globales de generación de leads B2B en 16
+                  sitios y 9 idiomas, gestionado presupuestos de POC para
+                  clientes Tier 1/2 en Estados Unidos y Europa, y construido
+                  prósperos ecosistemas de partners en América Latina. Mi
+                  formación técnica me permite cerrar la brecha entre objetivos
+                  de negocio e implementación técnica, asegurando una
+                  integración perfecta con sistemas legacy e infraestructura en
+                  la nube moderna.
                 </p>
                 <div className="flex items-center gap-4 text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Globe size={20} className="text-primary" />
                     <span className="font-semibold text-foreground">
-                      Location:
+                      Ubicación:
                     </span>
                     Bogotá, Colombia
                   </div>
@@ -243,7 +246,7 @@ export default function Home() {
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={20} className="text-secondary" />
                     <span className="font-semibold text-foreground">
-                      Available globally (remote)
+                      Disponible globalmente (remoto)
                     </span>
                   </div>
                 </div>
@@ -269,11 +272,11 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Services & <span className="gradient-text">Expertise</span>
+              Servicios & <span className="gradient-text">Experiencia</span>
             </h2>
             <p className="text-xl text-background/80 max-w-3xl mx-auto">
-              Comprehensive digital commerce solutions tailored to your business
-              needs
+              Soluciones integrales de comercio digital adaptadas a las
+              necesidades de tu negocio
             </p>
           </div>
 
@@ -281,39 +284,39 @@ export default function Home() {
             {[
               {
                 icon: ShoppingCart,
-                title: "eCommerce Strategy & Implementation",
+                title: "Estrategia e Implementación eCommerce",
                 description:
-                  "End-to-end eCommerce solutions using VTEX, Magento, and headless architectures. From platform selection to go-live support.",
+                  "Soluciones eCommerce end-to-end usando VTEX, Magento y arquitecturas headless. Desde selección de plataforma hasta soporte en lanzamiento.",
               },
               {
                 icon: TrendingUp,
-                title: "Digital Growth & Lead Generation",
+                title: "Crecimiento Digital y Generación de Leads",
                 description:
-                  "B2B demand generation, conversion rate optimization, and data-driven growth strategies that scale your business.",
+                  "Generación de demanda B2B, optimización de tasa de conversión y estrategias de crecimiento basadas en datos que escalan tu negocio.",
               },
               {
                 icon: Cloud,
-                title: "Platform Integration & Architecture",
+                title: "Integración de Plataformas y Arquitectura",
                 description:
-                  "Seamless ERP, OMS, and cloud infrastructure integration. Expert in connecting legacy systems with modern platforms.",
+                  "Integración perfecta de ERP, OMS e infraestructura en la nube. Experto en conectar sistemas legacy con plataformas modernas.",
               },
               {
                 icon: Building2,
-                title: "Marketplace Development & Management",
+                title: "Desarrollo y Gestión de Marketplaces",
                 description:
-                  "Build and optimize multi-vendor marketplaces. Strategy, implementation, and ongoing management for D2C and B2B models.",
+                  "Construye y optimiza marketplaces multi-vendor. Estrategia, implementación y gestión continua para modelos D2C y B2B.",
               },
               {
                 icon: Users,
-                title: "Partner Ecosystem Building",
+                title: "Construcción de Ecosistemas de Partners",
                 description:
-                  "Develop strategic partnerships, manage implementation partners, and build thriving ecosystems across regions.",
+                  "Desarrolla alianzas estratégicas, gestiona partners de implementación y construye ecosistemas prósperos en toda la región.",
               },
               {
                 icon: BarChart3,
-                title: "CRO & Performance Optimization",
+                title: "CRO y Optimización de Performance",
                 description:
-                  "Conversion rate optimization, A/B testing, analytics implementation, and performance tuning for maximum ROI.",
+                  "Optimización de tasa de conversión, pruebas A/B, implementación de analytics y ajuste de performance para máximo ROI.",
               },
             ].map((service, index) => (
               <Card
@@ -353,11 +356,11 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Experience <span className="gradient-text">Highlights</span>
+              Experiencia <span className="gradient-text">Destacada</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A proven track record of delivering results for global enterprise
-              clients
+              Un historial comprobado de entrega de resultados para clientes
+              empresariales globales
             </p>
           </div>
 
@@ -367,27 +370,27 @@ export default function Home() {
                 company: "VTEX",
                 role: "Product Manager & Partner Success",
                 achievements: [
-                  "Led global B2B lead generation channel (16 sites, 9 languages)",
-                  "Managed POC budget for Tier 1/2 clients across US & Europe",
-                  "Built partner ecosystem across Colombia, Ecuador, Panama",
+                  "Lideré canal global de generación de leads B2B (16 sitios, 9 idiomas)",
+                  "Gestioné presupuesto de POC para clientes Tier 1/2 en EE.UU. y Europa",
+                  "Construí ecosistema de partners en Colombia, Ecuador y Panamá",
                 ],
               },
               {
                 company: "Panamericana",
-                role: "Head of eCommerce",
+                role: "Director de eCommerce",
                 achievements: [
-                  "Integrated VTEX with legacy ERPs for Fortune 500 clients",
-                  "Drove 200% YoY revenue growth through conversion optimization",
-                  "Led digital transformation initiatives across retail operations",
+                  "Integré VTEX con ERPs legacy para clientes Fortune 500",
+                  "Impulsé crecimiento de ingresos del 200% interanual mediante optimización de conversión",
+                  "Lideré iniciativas de transformación digital en operaciones retail",
                 ],
               },
               {
                 company: "Tita Media",
-                role: "Solution Architect",
+                role: "Arquitecto de Soluciones",
                 achievements: [
-                  "Architected headless commerce solutions for enterprise clients",
-                  "Implemented multi-channel strategies across web, mobile, and in-store",
-                  "Optimized cloud infrastructure reducing costs by 40%",
+                  "Arquitecté soluciones de comercio headless para clientes empresariales",
+                  "Implementé estrategias multicanal en web, móvil y tiendas físicas",
+                  "Optimicé infraestructura en la nube reduciendo costos en 40%",
                 ],
               },
             ].map((experience, index) => (
@@ -436,10 +439,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Notable <span className="gradient-text">Clients & Projects</span>
+              Clientes <span className="gradient-text">Destacados & Proyectos</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Trusted by leading brands across LATAM, Europe & North America
+              Confiado por marcas líderes en LATAM, Europa y Norteamérica
             </p>
           </div>
 
@@ -450,7 +453,7 @@ export default function Home() {
                   {[
                     "VTEX Global",
                     "Groupe Casino",
-                    "OBI Germany",
+                    "OBI Alemania",
                     "La Comer",
                     "BeautyCounter",
                     "Whirlpool",
@@ -467,11 +470,11 @@ export default function Home() {
                 </div>
                 <div className="text-center pt-6 border-t">
                   <p className="text-lg font-semibold text-foreground mb-2">
-                    Trusted by companies across LATAM, Europe & North America
+                    Confiado por empresas en LATAM, Europa y Norteamérica
                   </p>
                   <p className="text-muted-foreground">
-                    From startups to Fortune 500 enterprises, delivering
-                    measurable results and long-term growth
+                    Desde startups hasta empresas Fortune 500, entregando
+                    resultados medibles y crecimiento a largo plazo
                   </p>
                 </div>
               </CardContent>
@@ -491,7 +494,7 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Expertise & <span className="gradient-text">Skills</span>
+              Experiencia & <span className="gradient-text">Habilidades</span>
             </h2>
           </div>
 
@@ -500,7 +503,7 @@ export default function Home() {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Cloud className="text-primary" size={24} />
-                  Platforms & Technologies
+                  Plataformas & Tecnologías
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -509,7 +512,7 @@ export default function Home() {
                     "Shopify",
                     "AWS Cloud",
                     "Headless Commerce",
-                    "API Integration",
+                    "Integración API",
                   ].map((skill, i) => (
                     <span
                       key={i}
@@ -526,16 +529,16 @@ export default function Home() {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <ShoppingCart className="text-primary" size={24} />
-                  Commerce Specializations
+                  Especializaciones en Comercio
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {[
-                    "B2B eCommerce",
-                    "B2C eCommerce",
+                    "eCommerce B2B",
+                    "eCommerce B2C",
                     "Marketplace",
                     "D2C",
                     "CRO",
-                    "Omnichannel",
+                    "Omnicanal",
                   ].map((skill, i) => (
                     <span
                       key={i}
@@ -552,15 +555,15 @@ export default function Home() {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Layers className="text-primary" size={24} />
-                  Technical Skills
+                  Habilidades Técnicas
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {[
-                    "Solution Architecture",
-                    "API Integration",
-                    "ERP/OMS Integration",
+                    "Arquitectura de Soluciones",
+                    "Integración API",
+                    "Integración ERP/OMS",
                     "DevOps",
-                    "Cloud Infrastructure",
+                    "Infraestructura Cloud",
                   ].map((skill, i) => (
                     <span
                       key={i}
@@ -577,14 +580,14 @@ export default function Home() {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <TrendingUp className="text-primary" size={24} />
-                  Marketing & Growth
+                  Marketing & Crecimiento
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {[
                     "SEO/SEM",
                     "Google Ads",
                     "Meta Ads",
-                    "Demand Generation",
+                    "Generación de Demanda",
                     "Lead Nurturing",
                   ].map((skill, i) => (
                     <span
@@ -604,20 +607,20 @@ export default function Home() {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Globe className="text-primary" size={24} />
-                  Languages
+                  Idiomas
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <p className="font-semibold">Spanish</p>
-                    <p className="text-sm text-muted-foreground">Native</p>
+                    <p className="font-semibold">Español</p>
+                    <p className="text-sm text-muted-foreground">Nativo</p>
                   </div>
                   <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <p className="font-semibold">English</p>
-                    <p className="text-sm text-muted-foreground">C1 (Advanced)</p>
+                    <p className="font-semibold">Inglés</p>
+                    <p className="text-sm text-muted-foreground">C1 (Avanzado)</p>
                   </div>
                   <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <p className="font-semibold">Portuguese</p>
-                    <p className="text-sm text-muted-foreground">B2 (Upper Intermediate)</p>
+                    <p className="font-semibold">Portugués</p>
+                    <p className="text-sm text-muted-foreground">B2 (Intermedio Alto)</p>
                   </div>
                 </div>
               </CardContent>
@@ -637,7 +640,7 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Certifications & <span className="gradient-text">Credentials</span>
+              Certificaciones & <span className="gradient-text">Credenciales</span>
             </h2>
           </div>
 
@@ -648,7 +651,7 @@ export default function Home() {
                   <Award className="text-background" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-2">
-                  Digital Commerce Expert
+                  Experto en Comercio Digital
                 </h3>
                 <p className="text-muted-foreground">Eicom UK</p>
               </CardContent>
@@ -685,11 +688,11 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Let's <span className="gradient-text">Connect</span>
+              Conectemos <span className="gradient-text">Juntos</span>
             </h2>
             <p className="text-xl text-background/80 max-w-3xl mx-auto">
-              Ready to transform your digital commerce strategy? Get in touch
-              for a consultation.
+              ¿Listo para transformar tu estrategia de comercio digital?
+              Contáctame para una consulta.
             </p>
           </div>
 
@@ -700,14 +703,14 @@ export default function Home() {
                 <form onSubmit={handleContactSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="name" className="text-background">
-                      Name *
+                      Nombre *
                     </Label>
                     <Input
                       id="name"
                       name="name"
                       required
                       className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
-                      placeholder="Your name"
+                      placeholder="Tu nombre"
                     />
                   </div>
                   <div>
@@ -720,54 +723,54 @@ export default function Home() {
                       type="email"
                       required
                       className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
-                      placeholder="your@email.com"
+                      placeholder="tu@email.com"
                     />
                   </div>
                   <div>
                     <Label htmlFor="company" className="text-background">
-                      Company
+                      Empresa
                     </Label>
                     <Input
                       id="company"
                       name="company"
                       className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
-                      placeholder="Your company"
+                      placeholder="Tu empresa"
                     />
                   </div>
                   <div>
                     <Label htmlFor="service" className="text-background">
-                      Service Interest *
+                      Servicio de Interés *
                     </Label>
                     <Select name="service" required>
                       <SelectTrigger className="bg-background/20 border-background/30 text-background">
-                        <SelectValue placeholder="Select a service" />
+                        <SelectValue placeholder="Selecciona un servicio" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="ecommerce">
-                          eCommerce Strategy & Implementation
+                          Estrategia e Implementación eCommerce
                         </SelectItem>
                         <SelectItem value="growth">
-                          Digital Growth & Lead Generation
+                          Crecimiento Digital y Generación de Leads
                         </SelectItem>
                         <SelectItem value="integration">
-                          Platform Integration & Architecture
+                          Integración de Plataformas y Arquitectura
                         </SelectItem>
                         <SelectItem value="marketplace">
-                          Marketplace Development
+                          Desarrollo de Marketplaces
                         </SelectItem>
                         <SelectItem value="partner">
-                          Partner Ecosystem Building
+                          Construcción de Ecosistemas de Partners
                         </SelectItem>
                         <SelectItem value="cro">
-                          CRO & Performance Optimization
+                          CRO y Optimización de Performance
                         </SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="other">Otro</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
                     <Label htmlFor="message" className="text-background">
-                      Message *
+                      Mensaje *
                     </Label>
                     <Textarea
                       id="message"
@@ -775,7 +778,7 @@ export default function Home() {
                       required
                       rows={4}
                       className="bg-background/20 border-background/30 text-background placeholder:text-background/50"
-                      placeholder="Tell me about your project..."
+                      placeholder="Cuéntame sobre tu proyecto..."
                     />
                   </div>
                   <Button
@@ -783,10 +786,10 @@ export default function Home() {
                     className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
                     size="lg"
                   >
-                    Send Message
+                    Enviar Mensaje
                   </Button>
                   <p className="text-sm text-background/70 text-center">
-                    I'll respond within 24 hours
+                    Te responderé en menos de 24 horas
                   </p>
                 </form>
               </CardContent>
@@ -797,7 +800,7 @@ export default function Home() {
               <Card className="floating-card bg-background/10 backdrop-blur-md border-background/20">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-bold mb-4 text-background">
-                    Direct Contact
+                    Contacto Directo
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
@@ -819,7 +822,7 @@ export default function Home() {
                         <Globe size={20} />
                       </div>
                       <div>
-                        <p className="font-semibold text-background">Phone</p>
+                        <p className="font-semibold text-background">Teléfono</p>
                         <a
                           href="tel:+573235812748"
                           className="text-background/80 hover:text-background transition-colors"
@@ -849,12 +852,12 @@ export default function Home() {
                         <Globe size={20} />
                       </div>
                       <div>
-                        <p className="font-semibold text-background">Location</p>
+                        <p className="font-semibold text-background">Ubicación</p>
                         <p className="text-background/80">
                           Bogotá D.C., Colombia
                         </p>
                         <p className="text-sm text-background/70">
-                          Available globally (remote)
+                          Disponible globalmente (remoto)
                         </p>
                       </div>
                     </div>
@@ -865,18 +868,18 @@ export default function Home() {
               <Card className="floating-card bg-background/10 backdrop-blur-md border-background/20">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-bold mb-4 text-background">
-                    Schedule a Consultation
+                    Agenda una Consulta
                   </h3>
                   <p className="text-background/80 mb-4">
-                    Book a 30-minute consultation to discuss your digital
-                    commerce needs and explore how I can help accelerate your
-                    growth.
+                    Agenda una consulta de 30 minutos para discutir tus
+                    necesidades de comercio digital y explorar cómo puedo ayudar
+                    a acelerar tu crecimiento.
                   </p>
                   <Button
                     className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
                     size="lg"
                   >
-                    Schedule 30-min Consultation
+                    Agendar Consulta de 30 min
                   </Button>
                 </CardContent>
               </Card>

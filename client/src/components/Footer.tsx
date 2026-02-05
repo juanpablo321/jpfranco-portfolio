@@ -20,24 +20,24 @@ export default function Footer() {
               Juan Pablo Franco
             </h3>
             <p className="text-background/80 mb-4">
-              Digital Growth Strategist & eCommerce Specialist
+              Estratega de Crecimiento Digital & Especialista en eCommerce
             </p>
             <p className="text-background/70 text-sm">
-              Transforming businesses through data-driven digital commerce
-              strategies across LATAM, Europe & North America.
+              Transformando negocios a través de estrategias de comercio digital
+              basadas en datos en LATAM, Europa y Norteamérica.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
             <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => scrollToSection("about")}
                   className="text-background/80 hover:text-background transition-colors"
                 >
-                  About
+                  Sobre Mí
                 </button>
               </li>
               <li>
@@ -45,7 +45,7 @@ export default function Footer() {
                   onClick={() => scrollToSection("services")}
                   className="text-background/80 hover:text-background transition-colors"
                 >
-                  Services
+                  Servicios
                 </button>
               </li>
               <li>
@@ -53,7 +53,7 @@ export default function Footer() {
                   onClick={() => scrollToSection("experience")}
                   className="text-background/80 hover:text-background transition-colors"
                 >
-                  Experience
+                  Experiencia
                 </button>
               </li>
               <li>
@@ -61,7 +61,7 @@ export default function Footer() {
                   onClick={() => scrollToSection("contact")}
                   className="text-background/80 hover:text-background transition-colors"
                 >
-                  Contact
+                  Contacto
                 </button>
               </li>
             </ul>
@@ -69,7 +69,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Get in Touch</h4>
+            <h4 className="text-lg font-semibold mb-4">Contacto</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-background/80">
                 <Mail size={18} />
@@ -111,8 +111,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-background/70 text-sm">
-            © 2025 Juan Pablo Franco - Digital Growth Strategist. All rights
-            reserved.
+            © 2025 Juan Pablo Franco - Estratega de Crecimiento Digital. Todos
+            los derechos reservados.
           </p>
           <div className="flex gap-4">
             <a

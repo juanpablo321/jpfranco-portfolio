@@ -48,37 +48,37 @@ export default function Header() {
               onClick={() => scrollToSection("about")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
-              About
+              Sobre Mí
             </button>
             <button
               onClick={() => scrollToSection("services")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
-              Services
+              Servicios
             </button>
             <button
               onClick={() => scrollToSection("experience")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
-              Experience
+              Experiencia
             </button>
             <button
               onClick={() => scrollToSection("clients")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
-              Clients
+              Clientes
             </button>
             <button
               onClick={() => scrollToSection("contact")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
-              Contact
+              Contacto
             </button>
             <Button
               onClick={() => scrollToSection("contact")}
               className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
             >
-              Schedule Consultation
+              Agendar Consulta
             </Button>
           </nav>
 
@@ -99,37 +99,37 @@ export default function Header() {
               onClick={() => scrollToSection("about")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium text-left"
             >
-              About
+              Sobre Mí
             </button>
             <button
               onClick={() => scrollToSection("services")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium text-left"
             >
-              Services
+              Servicios
             </button>
             <button
               onClick={() => scrollToSection("experience")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium text-left"
             >
-              Experience
+              Experiencia
             </button>
             <button
               onClick={() => scrollToSection("clients")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium text-left"
             >
-              Clients
+              Clientes
             </button>
             <button
               onClick={() => scrollToSection("contact")}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium text-left"
             >
-              Contact
+              Contacto
             </button>
             <Button
               onClick={() => scrollToSection("contact")}
               className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity w-full"
             >
-              Schedule Consultation
+              Agendar Consulta
             </Button>
           </nav>
         )}
