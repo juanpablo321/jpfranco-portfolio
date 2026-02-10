@@ -1,7 +1,7 @@
-/* Swiss Minimalism Header
- * Minimal sticky navigation with clean typography
- * Fixed header with subtle border, no shadows
- * Simple hover states with underline
+/* Soft Modernism Header
+ * Glassmorphism sticky navigation with rounded corners
+ * Soft shadows and pastel accents
+ * Smooth hover transitions
  */
 
 import { useState, useEffect } from "react";
@@ -33,55 +33,56 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-sm border-b border-border"
-          : "bg-transparent"
+          ? "glass-card"
+          : "bg-white/80 backdrop-blur-md rounded-3xl border border-white/60"
       }`}
+      style={{
+        boxShadow: isScrolled
+          ? "0 8px 32px rgba(184, 164, 217, 0.15)"
+          : "0 4px 16px rgba(184, 164, 217, 0.10)",
+      }}
     >
       <div className="container">
-        <nav className="flex items-center justify-between h-20">
+        <nav className="flex items-center justify-between h-16">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-2xl font-bold tracking-tight hover:opacity-70 transition-opacity"
+            className="text-2xl font-bold text-primary hover:opacity-80 transition-opacity"
           >
             JPF
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <button
               onClick={() => scrollToSection("servicios")}
-              className="text-sm font-medium hover:text-primary transition-colors relative group"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
             >
               Servicios
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
             </button>
             <button
               onClick={() => scrollToSection("experiencia")}
-              className="text-sm font-medium hover:text-primary transition-colors relative group"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
             >
               Experiencia
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
             </button>
             <button
               onClick={() => scrollToSection("expertise")}
-              className="text-sm font-medium hover:text-primary transition-colors relative group"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
             >
               Expertise
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
             </button>
             <button
               onClick={() => scrollToSection("contacto")}
-              className="text-sm font-medium hover:text-primary transition-colors relative group"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
             >
               Contacto
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
             </button>
             <Button
               onClick={() => scrollToSection("contacto")}
-              className="swiss-button"
+              className="soft-button"
             >
               Agendar Consulta
             </Button>
@@ -89,7 +90,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-sm font-medium"
+            className="md:hidden text-sm font-medium px-4 py-2 rounded-xl bg-primary/10 text-primary"
             onClick={() => scrollToSection("contacto")}
           >
             Menú
