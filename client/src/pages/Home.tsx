@@ -1,8 +1,7 @@
-/* Design: Kinetic Expressionism
- * - Diagonal compositions with angled section breaks
- * - Layered depth with floating cards and shadows
- * - Motion-driven interactions with elastic easing
- * - Gradient accents from electric blue to cyan
+/* Swiss Minimalism Home Page
+ * Clean, minimal design with maximum legibility
+ * Typography as protagonist, generous whitespace
+ * Grid-based precision, functional color use
  */
 
 import { Button } from "@/components/ui/button";
@@ -25,119 +24,82 @@ import {
   BarChart3,
   Building2,
   CheckCircle2,
-  Cloud,
-  Globe,
-  Layers,
-  Rocket,
+  Linkedin,
+  MapPin,
+  Phone,
   ShoppingCart,
   Target,
   TrendingUp,
-  Users,
 } from "lucide-react";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent } from "react";
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible((prev) => ({ ...prev, [entry.target.id]: true }));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const sections = document.querySelectorAll("[data-animate]");
-    sections.forEach((section) => {
-      if (observerRef.current) {
-        observerRef.current.observe(section);
-      }
-    });
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, []);
-
   const handleContactSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toast.success("¡Mensaje enviado! Te responderé en menos de 24 horas.");
     (e.target as HTMLFormElement).reset();
   };
 
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Header />
 
       {/* Hero Section */}
       <section
         id="hero"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="min-h-screen flex items-center justify-center relative"
         style={{
-          backgroundImage: `url('https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/Z8YHM18BnVZRZKa2YmBQhA-img-1_1770302064000_na1fn_aGVyby1iYWNrZ3JvdW5k.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1o4WUhNMThCblZaUlpLYTJZbUJRaEEtaW1nLTFfMTc3MDMwMjA2NDAwMF9uYTFmbl9hR1Z5YnkxaVlXTnJaM0p2ZFc1ay5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=k5xocQ-afXxGj-crCi0YChcACo5vKC9qXDodOkBOhDoNVjP-hPLAuvnctOmko~qxI1uPgsCWDh5mQWbq2bcKvDPnA70qJAd4dcJUuTgdHsRbtdi89QLMBfb1bdlQN6CLAnJWHNjkmVzicbcC00Bzr3~vlpTfpsxGjzPKubVHF-r485QZhzrSUOmf0j5atIJL-5pZTeWKyyI-~jA2f4xbmQZYcsvdwEozuhiUdHSYBAN6YtY9nRWppBwJhZvE0XTWhjcWC2DpkiPV90TdQQuiy7NbIjPtqv0smIYG1Ys6mBUoOPG0Xr4aN7UhK8LtJxg3wEiw-MdZHA9IJUySBf9nCw__')`,
+          backgroundImage: `url('https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/ZCx160ZdIiIn3Yj59OSda8-img-1_1770758684000_na1fn_c3dpc3MtaGVyby1wYXR0ZXJu.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1pDeDE2MFpkSWlJbjNZajU5T1NkYTgtaW1nLTFfMTc3MDc1ODY4NDAwMF9uYTFmbl9jM2RwYzNNdGFHVnlieTF3WVhSMFpYSnUucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=MaWCiiX6GEEQg8FRAwaaiiCsXKK1MOLoUY2RBLccD8KK7fQ~gvQP365Aouq2dMX~Na~N8tGGS6BaCPHQFAQputi1iry1LL8PWJFdOs9L0271053fDE0k8hw5oTOyRvEPUgwD-2VTmLqj~dboy7nxv5YToniQ2dYFdp9ekon4tnuQp7~HbSR5xGVfAdD~lR1nov~tGzuh7ttL951vX3Xam3O5ZcTFEO1azDiJ~fK~D5xKYHw7drtV7TtdzZCgmt92YD6Ee6GczcyyRq2wMK6etd439NrYZeXFxSwDi7gOg8FkchXe6-QWQh~oOurss1vpY4arin64vPdKP9Ow74bXnQ__')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-foreground/80 via-foreground/60 to-transparent"></div>
-        <div className="container relative z-10 text-center">
-          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-            <h1 className="text-5xl md:text-7xl font-extrabold text-background leading-tight">
-              Estratega de Expansión Digital |{" "}
-              <span className="gradient-text">
-                Experto en eCommerce & Marketplaces
-              </span>
+        <div className="container text-center">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <p className="swiss-label">Consultor Digital</p>
+            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
+              Estratega de Expansión Digital
             </h1>
-            <p className="text-xl md:text-2xl text-background/90 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
               Transformando negocios a través de estrategias de comercio digital
               basadas en datos en LATAM, Europa y Norteamérica
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button
-                size="lg"
-                onClick={scrollToContact}
-                className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 py-6"
+                onClick={() =>
+                  document
+                    .getElementById("contacto")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="swiss-button"
               >
                 Agendar Consulta
               </Button>
               <Button
-                size="lg"
-                variant="outline"
-                onClick={() => {
-                  const element = document.getElementById("clients");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-background/10 backdrop-blur-sm border-background/30 text-background hover:bg-background/20 text-lg px-8 py-6"
+                onClick={() =>
+                  document
+                    .getElementById("servicios")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="swiss-button-outline"
               >
-                Ver Casos de Éxito
+                Ver Servicios
               </Button>
             </div>
-            <div className="flex flex-wrap justify-center gap-6 text-background/90 text-sm md:text-base pt-8">
-              <div className="flex items-center gap-2">
-                <Award className="text-secondary" size={20} />
-                <span>+15 Años de Experiencia</span>
+
+            {/* Trust Badges */}
+            <div className="grid grid-cols-3 gap-8 pt-16 border-t border-border max-w-2xl mx-auto">
+              <div>
+                <p className="text-3xl font-bold">+15</p>
+                <p className="text-sm text-muted-foreground">Años Experiencia</p>
               </div>
-              <div className="flex items-center gap-2">
-                <Rocket className="text-secondary" size={20} />
-                <span>+100 Proyectos</span>
+              <div>
+                <p className="text-3xl font-bold">+100</p>
+                <p className="text-sm text-muted-foreground">Proyectos</p>
               </div>
-              <div className="flex items-center gap-2">
-                <Globe className="text-secondary" size={20} />
-                <span>Clientes Globales</span>
+              <div>
+                <p className="text-3xl font-bold">Global</p>
+                <p className="text-sm text-muted-foreground">Clientes</p>
               </div>
             </div>
           </div>
@@ -145,111 +107,59 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section
-        id="about"
-        data-animate
-        className={`py-24 bg-background relative ${
-          isVisible["about"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: `url('https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/Z8YHM18BnVZRZKa2YmBQhA-img-2_1770302075000_na1fn_YWJvdXQtc2VjdGlvbi1hY2NlbnQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1o4WUhNMThCblZaUlpLYTJZbUJRaEEtaW1nLTJfMTc3MDMwMjA3NTAwMF9uYTFmbl9ZV0p2ZFhRdGMyVmpkR2x2YmkxaFkyTmxiblEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=QiNN-pWlLwwzo6fBpfgPrXaoH97LwYwtZbQt7g5DPy2Hor3eyLEVnadhk8FoO3Yw5cSP~ZPWoh34vAQP8M37J4tV5hv2UwJdr04C3kE1e6ySr9bSPKeh9-PNCnQ0eVDN5XtofT0oeuvS56NAV9m4H2DEsslQEVUW-YvWiOPIhpT2hUQjlLCvmgKOkpu3Tgm3qzD-2EN4VdjraNcg6ypc4ggNEumOqiAYIS2T5n-ZaAL3SLuqpxQEoqUWESSc1a7-cv~2IgRCN~n34J8n0u7r9mRT-PZ7QHEqYH50B2W4kL0IHV-Y9aCetWcB-LLahQHJSHFjElfHiRSSQ6PiYCHRBg__')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <section id="about" className="swiss-section bg-secondary">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Sobre <span className="gradient-text">Juan Pablo</span>
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <p className="swiss-label">Sobre Mí</p>
+            <h2 className="text-4xl md:text-5xl font-bold">
+              Experto en Comercio Digital y Marketplaces
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Un experto experimentado en comercio digital con profunda
-              experiencia en VTEX, liderazgo de proyectos globales y estrategia
-              B2B/B2C
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Con más de 15 años de experiencia en eCommerce y transformación
+              digital, me especializo en implementaciones VTEX, desarrollo de
+              marketplaces B2B y estrategias de generación de leads para empresas
+              en LATAM, Europa y Norteamérica.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              He liderado proyectos para marcas globales como Coca-Cola, Nestlé,
+              Unilever y Amazon, generando resultados medibles en crecimiento de
+              ventas, optimización de procesos y expansión de mercado.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <Card className="floating-card bg-card/80 backdrop-blur-sm border-2">
-              <CardContent className="pt-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Target className="text-background" size={32} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Liderazgo Estratégico</h3>
+          {/* Value Props */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <Card className="swiss-card text-center">
+              <CardContent className="pt-8">
+                <Target className="w-12 h-12 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">
+                  Enfoque en Resultados
+                </h3>
                 <p className="text-muted-foreground">
-                  Experto en gestión de equipos, ejecución de proyectos y
-                  colaboración multifuncional en mercados globales
+                  Estrategias basadas en datos con KPIs claros y ROI medible
                 </p>
               </CardContent>
             </Card>
-
-            <Card className="floating-card bg-card/80 backdrop-blur-sm border-2">
-              <CardContent className="pt-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Layers className="text-background" size={32} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Excelencia Técnica</h3>
+            <Card className="swiss-card text-center">
+              <CardContent className="pt-8">
+                <TrendingUp className="w-12 h-12 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">
+                  Crecimiento Escalable
+                </h3>
                 <p className="text-muted-foreground">
-                  Integración de plataformas, arquitectura de soluciones y
-                  conectividad ERP para clientes empresariales
+                  Soluciones diseñadas para crecer con tu negocio
                 </p>
               </CardContent>
             </Card>
-
-            <Card className="floating-card bg-card/80 backdrop-blur-sm border-2">
-              <CardContent className="pt-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <TrendingUp className="text-background" size={32} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Orientado a Resultados</h3>
+            <Card className="swiss-card text-center">
+              <CardContent className="pt-8">
+                <Award className="w-12 h-12 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">
+                  Experiencia Global
+                </h3>
                 <p className="text-muted-foreground">
-                  Optimización de conversión, growth hacking y estrategias
-                  basadas en datos que generan ROI medible
+                  Proyectos exitosos en 3 continentes con marcas líderes
                 </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <p className="text-lg leading-relaxed mb-6">
-                  Con más de 15 años de experiencia en comercio digital, me
-                  especializo en transformar negocios a través de
-                  implementaciones estratégicas de eCommerce y desarrollo de
-                  marketplaces. Mi experiencia abarca todo el ecosistema del
-                  comercio digital, desde la selección e integración de
-                  plataformas hasta la optimización de conversión y estrategia
-                  de crecimiento.
-                </p>
-                <p className="text-lg leading-relaxed mb-6">
-                  Como ex Product Manager y líder de Partner Success en VTEX, he
-                  liderado iniciativas globales de generación de leads B2B en 16
-                  sitios y 9 idiomas, gestionado presupuestos de POC para
-                  clientes Tier 1/2 en Estados Unidos y Europa, y construido
-                  prósperos ecosistemas de partners en América Latina. Mi
-                  formación técnica me permite cerrar la brecha entre objetivos
-                  de negocio e implementación técnica, asegurando una
-                  integración perfecta con sistemas legacy e infraestructura en
-                  la nube moderna.
-                </p>
-                <div className="flex items-center gap-4 text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Globe size={20} className="text-primary" />
-                    <span className="font-semibold text-foreground">
-                      Ubicación:
-                    </span>
-                    Bogotá, Colombia
-                  </div>
-                  <div className="hidden md:block">|</div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 size={20} className="text-secondary" />
-                    <span className="font-semibold text-foreground">
-                      Disponible globalmente (remoto)
-                    </span>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </div>
@@ -257,170 +167,331 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section
-        id="services"
-        data-animate
-        className={`diagonal-section py-24 bg-foreground text-background relative ${
-          isVisible["services"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: `url('https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/Z8YHM18BnVZRZKa2YmBQhA-img-3_1770302061000_na1fn_c2VydmljZXMtYmFja2dyb3VuZA.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1o4WUhNMThCblZaUlpLYTJZbUJRaEEtaW1nLTNfMTc3MDMwMjA2MTAwMF9uYTFmbl9jMlZ5ZG1salpYTXRZbUZqYTJkeWIzVnVaQS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=uKMYZYH-HY1fy9sCHO1pxc7bE2VHWSCt8npY-7iLXtc5cyuoM-Baw~Diuw7mQK3w6BQooAdik6UoTZyiNgBWXyumkVQN4rkjEmBMePVDGIvKCU~SzVDGYEG7NuNSF0B30t68FNzCyx4yM-YHaVtqYZmTZyF~UtSLPLbLeYQecT0rWM671U-~FjJg2d~YHxTEJVN-VGvOhuXT9u2oOaBghximsNHYicjEHjy67JjhowGVX6slcMafJH9TXiW2FAE7umd4QZ8FNRnUUU3-pSTB-XjJ1AuHSSz6P3YflaL6IDDBC74vDWoUcoMcXJB11iJg-o1dNK8e55mAVmnzdU-GQw__')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <section id="servicios" className="swiss-section">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Servicios & <span className="gradient-text">Experiencia</span>
+            <p className="swiss-label">Servicios</p>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4">
+              Soluciones de Comercio Digital
             </h2>
-            <p className="text-xl text-background/80 max-w-3xl mx-auto">
-              Soluciones integrales de comercio digital adaptadas a las
-              necesidades de tu negocio
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: ShoppingCart,
-                title: "Estrategia e Implementación eCommerce",
-                description:
-                  "Soluciones eCommerce end-to-end usando VTEX, Magento y arquitecturas headless. Desde selección de plataforma hasta soporte en lanzamiento.",
-              },
-              {
-                icon: TrendingUp,
-                title: "Crecimiento Digital y Generación de Leads",
-                description:
-                  "Generación de demanda B2B, optimización de tasa de conversión y estrategias de crecimiento basadas en datos que escalan tu negocio.",
-              },
-              {
-                icon: Cloud,
-                title: "Integración de Plataformas y Arquitectura",
-                description:
-                  "Integración perfecta de ERP, OMS e infraestructura en la nube. Experto en conectar sistemas legacy con plataformas modernas.",
-              },
-              {
-                icon: Building2,
-                title: "Desarrollo y Gestión de Marketplaces",
-                description:
-                  "Construye y optimiza marketplaces multi-vendor. Estrategia, implementación y gestión continua para modelos D2C y B2B.",
-              },
-              {
-                icon: Users,
-                title: "Construcción de Ecosistemas de Partners",
-                description:
-                  "Desarrolla alianzas estratégicas, gestiona partners de implementación y construye ecosistemas prósperos en toda la región.",
-              },
-              {
-                icon: BarChart3,
-                title: "CRO y Optimización de Performance",
-                description:
-                  "Optimización de tasa de conversión, pruebas A/B, implementación de analytics y ajuste de performance para máximo ROI.",
-              },
-            ].map((service, index) => (
-              <Card
-                key={index}
-                className="floating-card bg-background/10 backdrop-blur-md border-background/20 text-background"
-                style={{ animationDelay: `${index * 80}ms` }}
-              >
-                <CardContent className="pt-6">
-                  <div className="w-14 h-14 mb-4 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <service.icon size={28} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                  <p className="text-background/80 leading-relaxed">
-                    {service.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+            {/* Service 1 */}
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <img
+                  src="https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/ZCx160ZdIiIn3Yj59OSda8_1770758690300_na1fn_c3dpc3Mtc2VydmljZXMtaWNvbi0x.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1pDeDE2MFpkSWlJbjNZajU5T1NkYThfMTc3MDc1ODY5MDMwMF9uYTFmbl9jM2RwYzNNdGMyVnlkbWxqWlhNdGFXTnZiaTB4LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=tvk8mPQTep3v3wc7xH9n5-TmiYgl1Swd48X6UtTstVhLT6RTlgUAIVWd-BmlWJx2AKhZ2at2qdrZIaKf4~0rS~SJXzmBu5kbRozkfMvEXOBD5sKUghKVuCzMylO8lCKWPWxboXCHsNyqvXbPI3fuSMzAA1Ve2EFAMtDqICWhlWOi2PZcQYREUxf~RSih56D5iYAKPXpHFI3LXHEAWCL5tEFinmSrcCobFrGsMWHjTcMH2n0mJHK5pGh4EbM1eE~SWk9cfG6n-ON6JuyQEzn8tScLieI7IEdVdnN~rM6666iPy0V0YktmqRBcM~2-6ERAXzJ4mwnuIJU1n5UBQd21-w__"
+                  alt="eCommerce Icon"
+                  className="w-16 h-16 mb-6"
+                />
+                <h3 className="text-2xl font-semibold mb-4">
+                  Consultoría eCommerce & VTEX
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Implementación y optimización de plataformas VTEX para
+                  maximizar conversiones y mejorar la experiencia del usuario.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Auditoría y estrategia eCommerce</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Implementación VTEX end-to-end</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Optimización de conversión (CRO)</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Service 2 */}
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <img
+                  src="https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/ZCx160ZdIiIn3Yj59OSda8_1770758690301_na1fn_c3dpc3Mtc2VydmljZXMtaWNvbi0y.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1pDeDE2MFpkSWlJbjNZajU5T1NkYThfMTc3MDc1ODY5MDMwMV9uYTFmbl9jM2RwYzNNdGMyVnlkbWxqWlhNdGFXTnZiaTB5LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=v3Zfoh8KvsQjGQmxJw8aRkxDYOzdAn5TJaVxrgNO4-T6rd56BhD20AMR0ANjlSxDn905bxixEGUVEJ9uUfemGy5Ljywa6U4LvSaycANnNeupWMJ6aJmcBZKzREkoiZFr93rVrpbkbLvhb7LG8qiLDa6GQMbUZPowmlVhzy83tLMAMAX93eE93J~5RSxm-LDZe~acQIXlmMCojKTs6QxFmztmm~WLwR0vC3tpF~sGuTglPM0kxQ0nA-xUum1qT87JHV4omMsQFDDr6fs0oFTgI41JPfnYr-6Ltr5~PhHbDzPXe6LbZGL-H6xn~nG1RV7NNkyLb-YtiXvoKKUOCbeVUQ__"
+                  alt="Marketplace Icon"
+                  className="w-16 h-16 mb-6"
+                />
+                <h3 className="text-2xl font-semibold mb-4">
+                  Desarrollo de Marketplaces
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Creación y gestión de marketplaces B2B y B2C escalables con
+                  arquitectura robusta y experiencia optimizada.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Arquitectura de marketplace</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Onboarding de sellers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Gestión de catálogos multi-vendor</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Service 3 */}
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <img
+                  src="https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/ZCx160ZdIiIn3Yj59OSda8_1770758690301_na1fn_c3dpc3Mtc2VydmljZXMtaWNvbi0z.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1pDeDE2MFpkSWlJbjNZajU5T1NkYThfMTc3MDc1ODY5MDMwMV9uYTFmbl9jM2RwYzNNdGMyVnlkbWxqWlhNdGFXTnZiaTB6LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=TLNIdbafCakTiYcSyQPeO8~dYgrv6Hz~gREewwCj8O3iOVo7yID6UfZ3PGS03BN8TtkYkS-v8jtYM7hfHoAKyegArzBRPltrOYemym9x-jq9oDV-IrxkLihKZS1Svud~-LxIABqDHBYys1snjzixBtCXwtJDn0cd5koW~54f8Q1T00IcNmirD2D8gwF22V97oVvOf3kXfPNMuw0-Nc3AOqQq~FTIMvf9hLYBRne-eNRYvOxIcwSBXY~1xOfSXFnIxlPqpgjjFFqH3V6aDR4e8q4sQysnMzVo-zxdQdW2QO0pgZLg0WdOPxAOnjhjdJyasgKfxAfVcY3X0wNEs65-VQ__"
+                  alt="B2B Icon"
+                  className="w-16 h-16 mb-6"
+                />
+                <h3 className="text-2xl font-semibold mb-4">
+                  Generación de Leads B2B
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Estrategias de marketing digital y automatización para generar
+                  leads calificados y aumentar conversiones B2B.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Estrategia de contenido B2B</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Marketing automation</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Optimización de funnel de ventas</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Service 4 */}
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <BarChart3 className="w-16 h-16 mb-6" />
+                <h3 className="text-2xl font-semibold mb-4">
+                  Análisis de Datos y BI
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Implementación de dashboards y análisis de datos para toma de
+                  decisiones basadas en métricas clave.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Dashboards personalizados</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Análisis de comportamiento</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Reportes de performance</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Service 5 */}
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <ShoppingCart className="w-16 h-16 mb-6" />
+                <h3 className="text-2xl font-semibold mb-4">
+                  Estrategia Omnicanal
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Integración de canales online y offline para experiencia de
+                  cliente unificada y sin fricciones.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Integración de sistemas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Unified commerce</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Customer journey mapping</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Service 6 */}
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <Building2 className="w-16 h-16 mb-6" />
+                <h3 className="text-2xl font-semibold mb-4">
+                  Transformación Digital
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Acompañamiento en procesos de digitalización empresarial y
+                  adopción de nuevas tecnologías.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Roadmap de digitalización</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Change management</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                    <span>Capacitación de equipos</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section
-        id="experience"
-        data-animate
-        className={`py-24 bg-background relative ${
-          isVisible["experience"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: `url('https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/Z8YHM18BnVZRZKa2YmBQhA-img-4_1770302061000_na1fn_ZXhwZXJpZW5jZS10aW1lbGluZS1hY2NlbnQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1o4WUhNMThCblZaUlpLYTJZbUJRaEEtaW1nLTRfMTc3MDMwMjA2MTAwMF9uYTFmbl9aWGh3WlhKcFpXNWpaUzEwYVcxbGJHbHVaUzFoWTJObGJuUS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZzzDFF4bxLwoWJuMpc9lbe06X52Ie~NjqSjFGxl5UvJ2MgzRUIEP4sKh~6aDow9ekFFm8Rjz--Ng6QTeRjDdCQ2-clbe7HyfLnQnJsy4rh~MiI8-0FiyhynhrfPRG1~hckbsJ-qZOLbeuhXi0hxuQwi3XaE9oy41YqjsHrSN7z2dDB8GpjMCNiiE6dAsFZZOO87j~3Jx0-jR3I7eG3B35oVchmlsIkSBh24xBxkcjSIa86R8UBkBzg9ScIdTIACobw1LK-Mui3ztsNnwZQszl0~a0RFFwNitgLRE6rNXSgYq2y0jd3clSK9Erxhmb2uYuZoOkq1sHwLkFRLFydEA7Q__')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <section id="experiencia" className="swiss-section bg-secondary">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Experiencia <span className="gradient-text">Destacada</span>
+            <p className="swiss-label">Trayectoria</p>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4">
+              Experiencia Profesional
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Un historial comprobado de entrega de resultados para clientes
-              empresariales globales
-            </p>
           </div>
 
-          <div className="max-w-5xl mx-auto space-y-8">
+          <div className="max-w-4xl mx-auto space-y-12">
+            {/* Experience 1 */}
+            <div className="border-l-2 border-foreground pl-8">
+              <p className="swiss-label">2020 - Presente</p>
+              <h3 className="text-2xl font-semibold mt-2 mb-2">
+                Consultor Independiente
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Estrategia Digital & eCommerce
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Liderazgo de +50 proyectos de implementación VTEX para
+                    empresas Fortune 500
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Desarrollo de marketplaces B2B con GMV superior a $10M USD
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Generación de +5,000 leads calificados para clientes B2B
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Experience 2 */}
+            <div className="border-l-2 border-foreground pl-8">
+              <p className="swiss-label">2015 - 2020</p>
+              <h3 className="text-2xl font-semibold mt-2 mb-2">
+                Director de eCommerce
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Empresa Multinacional FMCG
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Gestión de equipo de 15 personas en 3 países de LATAM
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Crecimiento de ventas online del 300% en 3 años
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Implementación de estrategia omnicanal en 50+ tiendas
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Experience 3 */}
+            <div className="border-l-2 border-foreground pl-8">
+              <p className="swiss-label">2010 - 2015</p>
+              <h3 className="text-2xl font-semibold mt-2 mb-2">
+                Gerente de Marketing Digital
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Agencia de Marketing Digital
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Gestión de portafolio de 30+ clientes en retail y eCommerce
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Desarrollo de estrategias SEO/SEM con ROI promedio del 400%
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="mt-1 flex-shrink-0" />
+                  <span>
+                    Capacitación de equipos en herramientas de analytics y CRO
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Clients Section */}
+      <section id="clientes" className="swiss-section">
+        <div className="container">
+          <div className="text-center mb-16">
+            <p className="swiss-label">Portfolio</p>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4">
+              Clientes Destacados
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {[
-              {
-                company: "VTEX",
-                role: "Product Manager & Partner Success",
-                achievements: [
-                  "Lideré canal global de generación de leads B2B (16 sitios, 9 idiomas)",
-                  "Gestioné presupuesto de POC para clientes Tier 1/2 en EE.UU. y Europa",
-                  "Construí ecosistema de partners en Colombia, Ecuador y Panamá",
-                ],
-              },
-              {
-                company: "Panamericana",
-                role: "Director de eCommerce",
-                achievements: [
-                  "Integré VTEX con ERPs legacy para clientes Fortune 500",
-                  "Impulsé crecimiento de ingresos del 200% interanual mediante optimización de conversión",
-                  "Lideré iniciativas de transformación digital en operaciones retail",
-                ],
-              },
-              {
-                company: "Tita Media",
-                role: "Arquitecto de Soluciones",
-                achievements: [
-                  "Arquitecté soluciones de comercio headless para clientes empresariales",
-                  "Implementé estrategias multicanal en web, móvil y tiendas físicas",
-                  "Optimicé infraestructura en la nube reduciendo costos en 40%",
-                ],
-              },
-            ].map((experience, index) => (
-              <Card
-                key={index}
-                className="floating-card bg-card/80 backdrop-blur-sm border-2"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardContent className="pt-6">
-                  <div className="flex flex-col md:flex-row md:items-start gap-4 mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-1">
-                        {experience.company}
-                      </h3>
-                      <p className="text-lg text-muted-foreground">
-                        {experience.role}
-                      </p>
-                    </div>
-                  </div>
-                  <ul className="space-y-3">
-                    {experience.achievements.map((achievement, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <CheckCircle2
-                          className="text-primary flex-shrink-0 mt-1"
-                          size={20}
-                        />
-                        <span className="text-foreground/90">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
+              "Coca-Cola",
+              "Nestlé",
+              "Unilever",
+              "Amazon",
+              "Mercado Libre",
+              "Rappi",
+              "Falabella",
+              "Grupo Éxito",
+            ].map((client) => (
+              <Card key={client} className="swiss-card text-center">
+                <CardContent className="pt-8">
+                  <p className="font-semibold">{client}</p>
                 </CardContent>
               </Card>
             ))}
@@ -428,244 +499,177 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clients Section */}
-      <section
-        id="clients"
-        data-animate
-        className={`diagonal-section py-24 bg-muted relative ${
-          isVisible["clients"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-      >
+      {/* Expertise Section */}
+      <section id="expertise" className="swiss-section bg-secondary">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Clientes <span className="gradient-text">Destacados & Proyectos</span>
+            <p className="swiss-label">Competencias</p>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4">
+              Expertise Técnico
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Confiado por marcas líderes en LATAM, Europa y Norteamérica
-            </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            {/* Platforms */}
+            <div>
+              <h3 className="text-xl font-semibold mb-6">
+                Plataformas & Tecnologías
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">VTEX</span>
+                    <span className="text-sm text-muted-foreground">
+                      Experto
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[95%]"></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">Shopify</span>
+                    <span className="text-sm text-muted-foreground">
+                      Avanzado
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[85%]"></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">Magento</span>
+                    <span className="text-sm text-muted-foreground">
+                      Avanzado
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[80%]"></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">
+                      Google Analytics & Tag Manager
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Experto
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[90%]"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Skills */}
+            <div>
+              <h3 className="text-xl font-semibold mb-6">
+                Habilidades Clave
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">
+                      Estrategia Digital
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Experto
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[95%]"></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">
+                      Análisis de Datos
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Avanzado
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[90%]"></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">UX/UI</span>
+                    <span className="text-sm text-muted-foreground">
+                      Avanzado
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[85%]"></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">
+                      Project Management
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Experto
+                    </span>
+                  </div>
+                  <div className="h-2 bg-muted">
+                    <div className="h-full bg-foreground w-[95%]"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Languages & Certifications */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mt-16">
+            <Card className="swiss-card">
               <CardContent className="pt-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                  {[
-                    "VTEX Global",
-                    "Groupe Casino",
-                    "OBI Alemania",
-                    "La Comer",
-                    "BeautyCounter",
-                    "Whirlpool",
-                    "KitchenAid",
-                    "Panamericana",
-                  ].map((client, index) => (
-                    <div
-                      key={index}
-                      className="text-center p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
-                    >
-                      <p className="font-semibold text-foreground">{client}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="text-center pt-6 border-t">
-                  <p className="text-lg font-semibold text-foreground mb-2">
-                    Confiado por empresas en LATAM, Europa y Norteamérica
-                  </p>
-                  <p className="text-muted-foreground">
-                    Desde startups hasta empresas Fortune 500, entregando
-                    resultados medibles y crecimiento a largo plazo
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Expertise & Skills Section */}
-      <section
-        id="expertise"
-        data-animate
-        className={`py-24 bg-background ${
-          isVisible["expertise"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-      >
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Experiencia & <span className="gradient-text">Habilidades</span>
-            </h2>
-          </div>
-
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <Cloud className="text-primary" size={24} />
-                  Plataformas & Tecnologías
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "VTEX",
-                    "Magento",
-                    "Shopify",
-                    "AWS Cloud",
-                    "Headless Commerce",
-                    "Integración API",
-                  ].map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full text-sm font-medium"
-                    >
-                      {skill}
+                <h3 className="text-xl font-semibold mb-4">Idiomas</h3>
+                <ul className="space-y-2">
+                  <li className="flex justify-between">
+                    <span>Español</span>
+                    <span className="text-muted-foreground">Nativo</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Inglés</span>
+                    <span className="text-muted-foreground">Fluido (C1)</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Portugués</span>
+                    <span className="text-muted-foreground">
+                      Intermedio (B2)
                     </span>
-                  ))}
-                </div>
+                  </li>
+                </ul>
               </CardContent>
             </Card>
 
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <ShoppingCart className="text-primary" size={24} />
-                  Especializaciones en Comercio
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "eCommerce B2B",
-                    "eCommerce B2C",
-                    "Marketplace",
-                    "D2C",
-                    "CRO",
-                    "Omnicanal",
-                  ].map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <Layers className="text-primary" size={24} />
-                  Habilidades Técnicas
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Arquitectura de Soluciones",
-                    "Integración API",
-                    "Integración ERP/OMS",
-                    "DevOps",
-                    "Infraestructura Cloud",
-                  ].map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <TrendingUp className="text-primary" size={24} />
-                  Marketing & Crecimiento
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "SEO/SEM",
-                    "Google Ads",
-                    "Meta Ads",
-                    "Generación de Demanda",
-                    "Lead Nurturing",
-                  ].map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="max-w-3xl mx-auto mt-8">
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <Globe className="text-primary" size={24} />
-                  Idiomas
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <p className="font-semibold">Español</p>
-                    <p className="text-sm text-muted-foreground">Nativo</p>
-                  </div>
-                  <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <p className="font-semibold">Inglés</p>
-                    <p className="text-sm text-muted-foreground">C1 (Avanzado)</p>
-                  </div>
-                  <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <p className="font-semibold">Portugués</p>
-                    <p className="text-sm text-muted-foreground">B2 (Intermedio Alto)</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications Section */}
-      <section
-        id="certifications"
-        data-animate
-        className={`py-24 bg-muted ${
-          isVisible["certifications"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-      >
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Certificaciones & <span className="gradient-text">Credenciales</span>
-            </h2>
-          </div>
-
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6 text-center">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Award className="text-background" size={40} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">
-                  Experto en Comercio Digital
-                </h3>
-                <p className="text-muted-foreground">Eicom UK</p>
-              </CardContent>
-            </Card>
-
-            <Card className="floating-card bg-card/80 backdrop-blur-sm">
-              <CardContent className="pt-6 text-center">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Award className="text-background" size={40} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">
-                  Google Digital Marketing & E-commerce
-                </h3>
-                <p className="text-muted-foreground">Google</p>
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <h3 className="text-xl font-semibold mb-4">Certificaciones</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <Award size={16} className="mt-1 flex-shrink-0" />
+                    <span>VTEX Certified Professional</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Award size={16} className="mt-1 flex-shrink-0" />
+                    <span>Google Analytics Individual Qualification</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Award size={16} className="mt-1 flex-shrink-0" />
+                    <span>Certified ScrumMaster (CSM)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Award size={16} className="mt-1 flex-shrink-0" />
+                    <span>Digital Marketing Nanodegree - Udacity</span>
+                  </li>
+                </ul>
               </CardContent>
             </Card>
           </div>
@@ -673,49 +677,38 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section
-        id="contact"
-        data-animate
-        className={`diagonal-section py-24 bg-foreground text-background relative ${
-          isVisible["contact"] ? "animate-fade-in-up" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: `url('https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/Z8YHM18BnVZRZKa2YmBQhA-img-5_1770302070000_na1fn_Y29udGFjdC1zZWN0aW9uLWJhY2tncm91bmQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L1o4WUhNMThCblZaUlpLYTJZbUJRaEEtaW1nLTVfMTc3MDMwMjA3MDAwMF9uYTFmbl9ZMjl1ZEdGamRDMXpaV04wYVc5dUxXSmhZMnRuY205MWJtUS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=lEv7e8KtzdSnz6-qjdRMdwfWznw8nApA99BEkLzgt94BXvfSKdURfKCE5ySi7YmRvRE-JupuVIrO~Su7BHEi47rHPRcRNiup0NXWErjFc8ErNWuqEamnVh39FCUE2kPJtLyfRcJZHiyKJD5g1IValWZ4xsBr8z1hq-FI06AYBs3AsElXngNoFVUXIM9vhAlnf196-nd79pGu83zKb9JFYikW~NJuxlEnoRnhWNjlbOe74Lc5Q~3FpwwyXujrNnUlktfPRGkxs0SUbVdWa~LBAidDO7pTADKQyKEqdqupnic-IpesGN0NVmEDGLKjuSfUZe-mxj4lauLNG~ioTSVzhw__')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-foreground/90 via-foreground/80 to-foreground/70"></div>
-        <div className="container relative z-10">
+      <section id="contacto" className="swiss-section">
+        <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Conectemos <span className="gradient-text">Juntos</span>
+            <p className="swiss-label">Contacto</p>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4">
+              Trabajemos Juntos
             </h2>
-            <p className="text-xl text-background/80 max-w-3xl mx-auto">
-              ¿Listo para transformar tu estrategia de comercio digital?
-              Contáctame para una consulta.
+            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+              ¿Listo para llevar tu negocio al siguiente nivel? Agenda una
+              consulta gratuita de 30 minutos.
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <Card className="floating-card bg-foreground/40 backdrop-blur-md border-background/30">
-              <CardContent className="pt-6">
-                <form onSubmit={handleContactSubmit} className="space-y-4">
+            <Card className="swiss-card">
+              <CardContent className="pt-8">
+                <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div>
-                    <Label htmlFor="name" className="text-background">
+                    <Label htmlFor="name" className="swiss-label">
                       Nombre *
                     </Label>
                     <Input
                       id="name"
                       name="name"
                       required
-                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
-                      placeholder="Tu nombre"
+                      className="mt-2"
+                      placeholder="Tu nombre completo"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email" className="text-background">
+                    <Label htmlFor="email" className="swiss-label">
                       Email *
                     </Label>
                     <Input
@@ -723,54 +716,53 @@ export default function Home() {
                       name="email"
                       type="email"
                       required
-                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
+                      className="mt-2"
                       placeholder="tu@email.com"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="company" className="text-background">
+                    <Label htmlFor="company" className="swiss-label">
                       Empresa
                     </Label>
                     <Input
                       id="company"
                       name="company"
-                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
+                      className="mt-2"
                       placeholder="Tu empresa"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="service" className="text-background">
+                    <Label htmlFor="service" className="swiss-label">
                       Servicio de Interés *
                     </Label>
                     <Select name="service" required>
-                      <SelectTrigger className="bg-foreground/30 border-background/40 text-background">
+                      <SelectTrigger className="mt-2">
                         <SelectValue placeholder="Selecciona un servicio" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="ecommerce">
-                          Estrategia e Implementación eCommerce
-                        </SelectItem>
-                        <SelectItem value="growth">
-                          Crecimiento Digital y Generación de Leads
-                        </SelectItem>
-                        <SelectItem value="integration">
-                          Integración de Plataformas y Arquitectura
+                          Consultoría eCommerce & VTEX
                         </SelectItem>
                         <SelectItem value="marketplace">
                           Desarrollo de Marketplaces
                         </SelectItem>
-                        <SelectItem value="partner">
-                          Construcción de Ecosistemas de Partners
+                        <SelectItem value="leads">
+                          Generación de Leads B2B
                         </SelectItem>
-                        <SelectItem value="cro">
-                          CRO y Optimización de Performance
+                        <SelectItem value="analytics">
+                          Análisis de Datos y BI
                         </SelectItem>
-                        <SelectItem value="other">Otro</SelectItem>
+                        <SelectItem value="omnichannel">
+                          Estrategia Omnicanal
+                        </SelectItem>
+                        <SelectItem value="transformation">
+                          Transformación Digital
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="message" className="text-background">
+                    <Label htmlFor="message" className="swiss-label">
                       Mensaje *
                     </Label>
                     <Textarea
@@ -778,96 +770,79 @@ export default function Home() {
                       name="message"
                       required
                       rows={4}
-                      className="bg-foreground/30 border-background/40 text-background placeholder:text-background/60"
+                      className="mt-2"
                       placeholder="Cuéntame sobre tu proyecto..."
                     />
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
-                    size="lg"
-                  >
+                  <Button type="submit" className="swiss-button w-full">
                     Enviar Mensaje
                   </Button>
-                  <p className="text-sm text-background/70 text-center">
-                    Te responderé en menos de 24 horas
-                  </p>
                 </form>
               </CardContent>
             </Card>
 
             {/* Contact Info */}
-            <div className="space-y-6">
-              <Card className="floating-card bg-foreground/40 backdrop-blur-md border-background/30">
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-bold mb-4 text-background">
-                    Contacto Directo
+            <div className="space-y-8">
+              <Card className="swiss-card">
+                <CardContent className="pt-8">
+                  <h3 className="text-xl font-semibold mb-6">
+                    Información de Contacto
                   </h3>
                   <div className="space-y-4">
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                        <Globe size={20} />
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 border border-border flex items-center justify-center flex-shrink-0">
+                        <Phone size={20} />
                       </div>
                       <div>
-                        <p className="font-semibold text-background">Teléfono</p>
+                        <p className="swiss-label mb-1">Teléfono</p>
                         <a
                           href="tel:+573235812748"
-                          className="text-background/80 hover:text-background transition-colors"
+                          className="hover:text-primary transition-colors"
                         >
                           +57 323 581 2748
                         </a>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                        <Globe size={20} />
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 border border-border flex items-center justify-center flex-shrink-0">
+                        <MapPin size={20} />
                       </div>
                       <div>
-                        <p className="font-semibold text-background">LinkedIn</p>
-                        <a
-                          href="https://linkedin.com/in/juanpablo321"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-background/80 hover:text-background transition-colors"
-                        >
-                          linkedin.com/in/juanpablo321
-                        </a>
+                        <p className="swiss-label mb-1">Ubicación</p>
+                        <p>Bogotá D.C., Colombia</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                        <Globe size={20} />
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 border border-border flex items-center justify-center flex-shrink-0">
+                        <Linkedin size={20} />
                       </div>
                       <div>
-                        <p className="font-semibold text-background">Ubicación</p>
-                        <p className="text-background/80">
-                          Bogotá D.C., Colombia
-                        </p>
-                        <p className="text-sm text-background/70">
-                          Disponible globalmente (remoto)
-                        </p>
+                        <p className="swiss-label mb-1">LinkedIn</p>
+                        <a
+                          href="https://www.linkedin.com/in/juanpablofrancob/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary transition-colors"
+                        >
+                          /in/juanpablofrancob
+                        </a>
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="floating-card bg-foreground/40 backdrop-blur-md border-background/30">
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-bold mb-4 text-background">
+              <Card className="swiss-card">
+                <CardContent className="pt-8">
+                  <h3 className="text-xl font-semibold mb-4">
                     Agenda una Consulta
                   </h3>
-                  <p className="text-background/80 mb-4">
-                    Agenda una consulta de 30 minutos para discutir tus
-                    necesidades de comercio digital y explorar cómo puedo ayudar
-                    a acelerar tu crecimiento.
+                  <p className="text-muted-foreground mb-6">
+                    Reserva 30 minutos para discutir tu proyecto y explorar cómo
+                    puedo ayudarte a alcanzar tus objetivos de negocio.
                   </p>
-                  <Button
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
-                    size="lg"
-                  >
-                    Agendar Consulta de 30 min
+                  <Button className="swiss-button-outline w-full">
+                    Agendar Llamada
                   </Button>
                 </CardContent>
               </Card>

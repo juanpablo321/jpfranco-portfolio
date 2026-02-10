@@ -1,120 +1,79 @@
-/* Design: Kinetic Expressionism - Footer with gradient accents */
+/* Swiss Minimalism Footer
+ * Clean, minimal footer with essential information
+ * Simple grid layout, no decorative elements
+ * Clear typography hierarchy
+ */
 
-import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Linkedin, MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <footer className="bg-foreground text-background py-12">
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+    <footer className="border-t border-border bg-background">
+      <div className="container py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold gradient-text mb-4">
-              Juan Pablo Franco
-            </h3>
-            <p className="text-background/80 mb-4">
-              Estratega de Crecimiento Digital & Especialista en eCommerce
+            <h3 className="text-2xl font-bold mb-4">Juan Pablo Franco</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Estratega de Expansión Digital especializado en eCommerce, VTEX y
+              desarrollo de marketplaces B2B.
             </p>
-            <p className="text-background/70 text-sm">
-              Transformando negocios a través de estrategias de comercio digital
-              basadas en datos en LATAM, Europa y Norteamérica.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
-            <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={() => scrollToSection("about")}
-                  className="text-background/80 hover:text-background transition-colors"
-                >
-                  Sobre Mí
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("services")}
-                  className="text-background/80 hover:text-background transition-colors"
-                >
-                  Servicios
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("experience")}
-                  className="text-background/80 hover:text-background transition-colors"
-                >
-                  Experiencia
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("contact")}
-                  className="text-background/80 hover:text-background transition-colors"
-                >
-                  Contacto
-                </button>
-              </li>
-            </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contacto</h4>
+            <h4 className="swiss-label mb-4">Contacto</h4>
             <ul className="space-y-3">
-
-              <li className="flex items-center gap-2 text-background/80">
-                <Phone size={18} />
+              <li className="flex items-center gap-3 text-sm">
+                <Phone size={16} className="text-muted-foreground" />
                 <a
                   href="tel:+573235812748"
-                  className="hover:text-background transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   +57 323 581 2748
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-background/80">
-                <MapPin size={18} />
+              <li className="flex items-center gap-3 text-sm">
+                <MapPin size={16} className="text-muted-foreground" />
                 <span>Bogotá D.C., Colombia</span>
               </li>
-              <li className="flex items-center gap-2 text-background/80">
-                <Linkedin size={18} />
+              <li className="flex items-center gap-3 text-sm">
+                <Linkedin size={16} className="text-muted-foreground" />
                 <a
-                  href="https://linkedin.com/in/juanpablo321"
+                  href="https://www.linkedin.com/in/juanpablofrancob/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-background transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
-                  linkedin.com/in/juanpablo321
+                  LinkedIn
                 </a>
               </li>
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="swiss-label mb-4">Servicios</h4>
+            <ul className="space-y-2 text-sm">
+              <li>Consultoría eCommerce</li>
+              <li>Implementación VTEX</li>
+              <li>Desarrollo de Marketplaces</li>
+              <li>Generación de Leads B2B</li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-background/70 text-sm">
-            © 2026 Juan Pablo Franco - Estratega de Crecimiento Digital. Todos
-            los derechos reservados.
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
+            © 2026 Juan Pablo Franco. Todos los derechos reservados.
           </p>
-          <div className="flex gap-4">
-            <a
-              href="https://linkedin.com/in/juanpablo321"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-background/70 hover:text-background transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
+          <div className="flex gap-6 text-sm">
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              Privacidad
+            </a>
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              Términos
             </a>
           </div>
         </div>
