@@ -51,37 +51,25 @@ export default function Home() {
         className="corp-blue-section min-h-screen flex items-center pt-20"
       >
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Text Content */}
-            <div className="space-y-8">
-              <h1 className="text-white">
-                Estratega de Expansión Digital
-              </h1>
-              <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
-                Transformando negocios a través de estrategias de comercio digital
-                basadas en datos en LATAM, Europa y Norteamérica
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById("contacto")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="corp-button-outline"
-                >
-                  Agendar Consulta
-                </button>
-              </div>
-            </div>
-
-            {/* Right: Professional Image */}
-            <div className="flex justify-center lg:justify-end">
-              <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/FMHPkwlCaziYhcZn.png"
-                alt="Juan Pablo Franco"
-                className="w-full max-w-md lg:max-w-lg"
-              />
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <h1 className="text-white">
+              Estratega de Expansión Digital
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
+              Transformando negocios a través de estrategias de comercio digital
+              basadas en datos en LATAM, Europa y Norteamérica
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("contacto")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="corp-button-outline"
+              >
+                Agendar Consulta
+              </button>
             </div>
           </div>
         </div>
