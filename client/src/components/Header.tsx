@@ -41,9 +41,13 @@ export default function Header() {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
+            className="flex items-center hover:opacity-80 transition-opacity"
           >
-            Juan Pablo Franco
+            <img
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/hRFdEuEvuNZudCry.png"
+              alt="Juan Pablo Franco"
+              className="h-12 w-auto"
+            />
           </button>
 
           {/* Desktop Navigation */}
