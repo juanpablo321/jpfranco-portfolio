@@ -3,19 +3,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Soft Modernism Design System
- * Philosophy: Warmth, approachability, contemporary elegance
- * Pastel color palette with soft gradients
- * Generous rounded corners (16-24px)
- * Multi-layer subtle shadows for depth
- * Glassmorphism effects for modern touch
+/* Professional Corporate Design System (Simon Sinek Inspired)
+ * Philosophy: Trust, clarity, professionalism
+ * Solid blue backgrounds (#0080C8)
+ * Clean sans-serif typography (Source Sans Pro)
+ * Generous white space
+ * White outline CTAs
+ * Asymmetric layouts with text left, image right
  */
 
 @theme inline {
-  --radius-sm: 12px;
-  --radius-md: 16px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -51,50 +52,50 @@
 }
 
 :root {
-  /* Soft Modernism Pastel Color System */
-  --primary: oklch(0.75 0.12 280);  /* Soft Lavender #B8A4D9 */
-  --primary-foreground: oklch(0.2 0.02 280);  /* Deep Purple */
-  --sidebar-primary: oklch(0.75 0.12 280);
-  --sidebar-primary-foreground: oklch(0.2 0.02 280);
-  --chart-1: oklch(0.75 0.12 280);
-  --chart-2: oklch(0.78 0.10 160);
-  --chart-3: oklch(0.82 0.08 50);
-  --chart-4: oklch(0.80 0.10 220);
-  --chart-5: oklch(0.76 0.11 300);
-  --radius: 20px;
+  /* Professional Corporate Color System */
+  --primary: oklch(0.55 0.15 230);  /* Vibrant Blue #0080C8 */
+  --primary-foreground: oklch(1 0 0);  /* Pure White */
+  --sidebar-primary: oklch(0.55 0.15 230);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --chart-1: oklch(0.55 0.15 230);
+  --chart-2: oklch(0.45 0.12 230);
+  --chart-3: oklch(0.35 0.10 230);
+  --chart-4: oklch(0.65 0.12 230);
+  --chart-5: oklch(0.75 0.10 230);
+  --radius: 6px;
   
-  /* Soft pastel base colors */
-  --background: oklch(0.98 0.005 280);  /* Very Light Lavender Tint #FAFAFC */
-  --foreground: oklch(0.25 0.02 280);  /* Soft Dark Purple #3D3548 */
+  /* Clean professional base colors */
+  --background: oklch(1 0 0);  /* Pure White */
+  --foreground: oklch(0.20 0.01 230);  /* Very Dark Blue-Gray #2B3A42 */
   --card: oklch(1 0 0);  /* Pure White for cards */
-  --card-foreground: oklch(0.25 0.02 280);
+  --card-foreground: oklch(0.20 0.01 230);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.02 280);
+  --popover-foreground: oklch(0.20 0.01 230);
   
   /* Accent colors */
-  --secondary: oklch(0.92 0.02 280);  /* Light Lavender #E8E4F0 */
-  --secondary-foreground: oklch(0.25 0.02 280);
-  --muted: oklch(0.94 0.015 280);  /* Very Light Lavender #F0EDF5 */
-  --muted-foreground: oklch(0.55 0.02 280);  /* Medium Purple Gray #8B7E9B */
-  --accent: oklch(0.85 0.08 160);  /* Pale Mint #D4EDE5 */
-  --accent-foreground: oklch(0.25 0.02 160);
+  --secondary: oklch(0.96 0.005 230);  /* Very Light Gray #F5F6F7 */
+  --secondary-foreground: oklch(0.20 0.01 230);
+  --muted: oklch(0.94 0.005 230);  /* Light Gray #EEEFF0 */
+  --muted-foreground: oklch(0.50 0.01 230);  /* Medium Gray #6B7780 */
+  --accent: oklch(0.92 0.01 230);  /* Soft Gray #E5E7E9 */
+  --accent-foreground: oklch(0.20 0.01 230);
   
-  /* Borders and inputs with soft colors */
-  --border: oklch(0.90 0.02 280);  /* Soft Lavender Border #DDD7E8 */
-  --input: oklch(0.95 0.015 280);
-  --ring: oklch(0.75 0.12 280);
+  /* Borders and inputs */
+  --border: oklch(0.88 0.005 230);  /* Border Gray #D8DADC */
+  --input: oklch(0.96 0.005 230);
+  --ring: oklch(0.55 0.15 230);
   
   /* Destructive */
-  --destructive: oklch(0.65 0.20 25);
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(1 0 0);
   
   /* Sidebar */
   --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.25 0.02 280);
-  --sidebar-accent: oklch(0.92 0.02 280);
-  --sidebar-accent-foreground: oklch(0.25 0.02 280);
-  --sidebar-border: oklch(0.90 0.02 280);
-  --sidebar-ring: oklch(0.75 0.12 280);
+  --sidebar-foreground: oklch(0.20 0.01 230);
+  --sidebar-accent: oklch(0.96 0.005 230);
+  --sidebar-accent-foreground: oklch(0.20 0.01 230);
+  --sidebar-border: oklch(0.88 0.005 230);
+  --sidebar-ring: oklch(0.55 0.15 230);
 }
 
 @layer base {
@@ -104,17 +105,17 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
+    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   
-  /* Typography Hierarchy - Soft Modernism */
+  /* Typography Hierarchy - Professional Corporate */
   h1 {
-    @apply text-5xl md:text-6xl font-bold leading-tight;
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold leading-tight;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
@@ -136,7 +137,7 @@
   }
   
   p {
-    @apply text-base md:text-lg leading-relaxed;
+    @apply text-lg md:text-xl leading-relaxed;
     line-height: 1.7;
   }
   
@@ -180,80 +181,63 @@
     .container {
       padding-left: 3rem;
       padding-right: 3rem;
-      max-width: 1200px;
+      max-width: 1280px;
     }
   }
   
-  /* Soft Modernism specific utilities */
-  .soft-section {
-    @apply py-16 md:py-24;
+  /* Professional Corporate specific utilities */
+  .corp-section {
+    @apply py-20 md:py-32;
   }
   
-  .soft-card {
-    @apply rounded-3xl bg-card p-8 transition-all duration-300;
-    box-shadow: 
-      0 2px 8px rgba(184, 164, 217, 0.08),
-      0 8px 24px rgba(184, 164, 217, 0.12);
+  .corp-blue-section {
+    @apply bg-primary text-primary-foreground;
   }
   
-  .soft-card:hover {
-    box-shadow: 
-      0 4px 12px rgba(184, 164, 217, 0.12),
-      0 12px 32px rgba(184, 164, 217, 0.16);
-    transform: translateY(-2px);
+  .corp-white-section {
+    @apply bg-background text-foreground;
   }
   
-  .soft-label {
-    @apply text-sm font-medium uppercase tracking-wider text-primary;
-    letter-spacing: 0.1em;
+  .corp-gray-section {
+    @apply bg-secondary text-foreground;
   }
   
-  /* Glassmorphism effect */
-  .glass-card {
-    @apply rounded-3xl backdrop-blur-xl bg-white/60 border border-white/40;
-    box-shadow: 
-      0 4px 16px rgba(184, 164, 217, 0.10),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* White outline button (Simon Sinek style) */
+  .corp-button-outline {
+    @apply px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200;
+    @apply border-3 border-white bg-transparent text-white;
+    border-width: 3px;
   }
   
-  /* Soft gradient backgrounds */
-  .soft-gradient-1 {
-    background: linear-gradient(135deg, 
-      oklch(0.95 0.03 280) 0%, 
-      oklch(0.95 0.03 160) 100%);
+  .corp-button-outline:hover {
+    @apply bg-white text-primary;
   }
   
-  .soft-gradient-2 {
-    background: linear-gradient(135deg, 
-      oklch(0.95 0.03 50) 0%, 
-      oklch(0.95 0.03 220) 100%);
+  /* Solid blue button */
+  .corp-button-solid {
+    @apply px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200;
+    @apply bg-primary text-white border-3 border-primary;
+    border-width: 3px;
   }
   
-  /* Soft button styles */
-  .soft-button {
-    @apply px-8 py-4 text-base font-semibold rounded-2xl transition-all duration-300;
-    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground;
-    box-shadow: 
-      0 4px 12px rgba(184, 164, 217, 0.25),
-      0 2px 4px rgba(184, 164, 217, 0.15);
+  .corp-button-solid:hover {
+    @apply bg-transparent text-primary;
   }
   
-  .soft-button:hover {
-    box-shadow: 
-      0 6px 16px rgba(184, 164, 217, 0.35),
-      0 3px 6px rgba(184, 164, 217, 0.20);
-    transform: translateY(-1px);
+  /* Clean card with minimal shadow */
+  .corp-card {
+    @apply rounded-lg bg-card p-8 transition-shadow duration-200;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
   
-  .soft-button-outline {
-    @apply px-8 py-4 text-base font-semibold rounded-2xl transition-all duration-300;
-    @apply border-2 border-primary bg-transparent text-primary;
+  .corp-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
   
-  .soft-button-outline:hover {
-    @apply bg-primary/10;
-    box-shadow: 
-      0 4px 12px rgba(184, 164, 217, 0.20);
+  /* Section label */
+  .corp-label {
+    @apply text-sm font-semibold uppercase tracking-widest;
+    letter-spacing: 0.15em;
   }
 }
 

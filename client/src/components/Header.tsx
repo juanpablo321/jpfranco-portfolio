@@ -1,11 +1,10 @@
-/* Soft Modernism Header
- * Glassmorphism sticky navigation with rounded corners
- * Soft shadows and pastel accents
- * Smooth hover transitions
+/* Professional Corporate Header (Simon Sinek Inspired)
+ * Clean white background
+ * Simple black text navigation
+ * Minimal design with generous spacing
  */
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,64 +32,51 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "glass-card"
-          : "bg-white/80 backdrop-blur-md rounded-3xl border border-white/60"
+      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-200 ${
+        isScrolled ? "shadow-md" : ""
       }`}
-      style={{
-        boxShadow: isScrolled
-          ? "0 8px 32px rgba(184, 164, 217, 0.15)"
-          : "0 4px 16px rgba(184, 164, 217, 0.10)",
-      }}
     >
       <div className="container">
-        <nav className="flex items-center justify-between h-16">
+        <nav className="flex items-center justify-between h-20">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-2xl font-bold text-primary hover:opacity-80 transition-opacity"
+            className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            JPF
+            Juan Pablo Franco
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
             <button
               onClick={() => scrollToSection("servicios")}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
+              className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
               Servicios
             </button>
             <button
               onClick={() => scrollToSection("experiencia")}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
+              className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
               Experiencia
             </button>
             <button
               onClick={() => scrollToSection("expertise")}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
+              className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
               Expertise
             </button>
             <button
               onClick={() => scrollToSection("contacto")}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-xl hover:bg-primary/5"
+              className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
               Contacto
             </button>
-            <Button
-              onClick={() => scrollToSection("contacto")}
-              className="soft-button"
-            >
-              Agendar Consulta
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-sm font-medium px-4 py-2 rounded-xl bg-primary/10 text-primary"
+            className="md:hidden text-base font-normal text-foreground"
             onClick={() => scrollToSection("contacto")}
           >
             Menú
