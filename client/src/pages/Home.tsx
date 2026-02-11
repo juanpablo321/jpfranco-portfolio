@@ -7,6 +7,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useEffect } from "react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -25,6 +26,29 @@ import {
 
 
 export default function Home() {
+  useEffect(() => {
+    // Manually initialize HubSpot Meetings widget
+    const initHubSpot = () => {
+      if ((window as any).HubSpotConversations) {
+        // HubSpot script is loaded, try to initialize
+        const container = document.querySelector('.meetings-iframe-container');
+        if (container && !container.querySelector('iframe')) {
+          // Force re-initialization
+          const script = document.createElement('script');
+          script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
+          script.async = true;
+          document.body.appendChild(script);
+        }
+      } else {
+        // Wait and try again
+        setTimeout(initHubSpot, 500);
+      }
+    };
+    
+    // Start initialization after component mounts
+    setTimeout(initHubSpot, 1000);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -45,6 +69,18 @@ export default function Home() {
                 Transformando negocios a través de estrategias de comercio digital
                 basadas en datos en LATAM, Europa y Norteamérica
               </p>
+              <div className="pt-4">
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById("contacto")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  className="corp-button-outline text-lg px-8 py-4"
+                >
+                  Agendar Consultoría Gratuita
+                </button>
+              </div>
             </div>
 
             {/* Right: Professional Image */}
