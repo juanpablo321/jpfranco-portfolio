@@ -45,18 +45,6 @@ export default function Home() {
                 Transformando negocios a través de estrategias de comercio digital
                 basadas en datos en LATAM, Europa y Norteamérica
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById("contacto")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="corp-button-outline"
-                >
-                  Agendar Consulta
-                </button>
-              </div>
             </div>
 
             {/* Right: Professional Image */}
@@ -683,11 +671,10 @@ export default function Home() {
 
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* HubSpot Meetings Embed */}
-            <div className="bg-white rounded-lg p-8">
+            <div className="bg-white rounded-lg p-4">
               <div 
                 className="meetings-iframe-container" 
                 data-src="https://meetings.hubspot.com/juanpablo321?embed=true"
-                style={{ minHeight: '500px', width: '100%' }}
               ></div>
             </div>
 
