@@ -684,7 +684,11 @@ export default function Home() {
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* HubSpot Meetings Embed */}
             <div className="bg-white rounded-lg p-8">
-              <div className="meetings-iframe-container" data-src="https://meetings.hubspot.com/juanpablo321?embed=true"></div>
+              <div 
+                className="meetings-iframe-container" 
+                data-src="https://meetings.hubspot.com/juanpablo321?embed=true"
+                style={{ minHeight: '500px', width: '100%' }}
+              ></div>
             </div>
 
             {/* Contact Info */}
