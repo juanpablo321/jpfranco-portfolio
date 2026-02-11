@@ -7,17 +7,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import {
@@ -32,15 +22,9 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
-import { FormEvent } from "react";
+
 
 export default function Home() {
-  const handleContactSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    toast.success("¡Mensaje enviado! Te responderé en menos de 24 horas.");
-    (e.target as HTMLFormElement).reset();
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -698,92 +682,9 @@ export default function Home() {
           </div>
 
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
+            {/* HubSpot Meetings Embed */}
             <div className="bg-white rounded-lg p-8">
-              <form onSubmit={handleContactSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="name" className="text-sm font-semibold uppercase tracking-wider mb-2 block">
-                    Nombre *
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    required
-                    className="rounded-md"
-                    placeholder="Tu nombre completo"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email" className="text-sm font-semibold uppercase tracking-wider mb-2 block">
-                    Email *
-                  </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    className="rounded-md"
-                    placeholder="tu@email.com"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="company" className="text-sm font-semibold uppercase tracking-wider mb-2 block">
-                    Empresa
-                  </Label>
-                  <Input
-                    id="company"
-                    name="company"
-                    className="rounded-md"
-                    placeholder="Tu empresa"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="service" className="text-sm font-semibold uppercase tracking-wider mb-2 block">
-                    Servicio de Interés *
-                  </Label>
-                  <Select name="service" required>
-                    <SelectTrigger className="rounded-md">
-                      <SelectValue placeholder="Selecciona un servicio" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ecommerce">
-                        Consultoría eCommerce & VTEX
-                      </SelectItem>
-                      <SelectItem value="marketplace">
-                        Desarrollo de Marketplaces
-                      </SelectItem>
-                      <SelectItem value="leads">
-                        Generación de Leads B2B
-                      </SelectItem>
-                      <SelectItem value="analytics">
-                        Análisis de Datos y BI
-                      </SelectItem>
-                      <SelectItem value="omnichannel">
-                        Estrategia Omnicanal
-                      </SelectItem>
-                      <SelectItem value="transformation">
-                        Transformación Digital
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="message" className="text-sm font-semibold uppercase tracking-wider mb-2 block">
-                    Mensaje *
-                  </Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={4}
-                    className="rounded-md"
-                    placeholder="Cuéntame sobre tu proyecto..."
-                  />
-                </div>
-                <Button type="submit" className="corp-button-solid w-full">
-                  Enviar Mensaje
-                </Button>
-              </form>
+              <div className="meetings-iframe-container" data-src="https://meetings.hubspot.com/juanpablo321?embed=true"></div>
             </div>
 
             {/* Contact Info */}
