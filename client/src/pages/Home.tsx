@@ -78,7 +78,7 @@ export default function Home() {
             {/* Right: Professional Image */}
             <div className="flex justify-center lg:justify-end">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/Dz3VX8CtuwGnqwZAtwcqk4-img-1_1770818624000_na1fn_anBmLXByb2Zlc3Npb25hbC1oZXJv.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvUU9aN3IyREZLSWZaV3lVd3hOaVlOcC9zYW5kYm94L0R6M1ZYOEN0dXdHbnF3WkF0d2NxazQtaW1nLTFfMTc3MDgxODYyNDAwMF9uYTFmbl9hbkJtTFhCeWIyWmxjM05wYjI1aGJDMW9aWEp2LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N0LsRElf9VhxJ9J3ahp6~eP~M5XfIEGNtkhgvEc4ZQwkt2bc3OAGUuzmu1NytfZM2cigc2g1pbAKYSNYNgEIa5QwXH9HU-OvzOaM~i9-g5AWRmarDT3ne~ollfEUzkYXh0eJuyrozKRD2HUjWpNuKFD7Lv-CIKmJ0o2kCEDDswZEBBhACs~XvxH~7EFCCD2CoKSevhCquY-SHi5zsQIBOq-UzcJ4VrYyee~aNgBJBESR5ExmamSxJbIbJD2ntKDibiCMC2rcMbDLaLf0b65h8UJ36cX~w0omVuvrM4I3nwwtbBWiII~x6L~tCZQ0olSlxEF2F2tlcqR9XYwkN~CUUg__"
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/zQbvQjmQKdnxsrEw.png"
                 alt="Juan Pablo Franco"
                 className="w-full max-w-md lg:max-w-lg rounded-lg"
               />
