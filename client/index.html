@@ -62,6 +62,24 @@
       data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
     <!-- HubSpot Meetings Embed Script -->
     <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+    
+    <!-- HubSpot Meetings Conversion Tracking -->
+    <script type="text/javascript">
+      window.addEventListener('message', function(event) {
+        if (event.data.meetingBookSucceeded) {
+          // Push event to GTM dataLayer
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            'event': 'hubspot_meeting_booked',
+            'meeting_type': 'consultation',
+            'event_category': 'engagement',
+            'event_label': 'hubspot_meetings'
+          });
+          console.log('HubSpot Meeting Booked - Event sent to GTM');
+        }
+      });
+    </script>
+    <!-- End HubSpot Meetings Conversion Tracking -->
   </body>
 
 </html>
