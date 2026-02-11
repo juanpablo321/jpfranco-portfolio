@@ -78,9 +78,9 @@ export default function Home() {
             {/* Right: Professional Image */}
             <div className="flex justify-center lg:justify-end">
               <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/zQbvQjmQKdnxsrEw.png"
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/FMHPkwlCaziYhcZn.png"
                 alt="Juan Pablo Franco"
-                className="w-full max-w-md lg:max-w-lg rounded-lg"
+                className="w-full max-w-md lg:max-w-lg"
               />
             </div>
           </div>
