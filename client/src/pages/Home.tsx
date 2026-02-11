@@ -45,7 +45,7 @@ export default function Home() {
               </h1>
               <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
                 Transformando negocios a través de estrategias de comercio digital
-                basadas en datos en LATAM, Europa y Norteamérica
+                basadas en datos en Colombia y el mundo.
               </p>
               <div className="pt-4">
                 <button
@@ -106,7 +106,7 @@ export default function Home() {
                 Con más de 15 años de experiencia en eCommerce y transformación
                 digital, me especializo en implementaciones VTEX, desarrollo de
                 marketplaces B2B y estrategias de generación de leads para empresas
-                en LATAM, Europa y Norteamérica.
+                en Colombia y el mundo.
               </p>
               <p className="text-xl leading-relaxed">
                 He liderado proyectos para marcas globales como Coca-Cola, Nestlé,
