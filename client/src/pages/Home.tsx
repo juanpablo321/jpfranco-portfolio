@@ -7,7 +7,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useEffect } from "react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -26,28 +25,7 @@ import {
 
 
 export default function Home() {
-  useEffect(() => {
-    // Manually initialize HubSpot Meetings widget
-    const initHubSpot = () => {
-      if ((window as any).HubSpotConversations) {
-        // HubSpot script is loaded, try to initialize
-        const container = document.querySelector('.meetings-iframe-container');
-        if (container && !container.querySelector('iframe')) {
-          // Force re-initialization
-          const script = document.createElement('script');
-          script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
-          script.async = true;
-          document.body.appendChild(script);
-        }
-      } else {
-        // Wait and try again
-        setTimeout(initHubSpot, 500);
-      }
-    };
-    
-    // Start initialization after component mounts
-    setTimeout(initHubSpot, 1000);
-  }, []);
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -706,12 +684,17 @@ export default function Home() {
           </div>
 
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* HubSpot Meetings Embed */}
-            <div className="bg-white rounded-lg p-4">
-              <div 
-                className="meetings-iframe-container" 
-                data-src="https://meetings.hubspot.com/juanpablo321?embed=true"
-              ></div>
+            {/* HubSpot Meetings Embed - Direct iframe */}
+            <div className="bg-white rounded-lg overflow-hidden" style={{ minHeight: '660px' }}>
+              <iframe
+                src="https://meetings.hubspot.com/juanpablo321?embed=true"
+                width="100%"
+                height="660"
+                frameBorder="0"
+                style={{ border: 'none', minHeight: '660px' }}
+                title="Agendar Reunión con Juan Pablo Franco"
+                allow="camera; microphone"
+              />
             </div>
 
             {/* Contact Info */}
