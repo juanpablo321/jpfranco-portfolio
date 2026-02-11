@@ -39,7 +39,7 @@ export default function Footer() {
               <li className="flex items-center gap-3 text-base">
                 <Linkedin size={18} className="text-primary flex-shrink-0" />
                 <a
-                  href="https://www.linkedin.com/in/juanpablofrancob/"
+                  href="https://www.linkedin.com/in/juanpablo321/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors"
