@@ -728,12 +728,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
-              <div className="pt-8">
-                <button className="corp-button-outline w-full">
-                  Agendar Llamada de 30 Minutos
-                </button>
-              </div>
             </div>
           </div>
         </div>
