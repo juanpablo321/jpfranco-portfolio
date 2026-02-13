@@ -5,12 +5,9 @@
  */
 
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [location] = useLocation();
-  const isHome = location === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +18,6 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    if (!isHome) {
-      window.location.href = `/#${id}`;
-      return;
-    }
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -34,14 +27,6 @@ export default function Header() {
         top: offsetPosition,
         behavior: "smooth",
       });
-    }
-  };
-
-  const handleLogoClick = () => {
-    if (isHome) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      window.location.href = "/";
     }
   };
 
@@ -55,7 +40,7 @@ export default function Header() {
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
           <button
-            onClick={handleLogoClick}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="flex items-center hover:opacity-80 transition-opacity"
           >
             <img
@@ -85,12 +70,6 @@ export default function Header() {
             >
               Expertise
             </button>
-            <Link
-              href="/blog"
-              className="text-base font-normal text-foreground hover:text-primary transition-colors"
-            >
-              Blog
-            </Link>
             <button
               onClick={() => scrollToSection("contacto")}
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
