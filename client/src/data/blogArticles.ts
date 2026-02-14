@@ -17,7 +17,7 @@ export const articles: BlogArticle[] = [
     category: "Expansión Digital",
     date: "13 de Febrero, 2026",
     readTime: "8 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-1_1771034649000_na1fn_YmxvZy1leHBhbnNpb24tZGlnaXRhbC1iMmI.png",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop",
     keywords: ["expansión digital", "transformación digital B2B", "estrategia digital empresarial"]
   },
   {
@@ -27,7 +27,7 @@ export const articles: BlogArticle[] = [
     category: "Expansión Digital",
     date: "12 de Febrero, 2026",
     readTime: "7 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-2_1771034654000_na1fn_YmxvZy1vbW5pY2FuYWxpZGFkLWIyYg.png",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop",
     keywords: ["omnicanalidad B2B", "experiencia cliente digital", "integración canales venta"]
   },
   {
@@ -37,7 +37,7 @@ export const articles: BlogArticle[] = [
     category: "Expansión Digital",
     date: "11 de Febrero, 2026",
     readTime: "9 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-3_1771034652000_na1fn_YmxvZy1tYXJrZXRwbGFjZS1iMmI.png",
+    image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=1200&h=675&fit=crop",
     keywords: ["marketplace B2B", "plataforma eCommerce", "comercio electrónico empresarial"]
   },
   {
@@ -47,7 +47,7 @@ export const articles: BlogArticle[] = [
     category: "Expansión Digital",
     date: "10 de Febrero, 2026",
     readTime: "10 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-4_1771034655000_na1fn_YmxvZy1lY29tbWVyY2UtaW50ZXJuYWNpb25hbA.png",
+    image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1200&h=675&fit=crop",
     keywords: ["expansión internacional eCommerce", "comercio transfronterizo", "globalización digital"]
   },
   {
@@ -57,7 +57,7 @@ export const articles: BlogArticle[] = [
     category: "Expansión Digital",
     date: "9 de Febrero, 2026",
     readTime: "11 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-5_1771034637000_na1fn_YmxvZy10cmFuc2Zvcm1hY2lvbi1kaWdpdGFsLW51YmU.png",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=675&fit=crop",
     keywords: ["migración a la nube", "modernización sistemas", "infraestructura digital"]
   },
   {
@@ -67,7 +67,7 @@ export const articles: BlogArticle[] = [
     category: "Inteligencia Artificial",
     date: "8 de Febrero, 2026",
     readTime: "9 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-6_1771034642000_na1fn_YmxvZy1pYS1lY29tbWVyY2U.png",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=675&fit=crop",
     keywords: ["inteligencia artificial eCommerce", "IA B2B", "automatización comercio digital"]
   },
   {
@@ -77,7 +77,7 @@ export const articles: BlogArticle[] = [
     category: "Inteligencia Artificial",
     date: "7 de Febrero, 2026",
     readTime: "8 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-7_1771034644000_na1fn_YmxvZy1jaGF0Ym90LWlh.png",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&h=675&fit=crop",
     keywords: ["chatbot IA", "atención cliente automatizada", "servicio cliente B2B"]
   },
   {
@@ -87,7 +87,7 @@ export const articles: BlogArticle[] = [
     category: "Inteligencia Artificial",
     date: "6 de Febrero, 2026",
     readTime: "7 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-8_1771034647000_na1fn_YmxvZy1wZXJzb25hbGl6YWNpb24taWE.png",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=675&fit=crop",
     keywords: ["personalización IA", "experiencia cliente personalizada", "machine learning B2B"]
   },
   {
@@ -97,7 +97,7 @@ export const articles: BlogArticle[] = [
     category: "Inteligencia Artificial",
     date: "5 de Febrero, 2026",
     readTime: "9 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-9_1771034638000_na1fn_YmxvZy1hbmFsaXNpcy1wcmVkaWN0aXZv.png",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop&q=80",
     keywords: ["análisis predictivo", "forecasting ventas", "inteligencia de negocios"]
   },
   {
@@ -107,7 +107,7 @@ export const articles: BlogArticle[] = [
     category: "Inteligencia Artificial",
     date: "4 de Febrero, 2026",
     readTime: "10 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-10_1771034640000_na1fn_YmxvZy1hdXRvbWF0aXphY2lvbi1wcm9jZXNvcw.png",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=675&fit=crop",
     keywords: ["automatización procesos", "RPA", "eficiencia operacional"]
   },
   {
@@ -117,7 +117,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "3 de Febrero, 2026",
     readTime: "8 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-11_1771034643000_na1fn_YmxvZy1jb250ZW5pZG9zLWIyYg.png",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=675&fit=crop",
     keywords: ["content marketing B2B", "generación leads", "estrategia contenidos"]
   },
   {
@@ -127,7 +127,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "2 de Febrero, 2026",
     readTime: "9 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-12_1771034645000_na1fn_YmxvZy1saW5rZWRpbi1tYXJrZXRpbmc.png",
+    image: "https://images.unsplash.com/photo-1611944212129-29977ae1398c?w=1200&h=675&fit=crop",
     keywords: ["LinkedIn marketing", "social selling", "generación leads LinkedIn"]
   },
   {
@@ -137,7 +137,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "1 de Febrero, 2026",
     readTime: "10 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-13_1771034639000_na1fn_YmxvZy1hYm0tbWFya2V0aW5n.png",
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&h=675&fit=crop",
     keywords: ["account based marketing", "ABM", "marketing cuentas clave"]
   },
   {
@@ -147,7 +147,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "31 de Enero, 2026",
     readTime: "11 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-14_1771034641000_na1fn_YmxvZy1zZW8tYjJi.png",
+    image: "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=1200&h=675&fit=crop",
     keywords: ["SEO B2B", "posicionamiento orgánico", "optimización motores búsqueda"]
   },
   {
@@ -157,7 +157,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "30 de Enero, 2026",
     readTime: "8 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-15_1771034646000_na1fn_YmxvZy1lbWFpbC1tYXJrZXRpbmc.png",
+    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1200&h=675&fit=crop",
     keywords: ["email marketing B2B", "lead nurturing", "automatización email"]
   },
   {
@@ -167,7 +167,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "29 de Enero, 2026",
     readTime: "9 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-16_1771034648000_na1fn_YmxvZy1tYXJrZXRpbmctYXV0b21hdGlvbg.png",
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&h=675&fit=crop",
     keywords: ["marketing automation", "automatización marketing", "HubSpot"]
   },
   {
@@ -177,7 +177,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "28 de Enero, 2026",
     readTime: "7 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-17_1771034650000_na1fn_YmxvZy12aWRlby1tYXJrZXRpbmc.png",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1200&h=675&fit=crop",
     keywords: ["video marketing B2B", "contenido visual", "marketing audiovisual"]
   },
   {
@@ -187,7 +187,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "27 de Enero, 2026",
     readTime: "8 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-18_1771034651000_na1fn_YmxvZy13ZWJpbmFycy1iMmI.png",
+    image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&h=675&fit=crop",
     keywords: ["webinars B2B", "eventos virtuales", "generación leads webinars"]
   },
   {
@@ -197,7 +197,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "26 de Enero, 2026",
     readTime: "10 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-19_1771034653000_na1fn_YmxvZy1kYXRvcy1hbmFseXRpY3M.png",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop&q=85",
     keywords: ["marketing analytics", "datos marketing", "optimización ROI"]
   },
   {
@@ -207,7 +207,7 @@ export const articles: BlogArticle[] = [
     category: "Marketing Digital B2B",
     date: "25 de Enero, 2026",
     readTime: "9 min",
-    image: "https://private-us-east-1.manuscdn.com/sessionFile/QOZ7r2DFKIfZWyUwxNiYNp/sandbox/L90nvBG12OiNoYq5WXLhXX-img-20_1771034656000_na1fn_YmxvZy10ZW5kZW5jaWFzLW1hcmtldGluZw.png",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=675&fit=crop",
     keywords: ["tendencias marketing B2B", "futuro marketing digital", "innovación marketing"]
   }
 ];
