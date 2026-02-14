@@ -70,6 +70,12 @@ export default function Header() {
             >
               Expertise
             </button>
+            <a
+              href="/blog"
+              className="text-base font-normal text-foreground hover:text-primary transition-colors"
+            >
+              Blog
+            </a>
             <button
               onClick={() => scrollToSection("contacto")}
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
