@@ -25,8 +25,8 @@ export default function BlogArticle() {
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl font-bold mb-6">Artículo no encontrado</h1>
-              <Link href="/blog">
-                <a className="text-primary hover:underline">Volver al blog</a>
+              <Link href="/blog" className="text-primary hover:underline">
+                Volver al blog
               </Link>
             </div>
           </div>
@@ -44,8 +44,8 @@ export default function BlogArticle() {
         <article className="container">
           {/* Breadcrumb */}
           <div className="max-w-4xl mx-auto mb-8">
-            <Link href="/blog">
-              <a className="text-primary hover:underline">← Volver al blog</a>
+            <Link href="/blog" className="text-primary hover:underline">
+              ← Volver al blog
             </Link>
           </div>
 
