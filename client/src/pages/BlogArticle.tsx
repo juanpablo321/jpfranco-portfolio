@@ -1,44 +1,30 @@
 /* Blog Article Page Template - Professional Corporate Style
  * SEO-optimized individual article page
+ * Content is embedded at build time via blogContent.ts
  */
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link, useRoute } from "wouter";
 import { articles } from "@/data/blogArticles";
-import { useEffect, useState } from "react";
+import { blogContent } from "@/data/blogContent";
+import { useEffect, useMemo } from "react";
 import { marked } from "marked";
 
 export default function BlogArticle() {
   const [, params] = useRoute("/blog/:slug");
   const article = articles.find((a) => a.slug === params?.slug);
-  const [content, setContent] = useState<string>("");
-  const [loading, setLoading] = useState(true);
+
+  const htmlContent = useMemo(() => {
+    if (!article) return "";
+    const markdown = blogContent[article.slug];
+    if (!markdown) return "<p>El contenido del artículo no está disponible en este momento.</p>";
+    return marked.parse(markdown) as string;
+  }, [article]);
 
   useEffect(() => {
-    // Scroll to top when article loads
     window.scrollTo({ top: 0, behavior: "smooth" });
-    
-    // Load article content
-    if (article) {
-      setLoading(true);
-      fetch(`/src/content/${article.slug}.md`)
-        .then((response) => {
-          if (!response.ok) throw new Error('Content not found');
-          return response.text();
-        })
-        .then((text) => {
-          const html = marked.parse(text);
-          setContent(html as string);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error loading article:', error);
-          setContent('<p>El contenido del artículo no está disponible en este momento.</p>');
-          setLoading(false);
-        });
-    }
-  }, [params?.slug, article]);
+  }, [params?.slug]);
 
   if (!article) {
     return (
@@ -100,16 +86,10 @@ export default function BlogArticle() {
 
           {/* Article Content */}
           <div className="max-w-3xl mx-auto prose prose-lg prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-li:text-foreground">
-            {loading ? (
-              <p className="text-muted-foreground italic">
-                El contenido completo del artículo se está cargando...
-              </p>
-            ) : (
-              <div 
-                id={`article-content-${article.slug}`}
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
-            )}
+            <div 
+              id={`article-content-${article.slug}`}
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
           </div>
 
           {/* Keywords */}
