@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "geo-generative-engine-optimization-b2b",
+    title: "GEO (Generative Engine Optimization): Cómo Posicionar tu Marca B2B en la Era de la Búsqueda por IA",
+    excerpt: "Aprende qué es la Optimización para Motores Generativos (GEO) y cómo aplicarla para que tu marca B2B sea la fuente de verdad que la IA cita, asegurando tu relevancia en la nueva era de la búsqueda conversacional.",
+    category: "Inteligencia Artificial",
+    date: "15 de Febrero, 2026",
+    readTime: "10 min",
+    image: "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=1200&h=675&fit=crop",
+    keywords: ["GEO", "Generative Engine Optimization", "AEO", "Answer Engine Optimization", "IA en marketing", "SEO para IA", "marketing B2B", "búsqueda conversacional", "marketing de contenidos IA", "estrategia digital 2026"]
+  },
+  {
     slug: "ia-agentica-marketing-b2b-2026",
     title: "IA Agéntica en Marketing B2B: Cómo los Agentes Autónomos Están Redefiniendo la Estrategia Digital en 2026",
     excerpt: "Descubre cómo la inteligencia artificial agéntica está transformando el marketing B2B con agentes autónomos que ejecutan campañas, personalizan experiencias y optimizan el funnel de ventas sin intervención humana constante.",
