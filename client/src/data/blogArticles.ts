@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "ia-agentica-marketing-b2b-2026",
+    title: "IA Agéntica en Marketing B2B: Cómo los Agentes Autónomos Están Redefiniendo la Estrategia Digital en 2026",
+    excerpt: "Descubre cómo la inteligencia artificial agéntica está transformando el marketing B2B con agentes autónomos que ejecutan campañas, personalizan experiencias y optimizan el funnel de ventas sin intervención humana constante.",
+    category: "Inteligencia Artificial",
+    date: "14 de Febrero, 2026",
+    readTime: "11 min",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&h=675&fit=crop",
+    keywords: ["IA agéntica", "agentes autónomos marketing", "inteligencia artificial B2B", "marketing automation IA", "agentic AI", "estrategia digital 2026", "GEO optimización", "AEO marketing", "IA generativa B2B", "transformación digital Colombia"]
+  },
+  {
     slug: "guia-expansion-digital-b2b-2026",
     title: "Guía Completa de Expansión Digital para Empresas B2B en 2026",
     excerpt: "Roadmap completo con estrategias probadas para empresas que buscan expandirse digitalmente y transformar su modelo de negocio B2B.",
