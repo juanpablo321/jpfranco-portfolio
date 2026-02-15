@@ -36,10 +36,10 @@ export default function Home() {
         id="hero"
         className="corp-blue-section min-h-screen relative overflow-hidden"
       >
-        <div className="container relative z-10 flex items-center min-h-screen pt-20">
+        <div className="container relative z-10 flex items-end min-h-screen pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end w-full">
             {/* Left: Text Content */}
-            <div className="space-y-8 py-20">
+            <div className="space-y-8 pb-24 pt-20">
               <h1 className="text-white">
                 Estratega de Expansión Digital
               </h1>
@@ -61,12 +61,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: Professional Image - bottom aligned with section */}
+            {/* Right: Professional Image - 200% larger, bottom aligned with section */}
             <div className="hidden lg:flex justify-end items-end self-end">
               <img
                 src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/fJnTpIeizTVsFmQl.png"
                 alt="Juan Pablo Franco"
-                className="w-auto h-[80vh] max-h-[750px] object-contain object-bottom drop-shadow-2xl"
+                className="w-auto object-contain object-bottom drop-shadow-2xl"
+                style={{ height: 'calc(100vh - 80px)', maxHeight: '900px' }}
               />
             </div>
           </div>
