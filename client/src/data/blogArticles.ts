@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "sistemas-ia-multi-agente-marketing-b2b-2026",
+    title: "Sistemas de IA Multi-Agente: La Próxima Frontera del Marketing B2B en 2026",
+    excerpt: "Descubre cómo los sistemas de IA multi-agente están revolucionando el marketing B2B, permitiendo a equipos pequeños operar como grandes agencias mediante la orquestación de agentes autónomos especializados que colaboran para ejecutar campañas complejas.",
+    category: "Inteligencia Artificial",
+    date: "16 de Febrero, 2026",
+    readTime: "12 min",
+    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1200&h=675&fit=crop",
+    keywords: ["sistemas multi-agente IA", "multi-agent AI marketing", "IA agéntica B2B", "orquestación agentes IA", "automatización marketing B2B", "agentes autónomos marketing", "inteligencia artificial colaborativa", "marketing digital 2026", "transformación digital Colombia", "equipos IA marketing"]
+  },
+  {
     slug: "geo-generative-engine-optimization-b2b",
     title: "GEO (Generative Engine Optimization): Cómo Posicionar tu Marca B2B en la Era de la Búsqueda por IA",
     excerpt: "Aprende qué es la Optimización para Motores Generativos (GEO) y cómo aplicarla para que tu marca B2B sea la fuente de verdad que la IA cita, asegurando tu relevancia en la nueva era de la búsqueda conversacional.",
