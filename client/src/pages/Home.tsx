@@ -64,7 +64,7 @@ export default function Home() {
             {/* Right: Professional Image - 200% larger, bottom aligned with section */}
             <div className="hidden lg:flex justify-end items-end self-end">
               <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/fJnTpIeizTVsFmQl.png"
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/YyjfGGBvJOsqUuDo.png"
                 alt="Juan Pablo Franco"
                 className="w-auto object-contain object-bottom drop-shadow-2xl"
                 style={{ height: 'calc(100vh - 80px)', maxHeight: '900px' }}
