@@ -61,23 +61,39 @@ export default function Home() {
               </div>
               {/* Mobile Hero Image - positioned after CTA, bottom-aligned with blue section */}
               <div className="lg:hidden flex justify-center pt-4">
-                <img
-                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/tqHoMdHlBsLGwZGk.png"
-                  alt="Juan Pablo Franco"
-                  className="w-auto object-contain object-bottom drop-shadow-2xl"
-                  style={{ height: '320px', marginBottom: '-1px' }}
-                />
+                <picture>
+                  <source
+                    srcSet="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/sObOtItWrUXUypjv.webp"
+                    type="image/webp"
+                  />
+                  <img
+                    src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/tqHoMdHlBsLGwZGk.png"
+                    alt="Juan Pablo Franco"
+                    loading="eager"
+                    fetchPriority="high"
+                    className="w-auto object-contain object-bottom drop-shadow-2xl"
+                    style={{ height: '320px', marginBottom: '-1px' }}
+                  />
+                </picture>
               </div>
             </div>
 
             {/* Right: Professional Image - Desktop only, bottom aligned with section */}
             <div className="hidden lg:flex justify-end items-end self-end">
-              <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/tqHoMdHlBsLGwZGk.png"
-                alt="Juan Pablo Franco"
-                className="w-auto object-contain object-bottom drop-shadow-2xl"
-                style={{ height: 'calc(100vh - 80px)', maxHeight: '900px' }}
-              />
+              <picture>
+                <source
+                  srcSet="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/sObOtItWrUXUypjv.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/tqHoMdHlBsLGwZGk.png"
+                  alt="Juan Pablo Franco"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-auto object-contain object-bottom drop-shadow-2xl"
+                  style={{ height: 'calc(100vh - 80px)', maxHeight: '900px' }}
+                />
+              </picture>
             </div>
           </div>
         </div>
