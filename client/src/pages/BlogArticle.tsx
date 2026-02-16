@@ -11,11 +11,24 @@ import { articles } from "@/data/blogArticles";
 import { blogContent } from "@/data/blogContent";
 import { useEffect, useMemo, useState } from "react";
 import { marked } from "marked";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function BlogArticle() {
   const [, params] = useRoute("/blog/:slug");
   const article = articles.find((a) => a.slug === params?.slug);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Dynamic SEO meta tags for each article
+  useSEO({
+    title: article ? `${article.title} | Juan Pablo Franco` : "Artículo no encontrado | Juan Pablo Franco",
+    description: article?.excerpt || "Artículo no encontrado en el blog de Juan Pablo Franco.",
+    url: `/blog/${params?.slug || ""}`,
+    image: article?.image,
+    type: "article",
+    keywords: article?.keywords,
+    author: "Juan Pablo Franco",
+    publishedDate: article?.date,
+  });
 
   const htmlContent = useMemo(() => {
     if (!article) return "";
