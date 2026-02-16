@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "ai-sdr-tools-prospeccion-leads-b2b-2026",
+    title: "AI SDR Tools: Cómo la IA Está Revolucionando la Prospección y Generación de Leads B2B en 2026",
+    excerpt: "Descubre cómo las herramientas de AI SDR (Sales Development Representative) están automatizando la prospección B2B, cualificando leads con precisión y transformando los equipos de ventas con inteligencia artificial multicanal.",
+    category: "Inteligencia Artificial",
+    date: "16 de Febrero, 2026",
+    readTime: "10 min",
+    image: "https://images.unsplash.com/photo-1552581234-26160f608093?w=1200&h=675&fit=crop",
+    keywords: ["AI SDR", "herramientas IA ventas B2B", "prospección automatizada", "generación leads IA", "sales development representative IA", "automatización ventas B2B", "outreach multicanal IA", "cualificación leads inteligente", "inteligencia artificial ventas", "transformación digital equipos comerciales"]
+  },
+  {
     slug: "sistemas-ia-multi-agente-marketing-b2b-2026",
     title: "Sistemas de IA Multi-Agente: La Próxima Frontera del Marketing B2B en 2026",
     excerpt: "Descubre cómo los sistemas de IA multi-agente están revolucionando el marketing B2B, permitiendo a equipos pequeños operar como grandes agencias mediante la orquestación de agentes autónomos especializados que colaboran para ejecutar campañas complejas.",
