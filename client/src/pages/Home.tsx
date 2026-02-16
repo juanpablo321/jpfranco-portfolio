@@ -39,16 +39,7 @@ export default function Home() {
         <div className="container relative z-10 flex items-end min-h-screen pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end w-full">
             {/* Left: Text Content */}
-            <div className="space-y-6 lg:space-y-8 pb-8 lg:pb-24 pt-20">
-              {/* Mobile Hero Image - shown above text on small screens */}
-              <div className="lg:hidden flex justify-center -mb-2">
-                <img
-                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/YyjfGGBvJOsqUuDo.png"
-                  alt="Juan Pablo Franco"
-                  className="w-auto object-contain drop-shadow-2xl"
-                  style={{ height: '280px' }}
-                />
-              </div>
+            <div className="space-y-6 lg:space-y-8 pb-0 lg:pb-24 pt-20">
               <h1 className="text-white text-center lg:text-left">
                 Estratega de Expansión Digital
               </h1>
@@ -56,7 +47,7 @@ export default function Home() {
                 Transformando negocios a través de estrategias de comercio digital
                 basadas en datos en Colombia y el mundo.
               </p>
-              <div className="pt-4 flex justify-center lg:justify-start">
+              <div className="pt-4 pb-4 flex justify-center lg:justify-start">
                 <button
                   onClick={() =>
                     document
@@ -67,6 +58,15 @@ export default function Home() {
                 >
                   Agendar Consultoría Gratuita
                 </button>
+              </div>
+              {/* Mobile Hero Image - positioned after CTA, bottom-aligned with blue section */}
+              <div className="lg:hidden flex justify-center pt-4">
+                <img
+                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/YyjfGGBvJOsqUuDo.png"
+                  alt="Juan Pablo Franco"
+                  className="w-auto object-contain object-bottom drop-shadow-2xl"
+                  style={{ height: '320px', marginBottom: '-1px' }}
+                />
               </div>
             </div>
 
