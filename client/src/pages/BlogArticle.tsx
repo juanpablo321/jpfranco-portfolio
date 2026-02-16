@@ -19,7 +19,12 @@ export default function BlogArticle() {
     if (!article) return "";
     const markdown = blogContent[article.slug];
     if (!markdown) return "<p>El contenido del artículo no está disponible en este momento.</p>";
-    return marked.parse(markdown) as string;
+    // Remove the first H1 from markdown content (it duplicates the page title)
+    // and downgrade remaining H1s to H2 to avoid SEO conflicts
+    const cleanedMarkdown = markdown
+      .replace(/^# .+\n/, '') // Remove first H1 line
+      .replace(/^# /gm, '## '); // Downgrade any remaining H1 to H2
+    return marked.parse(cleanedMarkdown) as string;
   }, [article]);
 
   useEffect(() => {

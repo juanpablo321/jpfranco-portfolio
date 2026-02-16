@@ -76,10 +76,10 @@ export default function Footer() {
             © 2026 Juan Pablo Franco. Todos los derechos reservados.
           </p>
           <div className="flex gap-6 text-base">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <a href="/privacidad" className="text-muted-foreground hover:text-primary transition-colors">
               Privacidad
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <a href="/terminos" className="text-muted-foreground hover:text-primary transition-colors">
               Términos
             </a>
           </div>

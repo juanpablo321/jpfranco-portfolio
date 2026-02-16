@@ -1,3 +1,4 @@
+// Blog content data - auto-generated
 // Auto-generated from markdown files - DO NOT EDIT MANUALLY
 export const blogContent: Record<string, string> = {
   "integracion-sistemas-legacy-comercio-digital-2026": `# ¿Por Qué Fracasan las Integraciones de Sistemas Legacy con Plataformas de Comercio Digital? El Problema No Es Técnico
