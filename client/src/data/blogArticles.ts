@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "integracion-sistemas-legacy-comercio-digital-2026",
+    title: "¿Por Qué Fracasan las Integraciones de Sistemas Legacy con Plataformas de Comercio Digital? El Problema No Es Técnico",
+    excerpt: "La mayoría de proyectos de integración entre sistemas antiguos y plataformas de comercio digital fracasan por una razón que casi nadie admite: el enfoque está mal. Descubre por qué la resistencia cultural, no la tecnología, es el verdadero obstáculo.",
+    category: "Expansión Digital",
+    date: "16 de Febrero, 2026",
+    readTime: "11 min",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=675&fit=crop",
+    keywords: ["integración sistemas legacy", "transformación digital empresas", "migración sistemas antiguos", "comercio digital B2B", "resistencia al cambio digital", "integración ERP eCommerce", "modernización sistemas empresariales", "change management transformación digital", "integración plataformas comercio", "gestión del cambio organizacional"]
+  },
+  {
     slug: "ai-sdr-tools-prospeccion-leads-b2b-2026",
     title: "AI SDR Tools: Cómo la IA Está Revolucionando la Prospección y Generación de Leads B2B en 2026",
     excerpt: "Descubre cómo las herramientas de AI SDR (Sales Development Representative) están automatizando la prospección B2B, cualificando leads con precisión y transformando los equipos de ventas con inteligencia artificial multicanal.",
