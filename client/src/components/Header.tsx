@@ -5,6 +5,7 @@
  */
 
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,16 +62,17 @@ export default function Header() {
       <div className="container">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <button
+          <Link
+            href="/"
             onClick={handleLogoClick}
             className="flex items-center hover:opacity-80 transition-opacity z-50"
           >
             <img
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/hRFdEuEvuNZudCry.png"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/khJkEFbJFeiDPXxI.png"
               alt="Juan Pablo Franco"
               className="h-12 w-auto"
             />
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
