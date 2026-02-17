@@ -25,3 +25,14 @@
 - [x] Add article content to blogContent.ts
 - [x] Save checkpoint to publish the new article
 - [x] Update footer Enlaces section links (Analizador SEO, Servicios, Contacto)
+- [x] Rebuild SEO Analyzer into Market Intelligence tool
+- [x] Research and integrate APIs (SimilarWeb Data API, OpenPageRank)
+- [x] Backend: tRPC procedures for market analysis with country/industry params
+- [x] Frontend: Country selector (Colombia preselected, LATAM + grouped continents)
+- [x] Frontend: Industry selector with Colombian market leaders as benchmarks
+- [x] Frontend: Comparative charts (traffic, bounce rate, session duration)
+- [x] Frontend: Competitor analysis panel with 3 local competitors
+- [x] Frontend: Industry benchmarking comparison view
+- [x] Write vitest tests for market intelligence backend (39 tests passing)
+- [x] End-to-end testing and checkpoint
+- [x] Fix blogContent.ts HTML-to-Markdown conversion error

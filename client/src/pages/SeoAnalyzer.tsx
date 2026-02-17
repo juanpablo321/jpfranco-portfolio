@@ -1,189 +1,355 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { trpc } from "@/lib/trpc";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Search,
-  AlertTriangle,
-  AlertCircle,
-  Info,
-  CheckCircle2,
-  XCircle,
   Globe,
-  Clock,
-  FileText,
-  Image,
-  Link2,
-  Shield,
-  Smartphone,
-  Share2,
   TrendingUp,
   BarChart3,
   ArrowLeft,
   Loader2,
+  Users,
+  Clock,
+  MousePointerClick,
+  FileStack,
+  Trophy,
+  Target,
+  Lightbulb,
+  ArrowUpRight,
+  ArrowDownRight,
+  Minus,
+  Building2,
+  AlertCircle,
+  Info,
 } from "lucide-react";
 import { Link } from "wouter";
+import {
+  COUNTRIES,
+  INDUSTRIES,
+  formatNumber,
+  formatDuration,
+  formatPercent,
+  type MarketIntelligenceResult,
+} from "@shared/marketIntelligence";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+} from "chart.js";
+import { Bar, Doughnut, Radar } from "react-chartjs-2";
 
-// ─── Score Circle Component ──────────────────────────────────────────────────
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler
+);
 
-function ScoreCircle({
-  score,
-  label,
-  size = 120,
-  unavailable = false,
-}: {
-  score: number;
-  label: string;
-  size?: number;
-  unavailable?: boolean;
-}) {
-  const radius = (size - 12) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const displayScore = unavailable ? 0 : score;
-  const offset = circumference - (displayScore / 100) * circumference;
-  const color =
-    displayScore >= 80
-      ? "oklch(0.65 0.20 145)"
-      : displayScore >= 50
-        ? "oklch(0.75 0.18 85)"
-        : displayScore > 0
-          ? "oklch(0.60 0.22 25)"
-          : "oklch(0.85 0 0)";
-
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="relative" style={{ width: size, height: size }}>
-        <svg width={size} height={size} className="-rotate-90">
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            fill="none"
-            stroke="oklch(0.90 0 0)"
-            strokeWidth="8"
-          />
-          {!unavailable && (
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="none"
-              stroke={color}
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={offset}
-              style={{ transition: "stroke-dashoffset 1s ease-out" }}
-            />
-          )}
-        </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          {unavailable ? (
-            <span className="text-sm font-medium text-muted-foreground">N/D</span>
-          ) : (
-            <span className="text-2xl font-bold">{score}</span>
-          )}
-        </div>
-      </div>
-      <span className="text-sm font-medium text-muted-foreground">{label}</span>
-    </div>
-  );
-}
-
-// ─── Issue Badge ─────────────────────────────────────────────────────────────
-
-function IssueBadge({ type }: { type: "critical" | "warning" | "info" }) {
-  if (type === "critical")
-    return (
-      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-700">
-        <XCircle size={12} /> Crítico
-      </span>
-    );
-  if (type === "warning")
-    return (
-      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
-        <AlertTriangle size={12} /> Advertencia
-      </span>
-    );
-  return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
-      <Info size={12} /> Info
-    </span>
-  );
-}
-
-// ─── Check Item ──────────────────────────────────────────────────────────────
-
-function CheckItem({
-  label,
-  passed,
-  detail,
-}: {
-  label: string;
-  passed: boolean;
-  detail?: string;
-}) {
-  return (
-    <div className="flex items-start gap-3 py-3 border-b border-border/50 last:border-0">
-      {passed ? (
-        <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-      ) : (
-        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-      )}
-      <div>
-        <p className="font-medium text-sm">{label}</p>
-        {detail && (
-          <p className="text-xs text-muted-foreground mt-0.5">{detail}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ─── Metric Card ─────────────────────────────────────────────────────────────
+// ─── Metric Card Component ──────────────────────────────────────────────────
 
 function MetricCard({
   label,
   value,
   icon: Icon,
+  subtitle,
+  trend,
 }: {
   label: string;
-  value: string | number | null;
+  value: string;
   icon: React.ElementType;
+  subtitle?: string;
+  trend?: "up" | "down" | "neutral";
 }) {
   return (
-    <div className="rounded-lg border bg-card p-4">
-      <div className="flex items-center gap-2 mb-2">
-        <Icon className="w-4 h-4 text-primary" />
+    <div className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+          <Icon className="w-4 h-4 text-primary" />
+        </div>
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
           {label}
         </span>
       </div>
-      <p className="text-lg font-bold">
-        {value !== null && value !== undefined ? String(value) : "N/A"}
-      </p>
+      <div className="flex items-end gap-2">
+        <p className="text-2xl font-bold">{value}</p>
+        {trend && (
+          <span className={`text-xs font-medium flex items-center gap-0.5 mb-1 ${
+            trend === "up" ? "text-green-600" : trend === "down" ? "text-red-500" : "text-muted-foreground"
+          }`}>
+            {trend === "up" ? <ArrowUpRight size={12} /> : trend === "down" ? <ArrowDownRight size={12} /> : <Minus size={12} />}
+          </span>
+        )}
+      </div>
+      {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
     </div>
   );
 }
 
-// ─── Main Component ──────────────────────────────────────────────────────────
+// ─── Benchmark Bar Component ────────────────────────────────────────────────
+
+function BenchmarkBar({
+  label,
+  siteValue,
+  industryAvg,
+  topPlayer,
+  topPlayerName,
+  unit,
+  higherIsBetter,
+  formatFn,
+}: {
+  label: string;
+  siteValue: number | null;
+  industryAvg: number | null;
+  topPlayer: number | null;
+  topPlayerName: string;
+  unit: string;
+  higherIsBetter: boolean;
+  formatFn: (v: number | null) => string;
+}) {
+  if (siteValue === null && industryAvg === null) return null;
+
+  const maxVal = Math.max(siteValue ?? 0, industryAvg ?? 0, topPlayer ?? 0);
+  const siteWidth = maxVal > 0 ? ((siteValue ?? 0) / maxVal) * 100 : 0;
+  const avgWidth = maxVal > 0 ? ((industryAvg ?? 0) / maxVal) * 100 : 0;
+  const topWidth = maxVal > 0 ? ((topPlayer ?? 0) / maxVal) * 100 : 0;
+
+  const isGood = higherIsBetter
+    ? (siteValue ?? 0) >= (industryAvg ?? 0)
+    : (siteValue ?? 0) <= (industryAvg ?? 0);
+
+  return (
+    <div className="py-4 border-b border-border/50 last:border-0">
+      <div className="flex justify-between items-center mb-3">
+        <span className="font-semibold text-sm">{label}</span>
+        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+          isGood ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+        }`}>
+          {isGood ? "Por encima" : "Por debajo"} del promedio
+        </span>
+      </div>
+      <div className="space-y-2">
+        {/* Site */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-muted-foreground w-24 shrink-0">Tu sitio</span>
+          <div className="flex-1 bg-muted rounded-full h-3 overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${Math.max(siteWidth, 2)}%`,
+                background: isGood
+                  ? "linear-gradient(90deg, oklch(0.65 0.20 145), oklch(0.55 0.18 155))"
+                  : "linear-gradient(90deg, oklch(0.75 0.18 55), oklch(0.65 0.20 45))",
+              }}
+            />
+          </div>
+          <span className="text-xs font-bold w-20 text-right">{formatFn(siteValue)}</span>
+        </div>
+        {/* Industry Average */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-muted-foreground w-24 shrink-0">Promedio ind.</span>
+          <div className="flex-1 bg-muted rounded-full h-3 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-blue-400/70 transition-all duration-700"
+              style={{ width: `${Math.max(avgWidth, 2)}%` }}
+            />
+          </div>
+          <span className="text-xs font-medium w-20 text-right text-muted-foreground">{formatFn(industryAvg)}</span>
+        </div>
+        {/* Top Player */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-muted-foreground w-24 shrink-0 truncate" title={topPlayerName}>
+            {topPlayerName}
+          </span>
+          <div className="flex-1 bg-muted rounded-full h-3 overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${Math.max(topWidth, 2)}%`,
+                background: "linear-gradient(90deg, oklch(0.50 0.20 310), oklch(0.40 0.18 310))",
+              }}
+            />
+          </div>
+          <span className="text-xs font-medium w-20 text-right text-muted-foreground">{formatFn(topPlayer)}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Component ─────────────────────────────────────────────────────────
 
 export default function SeoAnalyzer() {
   const [url, setUrl] = useState("");
-  const [activeTab, setActiveTab] = useState<
-    "overview" | "technical" | "speed" | "traffic" | "issues"
-  >("overview");
+  const [country, setCountry] = useState("co");
+  const [industry, setIndustry] = useState("retail-ecommerce");
 
-  const analyzeMutation = trpc.seoAnalyzer.analyze.useMutation();
+  const analyzeMutation = trpc.marketIntelligence.analyze.useMutation();
 
   const handleAnalyze = () => {
     if (!url.trim()) return;
-    analyzeMutation.mutate({ url: url.trim() });
+    analyzeMutation.mutate({ url: url.trim(), country, industry });
   };
 
-  const data = analyzeMutation.data;
+  const data = analyzeMutation.data as MarketIntelligenceResult | undefined;
   const isLoading = analyzeMutation.isPending;
+
+  // Group countries for the select
+  const countryGroups = useMemo(() => {
+    const latam = COUNTRIES.filter((c) => !c.group);
+    const groups: Record<string, typeof COUNTRIES> = {};
+    for (const c of COUNTRIES) {
+      if (c.group) {
+        if (!groups[c.group]) groups[c.group] = [];
+        groups[c.group].push(c);
+      }
+    }
+    return { latam, groups };
+  }, []);
+
+  // Chart data for traffic sources
+  const trafficSourcesChart = useMemo(() => {
+    if (!data?.siteMetrics.trafficSources) return null;
+    const sources = data.siteMetrics.trafficSources;
+    const labels = Object.keys(sources).map((k) => {
+      const map: Record<string, string> = {
+        "Organic Search": "Orgánico",
+        "Paid Search": "Pago",
+        "Direct": "Directo",
+        "Display Ads": "Display",
+        "Email": "Email",
+        "Referrals": "Referidos",
+        "Social": "Social",
+        "social": "Social",
+        "organic": "Orgánico",
+        "paid": "Pago",
+        "direct": "Directo",
+        "referral": "Referidos",
+        "mail": "Email",
+        "display_ad": "Display",
+      };
+      return map[k] || k;
+    });
+    const values = Object.values(sources).map((v) => Number(v) * 100);
+    const colors = [
+      "oklch(0.55 0.20 145)", // green
+      "oklch(0.60 0.22 25)",  // red-orange
+      "oklch(0.55 0.20 260)", // blue
+      "oklch(0.65 0.18 85)",  // yellow
+      "oklch(0.50 0.20 310)", // purple
+      "oklch(0.60 0.15 180)", // teal
+      "oklch(0.70 0.12 50)",  // peach
+    ];
+
+    return {
+      labels,
+      datasets: [
+        {
+          data: values,
+          backgroundColor: colors.slice(0, values.length),
+          borderWidth: 0,
+          hoverOffset: 8,
+        },
+      ],
+    };
+  }, [data]);
+
+  // Chart data for country traffic
+  const countryTrafficChart = useMemo(() => {
+    if (!data?.siteMetrics.trafficByCountry?.length) return null;
+    const top5 = data.siteMetrics.trafficByCountry.slice(0, 5);
+    return {
+      labels: top5.map((c) => c.country || `País ${c.countryCode}`),
+      datasets: [
+        {
+          label: "% del Tráfico",
+          data: top5.map((c) => Number((c.share * 100).toFixed(1))),
+          backgroundColor: [
+            "oklch(0.55 0.20 310)",
+            "oklch(0.60 0.16 50)",
+            "oklch(0.55 0.20 260)",
+            "oklch(0.55 0.20 145)",
+            "oklch(0.65 0.18 85)",
+          ],
+          borderRadius: 6,
+          borderWidth: 0,
+        },
+      ],
+    };
+  }, [data]);
+
+  // Radar chart for benchmarking
+  const radarChart = useMemo(() => {
+    if (!data?.benchmarks?.length) return null;
+
+    // Normalize all values to 0-100 scale for radar
+    const normalize = (val: number | null, max: number) => {
+      if (val === null) return 0;
+      return Math.min(100, (val / max) * 100);
+    };
+
+    const maxValues = data.benchmarks.map((b) =>
+      Math.max(b.siteValue ?? 0, b.industryAvg ?? 0, b.topPlayer ?? 0)
+    );
+
+    return {
+      labels: data.benchmarks.map((b) => b.metric),
+      datasets: [
+        {
+          label: data.domain,
+          data: data.benchmarks.map((b, i) => {
+            const norm = normalize(b.siteValue, maxValues[i]);
+            return b.higherIsBetter ? norm : (100 - norm);
+          }),
+          backgroundColor: "rgba(234, 120, 30, 0.15)",
+          borderColor: "oklch(0.65 0.20 55)",
+          borderWidth: 2,
+          pointBackgroundColor: "oklch(0.65 0.20 55)",
+          pointRadius: 4,
+        },
+        {
+          label: "Promedio Industria",
+          data: data.benchmarks.map((b, i) => {
+            const norm = normalize(b.industryAvg, maxValues[i]);
+            return b.higherIsBetter ? norm : (100 - norm);
+          }),
+          backgroundColor: "rgba(99, 102, 241, 0.10)",
+          borderColor: "oklch(0.55 0.20 260)",
+          borderWidth: 2,
+          pointBackgroundColor: "oklch(0.55 0.20 260)",
+          pointRadius: 4,
+          borderDash: [5, 5],
+        },
+      ],
+    };
+  }, [data]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -199,50 +365,158 @@ export default function SeoAnalyzer() {
       >
         <div className="container">
           <div className="flex items-center gap-2 mb-6">
-            <Link href="/herramientas" className="text-white/70 hover:text-white text-sm flex items-center gap-1">
+            <Link
+              href="/herramientas"
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1"
+            >
               <ArrowLeft size={14} /> Herramientas
             </Link>
             <span className="text-white/40">/</span>
-            <span className="text-white/90 text-sm">Analizador de SEO</span>
+            <span className="text-white/90 text-sm">Inteligencia de Mercado</span>
           </div>
 
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-white mb-4">Analizador de SEO</h1>
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-white mb-4">Inteligencia de Mercado</h1>
             <p className="text-lg text-white/90 mb-8">
-              Ingresa cualquier URL y obtén un análisis completo de SEO con
-              score, velocidad, meta tags, estructura y datos de tráfico.
+              Analiza cualquier sitio web y compáralo contra los líderes de tu
+              industria en Colombia y Latinoamérica. Métricas reales de tráfico,
+              benchmarking y análisis competitivo.
             </p>
 
-            {/* URL Input */}
-            <div className="flex gap-3 max-w-2xl mx-auto">
-              <div className="flex-1 relative">
-                <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
-                  placeholder="ejemplo.com"
-                  className="w-full pl-12 pr-4 py-4 rounded-xl text-foreground bg-white text-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  disabled={isLoading}
-                />
+            {/* Input Form */}
+            <div className="max-w-4xl mx-auto space-y-4">
+              {/* URL Input */}
+              <div className="flex gap-3">
+                <div className="flex-1 relative">
+                  <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
+                    placeholder="ejemplo.com"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl text-foreground bg-white text-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    disabled={isLoading}
+                  />
+                </div>
               </div>
-              <Button
-                onClick={handleAnalyze}
-                disabled={isLoading || !url.trim()}
-                className="px-8 py-4 text-lg bg-primary hover:bg-primary/90 text-white rounded-xl h-auto"
-              >
-                {isLoading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Search className="w-5 h-5" />
-                )}
-                <span className="ml-2">Analizar</span>
-              </Button>
+
+              {/* Selectors Row */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                {/* Country Selector */}
+                <div className="flex-1">
+                  <Select value={country} onValueChange={setCountry} disabled={isLoading}>
+                    <SelectTrigger className="bg-white/95 text-foreground h-12 rounded-xl border-0 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Target className="w-4 h-4 text-primary" />
+                        <span className="text-muted-foreground text-xs mr-1">Audiencia:</span>
+                        <SelectValue placeholder="Seleccionar país" />
+                      </div>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Latinoamérica y EEUU</SelectLabel>
+                        {countryGroups.latam.map((c) => (
+                          <SelectItem key={c.code} value={c.code}>
+                            {c.flag} {c.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                      {Object.entries(countryGroups.groups).map(([group, countries]) => (
+                        <SelectGroup key={group}>
+                          <SelectLabel>{group}</SelectLabel>
+                          {countries.map((c) => (
+                            <SelectItem key={c.code} value={c.code}>
+                              {c.flag} {c.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Industry Selector */}
+                <div className="flex-1">
+                  <Select value={industry} onValueChange={setIndustry} disabled={isLoading}>
+                    <SelectTrigger className="bg-white/95 text-foreground h-12 rounded-xl border-0 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-primary" />
+                        <span className="text-muted-foreground text-xs mr-1">Industria:</span>
+                        <SelectValue placeholder="Seleccionar industria" />
+                      </div>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {INDUSTRIES.map((ind) => (
+                        <SelectItem key={ind.id} value={ind.id}>
+                          {ind.icon} {ind.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Analyze Button */}
+                <Button
+                  onClick={handleAnalyze}
+                  disabled={isLoading || !url.trim()}
+                  className="px-8 h-12 text-base bg-primary hover:bg-primary/90 text-white rounded-xl"
+                >
+                  {isLoading ? (
+                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                  ) : (
+                    <Search className="w-5 h-5 mr-2" />
+                  )}
+                  Analizar Competencia
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* What does this tool analyze? - shown before results */}
+      {!data && !isLoading && !analyzeMutation.isError && (
+        <section className="py-16">
+          <div className="container max-w-5xl mx-auto">
+            <h2 className="text-2xl font-bold text-center mb-10">
+              ¿Qué analiza esta herramienta?
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center p-6 rounded-xl border bg-card">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <BarChart3 className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Métricas de Tráfico</h3>
+                <p className="text-sm text-muted-foreground">
+                  Visitas mensuales, tasa de rebote, duración de sesión y
+                  distribución geográfica del tráfico con datos de SimilarWeb.
+                </p>
+              </div>
+              <div className="text-center p-6 rounded-xl border bg-card">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Trophy className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Benchmarking por Industria</h3>
+                <p className="text-sm text-muted-foreground">
+                  Compara tu sitio contra los líderes de tu industria en Colombia:
+                  Mercado Libre, Rappi, Bancolombia y más.
+                </p>
+              </div>
+              <div className="text-center p-6 rounded-xl border bg-card">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Target className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Análisis Competitivo</h3>
+                <p className="text-sm text-muted-foreground">
+                  Identifica tus 3 competidores directos locales y obtén insights
+                  estratégicos para tu mercado objetivo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Loading State */}
       {isLoading && (
@@ -252,10 +526,13 @@ export default function SeoAnalyzer() {
             <h3 className="text-xl font-semibold mb-2">
               Analizando {url}...
             </h3>
-            <p className="text-muted-foreground">
-              Esto puede tomar entre 15-60 segundos. Estamos analizando la
-              estructura HTML, velocidad con Google PageSpeed y datos de tráfico
-              con SimilarWeb.
+            <p className="text-muted-foreground max-w-md mx-auto">
+              Consultando datos de tráfico de SimilarWeb y comparando contra los
+              líderes de{" "}
+              {INDUSTRIES.find((i) => i.id === industry)?.label || "la industria"}{" "}
+              en{" "}
+              {COUNTRIES.find((c) => c.code === country)?.label || "el país seleccionado"}.
+              Esto puede tomar 15-30 segundos.
             </p>
           </div>
         </section>
@@ -286,676 +563,317 @@ export default function SeoAnalyzer() {
         </section>
       )}
 
-      {/* Results */}
+      {/* ─── Results Dashboard ─────────────────────────────────────────────── */}
       {data && !isLoading && (
         <section className="py-12">
           <div className="container max-w-6xl mx-auto">
-            {/* Overall Score Header */}
-            <div className="rounded-xl border bg-card p-8 mb-8">
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <ScoreCircle
-                  score={data.overallScore}
-                  label="Score General"
-                  size={140}
-                />
-                <div className="flex-1 text-center md:text-left">
-                  <h2 className="text-2xl font-bold mb-2">{data.domain}</h2>
-                  <p className="text-muted-foreground mb-4">
-                    Analizado el{" "}
+            {/* Header */}
+            <div className="rounded-xl border bg-card p-6 mb-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold">{data.domain}</h2>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {data.industryLabel} · {data.countryLabel} · Analizado el{" "}
                     {new Date(data.analyzedAt).toLocaleDateString("es-CO", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
                     })}
                   </p>
-                  <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <span className="inline-flex items-center gap-1 text-sm">
-                      <XCircle size={14} className="text-red-500" />
-                      {data.crawl.issues.filter((i) => i.type === "critical").length}{" "}
-                      Críticos
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-sm">
-                      <AlertTriangle size={14} className="text-amber-500" />
-                      {data.crawl.issues.filter((i) => i.type === "warning").length}{" "}
-                      Advertencias
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-sm">
-                      <Info size={14} className="text-blue-500" />
-                      {data.crawl.issues.filter((i) => i.type === "info").length}{" "}
-                      Info
-                    </span>
+                </div>
+                {data.siteMetrics.globalRank && (
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Ranking Global</p>
+                    <p className="text-3xl font-bold text-primary">
+                      #{data.siteMetrics.globalRank.toLocaleString("es-CO")}
+                    </p>
                   </div>
-                </div>
-                <div className="flex gap-6">
-                  <ScoreCircle
-                    score={data.pageSpeed.performanceScore}
-                    label="Rendimiento"
-                    size={90}
-                    unavailable={data.pageSpeed.performanceScore === 0 && data.pageSpeed.seoScore === 0 && data.pageSpeed.accessibilityScore === 0}
-                  />
-                  <ScoreCircle
-                    score={data.pageSpeed.seoScore}
-                    label="SEO"
-                    size={90}
-                    unavailable={data.pageSpeed.performanceScore === 0 && data.pageSpeed.seoScore === 0 && data.pageSpeed.accessibilityScore === 0}
-                  />
-                  <ScoreCircle
-                    score={data.pageSpeed.accessibilityScore}
-                    label="Accesibilidad"
-                    size={90}
-                    unavailable={data.pageSpeed.performanceScore === 0 && data.pageSpeed.seoScore === 0 && data.pageSpeed.accessibilityScore === 0}
-                  />
-                </div>
+                )}
               </div>
             </div>
 
-            {/* Tabs */}
-            <div className="flex gap-1 mb-8 overflow-x-auto pb-2 border-b">
-              {[
-                { id: "overview" as const, label: "Resumen", icon: BarChart3 },
-                { id: "technical" as const, label: "Técnico", icon: FileText },
-                { id: "speed" as const, label: "Velocidad", icon: Clock },
-                { id: "traffic" as const, label: "Tráfico", icon: TrendingUp },
-                { id: "issues" as const, label: "Problemas", icon: AlertTriangle },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? "bg-primary/10 text-primary border-b-2 border-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  }`}
-                >
-                  <tab.icon size={16} />
-                  {tab.label}
-                  {tab.id === "issues" && (
-                    <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs bg-red-100 text-red-700">
-                      {data.crawl.issues.length}
-                    </span>
-                  )}
-                </button>
-              ))}
+            {/* API Availability Banner */}
+            {!(data as any).apiAvailable && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800 p-4 mb-8 flex items-start gap-3">
+                <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
+                    Datos en vivo temporalmente no disponibles
+                  </p>
+                  <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">
+                    Las métricas de tráfico del sitio no están disponibles en este momento. El benchmarking, competidores e insights estratégicos se generan con datos de la industria y análisis de IA.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* KPI Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <MetricCard
+                label="Visitas Mensuales"
+                value={formatNumber(data.siteMetrics.totalVisits)}
+                icon={Users}
+                subtitle="Últimos 3 meses"
+              />
+              <MetricCard
+                label="Tasa de Rebote"
+                value={formatPercent(data.siteMetrics.bounceRate)}
+                icon={MousePointerClick}
+                subtitle="Promedio mundial"
+              />
+              <MetricCard
+                label="Duración Sesión"
+                value={formatDuration(data.siteMetrics.avgSessionDuration)}
+                icon={Clock}
+                subtitle="Promedio por visita"
+              />
+              <MetricCard
+                label="Páginas / Visita"
+                value={data.siteMetrics.pagesPerVisit?.toFixed(1) ?? "N/D"}
+                icon={FileStack}
+                subtitle="Promedio por sesión"
+              />
             </div>
 
-            {/* Tab Content */}
-            <div className="space-y-8">
-              {/* Overview Tab */}
-              {activeTab === "overview" && (
-                <>
-                  {/* Quick Checks */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <Shield className="w-5 h-5 text-primary" />
-                        Verificaciones Básicas
-                      </h3>
-                      <CheckItem
-                        label="HTTPS habilitado"
-                        passed={data.crawl.hasHttps}
-                        detail={
-                          data.crawl.hasHttps
-                            ? "El sitio usa conexión segura"
-                            : "El sitio no usa HTTPS"
-                        }
-                      />
-                      <CheckItem
-                        label="Meta viewport"
-                        passed={data.crawl.hasViewport}
-                        detail="Compatibilidad con dispositivos móviles"
-                      />
-                      <CheckItem
-                        label="Robots.txt"
-                        passed={data.crawl.hasRobotsTxt}
-                        detail="Control de rastreo para buscadores"
-                      />
-                      <CheckItem
-                        label="Sitemap.xml"
-                        passed={data.crawl.hasSitemap}
-                        detail="Mapa del sitio para indexación"
-                      />
-                      <CheckItem
-                        label="Favicon"
-                        passed={data.crawl.hasFavicon}
-                        detail="Icono de la pestaña del navegador"
-                      />
-                    </div>
-
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <FileText className="w-5 h-5 text-primary" />
-                        Meta Tags
-                      </h3>
-                      <CheckItem
-                        label="Title tag"
-                        passed={data.crawl.title.length > 0}
-                        detail={
-                          data.crawl.title
-                            ? `"${data.crawl.title.substring(0, 60)}${data.crawl.title.length > 60 ? "..." : ""}" (${data.crawl.title.length} caracteres)`
-                            : "No encontrado"
-                        }
-                      />
-                      <CheckItem
-                        label="Meta description"
-                        passed={data.crawl.metaDescription.length > 0}
-                        detail={
-                          data.crawl.metaDescription
-                            ? `${data.crawl.metaDescription.length} caracteres`
-                            : "No encontrada"
-                        }
-                      />
-                      <CheckItem
-                        label="Canonical URL"
-                        passed={data.crawl.canonical.length > 0}
-                        detail={data.crawl.canonical || "No encontrada"}
-                      />
-                      <CheckItem
-                        label="Open Graph tags"
-                        passed={Object.keys(data.crawl.ogTags).length > 0}
-                        detail={`${Object.keys(data.crawl.ogTags).length} tags encontrados`}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Content Stats */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <MetricCard
-                      label="Palabras"
-                      value={data.crawl.wordCount.toLocaleString()}
-                      icon={FileText}
-                    />
-                    <MetricCard
-                      label="Imágenes"
-                      value={`${data.crawl.totalImages} (${data.crawl.imgWithoutAlt} sin alt)`}
-                      icon={Image}
-                    />
-                    <MetricCard
-                      label="Links internos"
-                      value={data.crawl.internalLinks}
-                      icon={Link2}
-                    />
-                    <MetricCard
-                      label="Links externos"
-                      value={data.crawl.externalLinks}
-                      icon={Globe}
+            {/* Two Column Layout: Charts + Benchmarking */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              {/* Traffic Sources Chart */}
+              <div className="rounded-xl border bg-card p-6">
+                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  Fuentes de Tráfico
+                </h3>
+                {trafficSourcesChart && trafficSourcesChart.labels.length > 0 ? (
+                  <div className="flex items-center justify-center" style={{ height: 280 }}>
+                    <Doughnut
+                      data={trafficSourcesChart}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            position: "right",
+                            labels: {
+                              usePointStyle: true,
+                              pointStyle: "circle",
+                              padding: 16,
+                              font: { size: 11 },
+                            },
+                          },
+                          tooltip: {
+                            callbacks: {
+                              label: (ctx) => `${ctx.label}: ${ctx.parsed.toFixed(1)}%`,
+                            },
+                          },
+                        },
+                        cutout: "60%",
+                      }}
                     />
                   </div>
-
-                  {/* Headings Structure */}
-                  <div className="rounded-xl border bg-card p-6">
-                    <h3 className="text-lg font-semibold mb-4">
-                      Estructura de Encabezados
-                    </h3>
-                    <div className="space-y-3">
-                      <div>
-                        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          H1 ({data.crawl.h1Tags.length})
-                        </span>
-                        {data.crawl.h1Tags.length > 0 ? (
-                          <ul className="mt-1 space-y-1">
-                            {data.crawl.h1Tags.map((h, i) => (
-                              <li key={i} className="text-sm pl-4 border-l-2 border-primary">
-                                {h}
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="text-sm text-red-500 mt-1">
-                            No se encontraron H1
-                          </p>
-                        )}
-                      </div>
-                      <div>
-                        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          H2 ({data.crawl.h2Tags.length})
-                        </span>
-                        {data.crawl.h2Tags.length > 0 ? (
-                          <ul className="mt-1 space-y-1">
-                            {data.crawl.h2Tags.slice(0, 10).map((h, i) => (
-                              <li key={i} className="text-sm pl-4 border-l-2 border-primary/50">
-                                {h}
-                              </li>
-                            ))}
-                            {data.crawl.h2Tags.length > 10 && (
-                              <li className="text-sm text-muted-foreground pl-4">
-                                ... y {data.crawl.h2Tags.length - 10} más
-                              </li>
-                            )}
-                          </ul>
-                        ) : (
-                          <p className="text-sm text-muted-foreground mt-1">
-                            No se encontraron H2
-                          </p>
-                        )}
-                      </div>
-                    </div>
+                ) : (
+                  <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+                    No hay datos de fuentes de tráfico disponibles
                   </div>
-                </>
-              )}
+                )}
+              </div>
 
-              {/* Technical Tab */}
-              {activeTab === "technical" && (
-                <>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <MetricCard
-                      label="Tamaño HTML"
-                      value={`${(data.crawl.htmlSize / 1024).toFixed(0)} KB`}
-                      icon={FileText}
-                    />
-                    <MetricCard
-                      label="Tiempo de carga"
-                      value={`${(data.crawl.loadTimeMs / 1000).toFixed(1)}s`}
-                      icon={Clock}
-                    />
-                    <MetricCard
-                      label="Encabezados H1"
-                      value={data.crawl.h1Tags.length}
-                      icon={FileText}
-                    />
-                    <MetricCard
-                      label="Encabezados H2"
-                      value={data.crawl.h2Tags.length}
-                      icon={FileText}
+              {/* Country Traffic Chart */}
+              <div className="rounded-xl border bg-card p-6">
+                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-primary" />
+                  Tráfico por País
+                </h3>
+                {countryTrafficChart && countryTrafficChart.labels.length > 0 ? (
+                  <div style={{ height: 280 }}>
+                    <Bar
+                      data={countryTrafficChart}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: "y",
+                        plugins: {
+                          legend: { display: false },
+                          tooltip: {
+                            callbacks: {
+                              label: (ctx) => `${ctx.parsed.x}% del tráfico`,
+                            },
+                          },
+                        },
+                        scales: {
+                          x: {
+                            grid: { display: false },
+                            ticks: { callback: (v) => `${v}%` },
+                          },
+                          y: {
+                            grid: { display: false },
+                          },
+                        },
+                      }}
                     />
                   </div>
+                ) : (
+                  <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+                    No hay datos de tráfico por país disponibles
+                  </div>
+                )}
+              </div>
+            </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <Smartphone className="w-5 h-5 text-primary" />
-                        Mobile & Accesibilidad
-                      </h3>
-                      <CheckItem
-                        label="Meta viewport configurado"
-                        passed={data.crawl.hasViewport}
-                      />
-                      <CheckItem
-                        label="Imágenes con alt text"
-                        passed={data.crawl.imgWithoutAlt === 0}
-                        detail={
-                          data.crawl.imgWithoutAlt > 0
-                            ? `${data.crawl.imgWithoutAlt} imágenes sin alt`
-                            : "Todas las imágenes tienen alt"
+            {/* Benchmarking Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+              {/* Benchmark Bars */}
+              <div className="lg:col-span-2 rounded-xl border bg-card p-6">
+                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-primary" />
+                  Benchmarking vs. {data.industryLabel}
+                </h3>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Comparación contra el promedio de la industria y el líder del mercado en {data.countryLabel}
+                </p>
+                {data.benchmarks.length > 0 ? (
+                  <div>
+                    {data.benchmarks.map((b, i) => (
+                      <BenchmarkBar
+                        key={i}
+                        label={b.metric}
+                        siteValue={b.siteValue}
+                        industryAvg={b.industryAvg}
+                        topPlayer={b.topPlayer}
+                        topPlayerName={b.topPlayerName}
+                        unit={b.unit}
+                        higherIsBetter={b.higherIsBetter}
+                        formatFn={
+                          b.metric === "Visitas Mensuales"
+                            ? formatNumber
+                            : b.metric === "Tasa de Rebote"
+                              ? formatPercent
+                              : b.metric === "Duración de Sesión"
+                                ? formatDuration
+                                : (v) => v?.toFixed(1) ?? "N/D"
                         }
                       />
-                      <CheckItem
-                        label="Score accesibilidad > 80"
-                        passed={data.pageSpeed.accessibilityScore >= 80}
-                        detail={`Score: ${data.pageSpeed.accessibilityScore}/100`}
-                      />
-                    </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground text-sm">
+                    No hay datos de benchmarking disponibles para esta industria/país
+                  </div>
+                )}
+              </div>
 
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <Share2 className="w-5 h-5 text-primary" />
-                        Open Graph Tags
-                      </h3>
-                      {Object.keys(data.crawl.ogTags).length > 0 ? (
-                        <div className="space-y-2">
-                          {Object.entries(data.crawl.ogTags).map(
-                            ([key, value]) => (
-                              <div key={key} className="py-2 border-b border-border/50 last:border-0">
-                                <span className="text-xs font-mono text-primary">
-                                  {key}
-                                </span>
-                                <p className="text-sm text-muted-foreground truncate">
-                                  {value}
-                                </p>
-                              </div>
-                            )
-                          )}
+              {/* Radar Chart */}
+              <div className="rounded-xl border bg-card p-6">
+                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                  Perfil Competitivo
+                </h3>
+                {radarChart ? (
+                  <div style={{ height: 280 }}>
+                    <Radar
+                      data={radarChart}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            position: "bottom",
+                            labels: {
+                              usePointStyle: true,
+                              pointStyle: "circle",
+                              padding: 12,
+                              font: { size: 10 },
+                            },
+                          },
+                        },
+                        scales: {
+                          r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { display: false },
+                            pointLabels: { font: { size: 9 } },
+                            grid: { color: "rgba(0,0,0,0.06)" },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+                    Sin datos suficientes
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Competitors Section */}
+            {data.competitors.length > 0 && (
+              <div className="rounded-xl border bg-card p-6 mb-8">
+                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <Target className="w-5 h-5 text-primary" />
+                  Competidores Directos en {data.countryLabel}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {data.competitors.map((comp, i) => (
+                    <div
+                      key={i}
+                      className="rounded-lg border bg-muted/30 p-5 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-lg font-bold text-primary">
+                          {i + 1}
                         </div>
-                      ) : (
-                        <p className="text-sm text-muted-foreground">
-                          No se encontraron Open Graph tags. Agrega og:title,
-                          og:description y og:image para mejorar cómo se ve tu
-                          sitio al compartirlo en redes sociales.
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {/* Speed Tab */}
-              {activeTab === "speed" && (
-                <>
-                  <div className="flex flex-wrap gap-8 justify-center mb-8">
-                    <ScoreCircle
-                      score={data.pageSpeed.performanceScore}
-                      label="Rendimiento"
-                      size={120}
-                    />
-                    <ScoreCircle
-                      score={data.pageSpeed.accessibilityScore}
-                      label="Accesibilidad"
-                      size={120}
-                    />
-                    <ScoreCircle
-                      score={data.pageSpeed.bestPracticesScore}
-                      label="Buenas Prácticas"
-                      size={120}
-                    />
-                    <ScoreCircle
-                      score={data.pageSpeed.seoScore}
-                      label="SEO"
-                      size={120}
-                    />
-                  </div>
-
-                  <div className="rounded-xl border bg-card p-6">
-                    <h3 className="text-lg font-semibold mb-4">
-                      Core Web Vitals
-                    </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <MetricCard
-                        label="First Contentful Paint"
-                        value={data.pageSpeed.metrics.firstContentfulPaint}
-                        icon={Clock}
-                      />
-                      <MetricCard
-                        label="Largest Contentful Paint"
-                        value={data.pageSpeed.metrics.largestContentfulPaint}
-                        icon={Clock}
-                      />
-                      <MetricCard
-                        label="Total Blocking Time"
-                        value={data.pageSpeed.metrics.totalBlockingTime}
-                        icon={Clock}
-                      />
-                      <MetricCard
-                        label="Cumulative Layout Shift"
-                        value={data.pageSpeed.metrics.cumulativeLayoutShift}
-                        icon={Clock}
-                      />
-                      <MetricCard
-                        label="Speed Index"
-                        value={data.pageSpeed.metrics.speedIndex}
-                        icon={Clock}
-                      />
-                      <MetricCard
-                        label="Time to Interactive"
-                        value={data.pageSpeed.metrics.timeToInteractive}
-                        icon={Clock}
-                      />
-                    </div>
-                  </div>
-
-                  {data.pageSpeed.diagnostics.length > 0 && (
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4">
-                        Diagnósticos
-                      </h3>
-                      <div className="space-y-3">
-                        {data.pageSpeed.diagnostics.map((d, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start gap-3 py-3 border-b border-border/50 last:border-0"
-                          >
-                            {d.score === null || d.score >= 0.9 ? (
-                              <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                            ) : d.score >= 0.5 ? (
-                              <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                            ) : (
-                              <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                            )}
-                            <div className="flex-1">
-                              <p className="font-medium text-sm">{d.title}</p>
-                              {d.displayValue && (
-                                <p className="text-xs text-muted-foreground">
-                                  {d.displayValue}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        ))}
+                        <div>
+                          <p className="font-semibold text-sm">{comp.name}</p>
+                          <p className="text-xs text-muted-foreground">{comp.domain}</p>
+                        </div>
+                        {comp.isIndustryLeader && (
+                          <span className="ml-auto text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
+                            Líder
+                          </span>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 text-sm">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Visitas/mes</p>
+                          <p className="font-semibold">{formatNumber(comp.totalVisits)}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Rebote</p>
+                          <p className="font-semibold">{formatPercent(comp.bounceRate)}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Sesión</p>
+                          <p className="font-semibold">{formatDuration(comp.avgSessionDuration)}</p>
+                        </div>
                       </div>
                     </div>
-                  )}
-                </>
-              )}
-
-              {/* Traffic Tab */}
-              {activeTab === "traffic" && (
-                <>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <MetricCard
-                      label="Ranking Global"
-                      value={
-                        data.similarWeb.globalRank
-                          ? `#${data.similarWeb.globalRank.toLocaleString()}`
-                          : "N/A"
-                      }
-                      icon={TrendingUp}
-                    />
-                    <MetricCard
-                      label="Visitas Totales"
-                      value={
-                        data.similarWeb.totalVisits
-                          ? data.similarWeb.totalVisits >= 1000000
-                            ? `${(data.similarWeb.totalVisits / 1000000).toFixed(1)}M`
-                            : data.similarWeb.totalVisits >= 1000
-                              ? `${(data.similarWeb.totalVisits / 1000).toFixed(1)}K`
-                              : data.similarWeb.totalVisits.toLocaleString()
-                          : "N/A"
-                      }
-                      icon={Globe}
-                    />
-                    <MetricCard
-                      label="Bounce Rate"
-                      value={
-                        data.similarWeb.bounceRate !== null
-                          ? `${(data.similarWeb.bounceRate * 100).toFixed(1)}%`
-                          : "N/A"
-                      }
-                      icon={BarChart3}
-                    />
-                    <MetricCard
-                      label="Fuentes de Tráfico"
-                      value={Object.keys(data.similarWeb.trafficSources).length}
-                      icon={Share2}
-                    />
-                  </div>
-
-                  {/* Traffic by Country */}
-                  {data.similarWeb.trafficByCountry.length > 0 && (
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4">
-                        Tráfico por País
-                      </h3>
-                      <div className="space-y-3">
-                        {data.similarWeb.trafficByCountry.map((c, i) => (
-                          <div
-                            key={i}
-                            className="flex items-center gap-4"
-                          >
-                            <span className="w-8 text-center text-lg font-bold text-muted-foreground">
-                              {i + 1}
-                            </span>
-                            <span className="flex-1 font-medium">
-                              {c.country}
-                            </span>
-                            <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
-                              <div
-                                className="h-full bg-primary rounded-full"
-                                style={{
-                                  width: `${Math.min(c.share * 100, 100)}%`,
-                                }}
-                              />
-                            </div>
-                            <span className="text-sm text-muted-foreground w-16 text-right">
-                              {(c.share * 100).toFixed(1)}%
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Traffic Sources */}
-                  {Object.keys(data.similarWeb.trafficSources).length > 0 && (
-                    <div className="rounded-xl border bg-card p-6">
-                      <h3 className="text-lg font-semibold mb-4">
-                        Fuentes de Tráfico (Desktop)
-                      </h3>
-                      <div className="space-y-3">
-                        {Object.entries(data.similarWeb.trafficSources)
-                          .sort(([, a], [, b]) => b - a)
-                          .map(([source, share], i) => (
-                            <div
-                              key={i}
-                              className="flex items-center gap-4"
-                            >
-                              <span className="flex-1 font-medium capitalize">
-                                {source.replace(/_/g, " ")}
-                              </span>
-                              <div className="w-40 h-2 bg-muted rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-primary rounded-full"
-                                  style={{
-                                    width: `${Math.min(share * 100, 100)}%`,
-                                  }}
-                                />
-                              </div>
-                              <span className="text-sm text-muted-foreground w-16 text-right">
-                                {(share * 100).toFixed(1)}%
-                              </span>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {data.similarWeb.globalRank === null &&
-                    data.similarWeb.totalVisits === null && (
-                      <div className="rounded-xl border bg-card p-8 text-center">
-                        <Globe className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold mb-2">
-                          Datos de tráfico no disponibles
-                        </h3>
-                        <p className="text-muted-foreground max-w-md mx-auto">
-                          SimilarWeb no tiene datos suficientes para este dominio.
-                          Esto es común en sitios con poco tráfico o dominios
-                          nuevos.
-                        </p>
-                      </div>
-                    )}
-                </>
-              )}
-
-              {/* Issues Tab */}
-              {activeTab === "issues" && (
-                <>
-                  {/* Issues Summary */}
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-center">
-                      <p className="text-3xl font-bold text-red-700">
-                        {data.crawl.issues.filter((i) => i.type === "critical").length}
-                      </p>
-                      <p className="text-sm text-red-600">Errores Críticos</p>
-                    </div>
-                    <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-center">
-                      <p className="text-3xl font-bold text-amber-700">
-                        {data.crawl.issues.filter((i) => i.type === "warning").length}
-                      </p>
-                      <p className="text-sm text-amber-600">Advertencias</p>
-                    </div>
-                    <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-center">
-                      <p className="text-3xl font-bold text-blue-700">
-                        {data.crawl.issues.filter((i) => i.type === "info").length}
-                      </p>
-                      <p className="text-sm text-blue-600">Informativo</p>
-                    </div>
-                  </div>
-
-                  {/* Issues List */}
-                  <div className="rounded-xl border bg-card">
-                    {data.crawl.issues.length === 0 ? (
-                      <div className="p-8 text-center">
-                        <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold mb-2">
-                          Sin problemas detectados
-                        </h3>
-                        <p className="text-muted-foreground">
-                          El sitio pasó todas las verificaciones básicas de SEO.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="divide-y">
-                        {data.crawl.issues
-                          .sort((a, b) => {
-                            const order = { critical: 0, warning: 1, info: 2 };
-                            return order[a.type] - order[b.type];
-                          })
-                          .map((issue, i) => (
-                            <div key={i} className="p-5">
-                              <div className="flex items-start gap-3">
-                                <IssueBadge type={issue.type} />
-                                <div className="flex-1">
-                                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                    {issue.category}
-                                  </span>
-                                  <p className="font-medium mt-1">
-                                    {issue.message}
-                                  </p>
-                                  <p className="text-sm text-muted-foreground mt-2 bg-muted/50 rounded-lg p-3">
-                                    💡 {issue.recommendation}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Section */}
-      {!data && !isLoading && (
-        <section className="py-20">
-          <div className="container max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">
-              ¿Qué analiza esta herramienta?
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
-                  <FileText className="w-7 h-7 text-primary" />
+                  ))}
                 </div>
-                <h3 className="text-xl font-semibold">SEO On-Page</h3>
-                <p className="text-muted-foreground">
-                  Meta tags, estructura de encabezados, imágenes, links,
-                  robots.txt y sitemap.
-                </p>
               </div>
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
-                  <Clock className="w-7 h-7 text-primary" />
+            )}
+
+            {/* Insights Section */}
+            {data.insights.length > 0 && (
+              <div className="rounded-xl border bg-card p-6">
+                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-primary" />
+                  Insights Estratégicos
+                </h3>
+                <div className="space-y-3">
+                  {data.insights.map((insight, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 border border-border/50"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-xs font-bold text-primary">{i + 1}</span>
+                      </div>
+                      <p className="text-sm leading-relaxed">{insight}</p>
+                    </div>
+                  ))}
                 </div>
-                <h3 className="text-xl font-semibold">Velocidad</h3>
-                <p className="text-muted-foreground">
-                  Core Web Vitals, Lighthouse scores, diagnósticos de
-                  rendimiento y recomendaciones.
-                </p>
               </div>
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
-                  <TrendingUp className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">Tráfico</h3>
-                <p className="text-muted-foreground">
-                  Ranking global, visitas, bounce rate, tráfico por país y
-                  fuentes de tráfico.
-                </p>
-              </div>
-            </div>
+            )}
           </div>
         </section>
       )}
