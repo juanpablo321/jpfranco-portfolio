@@ -41,6 +41,8 @@ function getDateRange() {
 }
 
 // ─── SimilarWeb Data Fetchers ───────────────────────────────────────────────
+// API responses come wrapped in { meta: {...}, <data_key>: [...] }
+// The callDataApi helper returns the full parsed JSON object.
 
 async function fetchSiteMetrics(domain: string): Promise<{ metrics: SiteMetrics; apiAvailable: boolean }> {
   const { startDate, endDate } = getDateRange();
@@ -86,84 +88,153 @@ async function fetchSiteMetrics(domain: string): Promise<{ metrics: SiteMetrics;
     ]);
 
   // Process Global Rank
+  // Response: { meta: {...}, global_rank: [{ date: "2025-11", global_rank: 30851 }, ...] }
   if (rankResult.status === "fulfilled") {
-    const data = rankResult.value as Record<string, unknown>[];
-    if (Array.isArray(data) && data.length > 0) {
-      const latest = data[data.length - 1] as Record<string, number>;
-      if (latest.global_rank) {
-        metrics.globalRank = latest.global_rank;
-        apiAvailable = true;
+    try {
+      const resp = rankResult.value as Record<string, unknown>;
+      const rankArray = resp.global_rank as Array<{ date: string; global_rank: number }> | undefined;
+      if (Array.isArray(rankArray) && rankArray.length > 0) {
+        const latest = rankArray[rankArray.length - 1];
+        if (latest.global_rank) {
+          metrics.globalRank = latest.global_rank;
+          apiAvailable = true;
+        }
       }
+    } catch (e) {
+      console.error("[MarketIntelligence] Error parsing global rank:", e);
     }
   }
 
   // Process Bounce Rate
+  // Response: { meta: {...}, bounce_rate: [{ date: "2025-11-01", bounce_rate: 0.227 }, ...] }
   if (bounceResult.status === "fulfilled") {
-    const data = bounceResult.value as Record<string, unknown>[];
-    if (Array.isArray(data) && data.length > 0) {
-      const latest = data[data.length - 1] as Record<string, number>;
-      if (latest.bounce_rate !== undefined && latest.bounce_rate !== null) {
-        metrics.bounceRate = latest.bounce_rate;
-        apiAvailable = true;
+    try {
+      const resp = bounceResult.value as Record<string, unknown>;
+      const bounceArray = resp.bounce_rate as Array<{ date: string; bounce_rate: number }> | undefined;
+      if (Array.isArray(bounceArray) && bounceArray.length > 0) {
+        const latest = bounceArray[bounceArray.length - 1];
+        if (latest.bounce_rate !== undefined && latest.bounce_rate !== null) {
+          metrics.bounceRate = latest.bounce_rate;
+          apiAvailable = true;
+        }
       }
+    } catch (e) {
+      console.error("[MarketIntelligence] Error parsing bounce rate:", e);
     }
   }
 
   // Process Total Visits
+  // Response: { meta: {..., device: "Desktop"}, visits: [{ date: "2025-11-01", visits: 381189.75 }, ...] }
   if (visitsResult.status === "fulfilled") {
-    const data = visitsResult.value as Record<string, unknown>[];
-    if (Array.isArray(data) && data.length > 0) {
-      const latest = data[data.length - 1] as Record<string, number>;
-      if (latest.visits) {
-        metrics.totalVisits = latest.visits;
+    try {
+      const resp = visitsResult.value as Record<string, unknown>;
+      const visitsArray = resp.visits as Array<{ date: string; visits: number }> | undefined;
+      if (Array.isArray(visitsArray) && visitsArray.length > 0) {
+        // Average the last 3 months for a more stable metric
+        const totalVisitsSum = visitsArray.reduce((sum, v) => sum + (v.visits || 0), 0);
+        const avgVisits = totalVisitsSum / visitsArray.length;
+        metrics.totalVisits = Math.round(avgVisits);
         apiAvailable = true;
       }
+    } catch (e) {
+      console.error("[MarketIntelligence] Error parsing total visits:", e);
     }
   }
 
   // Process Traffic by Country
+  // Response: { meta: {...}, records: [{ country: 170, share: 0.9775, visits: 4750123, 
+  //   pages_per_visit: 5.6, average_time: 252.5, bounce_rate: 0.22, rank: null, country_name: "Colombia" }, ...] }
   if (countryResult.status === "fulfilled") {
-    const data = countryResult.value as Record<string, unknown>[];
-    if (Array.isArray(data) && data.length > 0) {
-      metrics.trafficByCountry = data.slice(0, 10).map((c: Record<string, unknown>) => ({
-        country: String(c.country ?? ""),
-        countryCode: Number(c.country_code ?? 0),
-        share: Number(c.share ?? 0),
-        visits: Number(c.visits ?? 0),
-        pagesPerVisit: Number(c.pages_per_visit ?? 0),
-        avgTime: Number(c.average_time ?? 0),
-        bounceRate: Number(c.bounce_rate ?? 0),
-        rank: Number(c.rank ?? 0),
-      }));
-      apiAvailable = true;
+    try {
+      const resp = countryResult.value as Record<string, unknown>;
+      const records = resp.records as Array<Record<string, unknown>> | undefined;
+      if (Array.isArray(records) && records.length > 0) {
+        metrics.trafficByCountry = records.slice(0, 10).map((c) => ({
+          country: String(c.country_name ?? c.country ?? ""),
+          countryCode: Number(c.country ?? 0),
+          share: Number(c.share ?? 0),
+          visits: Number(c.visits ?? 0),
+          pagesPerVisit: Number(c.pages_per_visit ?? 0),
+          avgTime: Number(c.average_time ?? 0),
+          bounceRate: Number(c.bounce_rate ?? 0),
+          rank: Number(c.rank ?? 0),
+        }));
+        apiAvailable = true;
 
-      // Extract pages per visit and avg session duration from country data
-      if (metrics.trafficByCountry.length > 0) {
-        const totalShare = metrics.trafficByCountry.reduce((s, c) => s + c.share, 0);
-        if (totalShare > 0) {
-          metrics.pagesPerVisit = metrics.trafficByCountry.reduce(
-            (s, c) => s + c.pagesPerVisit * (c.share / totalShare), 0
-          );
-          metrics.avgSessionDuration = metrics.trafficByCountry.reduce(
-            (s, c) => s + c.avgTime * (c.share / totalShare), 0
-          );
+        // Extract pages per visit and avg session duration from country data (weighted average)
+        if (metrics.trafficByCountry.length > 0) {
+          const totalShare = metrics.trafficByCountry.reduce((s, c) => s + c.share, 0);
+          if (totalShare > 0) {
+            metrics.pagesPerVisit = metrics.trafficByCountry.reduce(
+              (s, c) => s + c.pagesPerVisit * (c.share / totalShare), 0
+            );
+            metrics.avgSessionDuration = metrics.trafficByCountry.reduce(
+              (s, c) => s + c.avgTime * (c.share / totalShare), 0
+            );
+          }
         }
       }
+    } catch (e) {
+      console.error("[MarketIntelligence] Error parsing traffic by country:", e);
     }
   }
 
   // Process Desktop Traffic Sources
+  // Response: { meta: {...}, visits: { "domain.com": [
+  //   { source_type: "Search", visits: [{ date: "...", organic: 206820, paid: 79090 }] },
+  //   { source_type: "Direct", visits: [{ date: "...", organic: 81974, paid: 0 }] }, ...
+  // ] } }
   if (desktopSourcesResult.status === "fulfilled") {
-    const data = desktopSourcesResult.value as Record<string, unknown>;
-    if (data && typeof data === "object") {
-      const overview = (data as Record<string, unknown>).overview as Record<string, unknown>[] | undefined;
-      if (Array.isArray(overview) && overview.length > 0) {
-        for (const source of overview) {
-          const name = String(source.source_type ?? "unknown");
-          metrics.trafficSources[name] = Number(source.share ?? 0);
+    try {
+      const resp = desktopSourcesResult.value as Record<string, unknown>;
+      const visitsObj = resp.visits as Record<string, unknown> | undefined;
+      if (visitsObj && typeof visitsObj === "object") {
+        // Get the first (and usually only) domain key
+        const domainKeys = Object.keys(visitsObj);
+        const domainData = domainKeys.length > 0
+          ? visitsObj[domainKeys[0]] as Array<{ source_type: string; visits: Array<{ organic: number; paid: number }> }>
+          : null;
+
+        if (Array.isArray(domainData) && domainData.length > 0) {
+          // Calculate total visits across all sources for share calculation
+          let grandTotal = 0;
+          const sourceTotals: Record<string, number> = {};
+
+          for (const source of domainData) {
+            const sourceType = source.source_type;
+            let sourceTotal = 0;
+            if (Array.isArray(source.visits)) {
+              for (const v of source.visits) {
+                sourceTotal += (v.organic || 0) + (v.paid || 0);
+              }
+            }
+            // Average over months
+            sourceTotal = sourceTotal / (source.visits?.length || 1);
+            sourceTotals[sourceType] = sourceTotal;
+            grandTotal += sourceTotal;
+          }
+
+          // Convert to shares
+          if (grandTotal > 0) {
+            for (const [sourceType, total] of Object.entries(sourceTotals)) {
+              // Map SimilarWeb source types to cleaner labels
+              const labelMap: Record<string, string> = {
+                "Search": "Organic Search",
+                "Social": "Social",
+                "Mail": "Email",
+                "Display Ads": "Display Ads",
+                "Direct": "Direct",
+                "Referrals": "Referrals",
+              };
+              const label = labelMap[sourceType] || sourceType;
+              metrics.trafficSources[label] = total / grandTotal;
+            }
+            apiAvailable = true;
+          }
         }
-        apiAvailable = true;
       }
+    } catch (e) {
+      console.error("[MarketIntelligence] Error parsing traffic sources:", e);
     }
   }
 
@@ -263,30 +334,44 @@ async function generateLLMInsights(
 ): Promise<string[]> {
   try {
     const metricsContext = apiAvailable
-      ? `Datos reales del sitio: Visitas mensuales: ${siteMetrics.totalVisits ? (siteMetrics.totalVisits / 1000000).toFixed(1) + "M" : "no disponible"}, Tasa de rebote: ${siteMetrics.bounceRate ? (siteMetrics.bounceRate * 100).toFixed(1) + "%" : "no disponible"}, Duración sesión: ${siteMetrics.avgSessionDuration ? Math.floor(siteMetrics.avgSessionDuration / 60) + "min" : "no disponible"}, Páginas/visita: ${siteMetrics.pagesPerVisit?.toFixed(1) ?? "no disponible"}.`
+      ? `Datos reales del sitio: Visitas mensuales: ${siteMetrics.totalVisits ? (siteMetrics.totalVisits / 1000000).toFixed(2) + "M" : "no disponible"}, Tasa de rebote: ${siteMetrics.bounceRate ? (siteMetrics.bounceRate * 100).toFixed(1) + "%" : "no disponible"}, Duración sesión: ${siteMetrics.avgSessionDuration ? Math.floor(siteMetrics.avgSessionDuration / 60) + "min " + Math.round(siteMetrics.avgSessionDuration % 60) + "seg" : "no disponible"}, Páginas/visita: ${siteMetrics.pagesPerVisit?.toFixed(1) ?? "no disponible"}, Ranking global: #${siteMetrics.globalRank ?? "no disponible"}.`
       : "No se pudieron obtener datos reales del sitio (API temporalmente no disponible).";
 
+    const trafficSourcesContext = Object.keys(siteMetrics.trafficSources).length > 0
+      ? "Fuentes de tráfico: " + Object.entries(siteMetrics.trafficSources)
+          .map(([k, v]) => `${k}: ${(v * 100).toFixed(1)}%`)
+          .join(", ")
+      : "";
+
+    const countryContext = siteMetrics.trafficByCountry.length > 0
+      ? "Distribución geográfica: " + siteMetrics.trafficByCountry.slice(0, 5)
+          .map((c) => `${c.country}: ${(c.share * 100).toFixed(1)}%`)
+          .join(", ")
+      : "";
+
     const benchmarkContext = benchmarks
-      .map((b) => `${b.metric}: sitio=${b.siteValue ?? "N/D"}, promedio industria=${b.industryAvg?.toFixed?.(2) ?? "N/D"}, líder=${b.topPlayerName} (${b.topPlayer})`)
+      .map((b) => `${b.metric}: sitio=${b.siteValue !== null ? (b.unit === "%" ? (Number(b.siteValue) * 100).toFixed(1) + "%" : b.unit === "seg" ? Math.round(Number(b.siteValue)) + "seg" : Number(b.siteValue).toLocaleString()) : "N/D"}, promedio industria=${b.industryAvg !== null ? (b.unit === "%" ? (Number(b.industryAvg) * 100).toFixed(1) + "%" : b.unit === "seg" ? Math.round(Number(b.industryAvg)) + "seg" : Number(b.industryAvg).toLocaleString()) : "N/D"}, líder=${b.topPlayerName}`)
       .join("\n");
 
     const competitorContext = competitors
-      .map((c) => `${c.name} (${c.domain}): ${(c.totalVisits ?? 0) / 1000000}M visitas, ${((c.bounceRate ?? 0) * 100).toFixed(0)}% rebote`)
+      .map((c) => `${c.name} (${c.domain}): ${((c.totalVisits ?? 0) / 1000000).toFixed(1)}M visitas, ${((c.bounceRate ?? 0) * 100).toFixed(0)}% rebote`)
       .join("\n");
 
     const response = await invokeLLM({
       messages: [
         {
           role: "system",
-          content: `Eres un consultor experto en marketing digital y eCommerce en Latinoamérica, especializado en el mercado de ${countryLabel}. Genera insights estratégicos accionables y específicos para el dominio analizado. Responde SOLO en español. Cada insight debe ser una oración concisa y accionable (máximo 2 líneas). No uses numeración ni viñetas.`,
+          content: `Eres un analista de inteligencia de mercado digital especializado en Colombia y Latinoamérica. Genera insights estratégicos concisos, accionables y basados en datos. Cada insight debe ser de 1-2 oraciones máximo. Responde siempre en español.`,
         },
         {
           role: "user",
           content: `Analiza el sitio ${domain} en la industria de ${industryLabel} en ${countryLabel}.
 
 ${metricsContext}
+${trafficSourcesContext}
+${countryContext}
 
-Benchmarking:
+Benchmarking vs industria:
 ${benchmarkContext}
 
 Competidores principales:
@@ -349,7 +434,7 @@ function generateStaticInsights(
 
   if (!apiAvailable) {
     insights.push(
-      `Los datos de tráfico en tiempo real no están disponibles temporalmente. El análisis se basa en los benchmarks de la industria de ${industryLabel} en ${countryLabel}. Los datos de benchmarking provienen de fuentes verificadas del mercado.`
+      `Los datos de tráfico en tiempo real no están disponibles temporalmente. El análisis se basa en los benchmarks de la industria de ${industryLabel} en ${countryLabel}.`
     );
   }
 
@@ -394,7 +479,7 @@ function generateStaticInsights(
   }
 
   const sources = siteMetrics.trafficSources;
-  const organicShare = sources["Organic Search"] ?? sources["organic"] ?? 0;
+  const organicShare = sources["Organic Search"] ?? 0;
   if (organicShare > 0.5) {
     insights.push(
       `El tráfico orgánico representa el ${(organicShare * 100).toFixed(0)}% de tus visitas. Excelente base SEO, pero diversifica con paid y social.`
