@@ -58,10 +58,10 @@ export default function Footer() {
                 Consultoría eCommerce
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                Implementación VTEX
+                Expansión Internacional
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                Desarrollo de Marketplaces
+                Análisis de Datos y BI
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                 Generación de Leads B2B

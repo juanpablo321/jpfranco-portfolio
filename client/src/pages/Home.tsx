@@ -15,6 +15,7 @@ import {
   BarChart3,
   Building2,
   CheckCircle2,
+  Globe,
   Linkedin,
   MapPin,
   Phone,
@@ -198,10 +199,10 @@ export default function Home() {
                   <ShoppingCart className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-semibold">
-                  Consultoría eCommerce & VTEX
+                  Consultoría eCommerce
                 </h3>
                 <p className="text-muted-foreground">
-                  Implementación y optimización de plataformas VTEX para
+                  Implementación y optimización de plataformas de comercio electrónico para
                   maximizar conversiones y mejorar la experiencia del usuario.
                 </p>
                 <ul className="space-y-2 text-base">
@@ -225,27 +226,27 @@ export default function Home() {
             <Card className="corp-card">
               <CardContent className="pt-8 space-y-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-primary" />
+                  <Globe className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-semibold">
-                  Desarrollo de Marketplaces
+                  Expansión Internacional de eCommerce
                 </h3>
                 <p className="text-muted-foreground">
-                  Creación y gestión de marketplaces B2B y B2C escalables con
-                  arquitectura robusta y experiencia optimizada.
+                  Estrategias de entrada a nuevos mercados, localización y adaptación
+                  cultural para llevar tu eCommerce B2B más allá de fronteras.
                 </p>
                 <ul className="space-y-2 text-base">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 size={18} className="mt-1 flex-shrink-0 text-primary" />
-                    <span>Arquitectura de marketplace</span>
+                    <span>Análisis de mercados internacionales</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 size={18} className="mt-1 flex-shrink-0 text-primary" />
-                    <span>Onboarding de sellers</span>
+                    <span>Localización y adaptación cultural</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 size={18} className="mt-1 flex-shrink-0 text-primary" />
-                    <span>Gestión de catálogos multi-vendor</span>
+                    <span>Logística y operaciones cross-border</span>
                   </li>
                 </ul>
               </CardContent>
