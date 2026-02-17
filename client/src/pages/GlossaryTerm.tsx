@@ -22,6 +22,8 @@ import {
   getTermBySlug,
   getRelatedTerms,
   getAdjacentTerms,
+  getAvailableLetters,
+  getTermsByLetter,
 } from "@/data/glossaryData";
 
 export default function GlossaryTermPage() {
@@ -33,6 +35,11 @@ export default function GlossaryTermPage() {
   const relatedTerms = term?.relatedTerms
     ? getRelatedTerms(term.relatedTerms)
     : [];
+
+  const availableLetters = getAvailableLetters();
+  const termsByLetter = getTermsByLetter();
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const currentLetter = term ? term.term[0].toUpperCase() : "";
 
   // Set page title and scroll to top
   useEffect(() => {
@@ -108,6 +115,63 @@ export default function GlossaryTermPage() {
             <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold">
               {term.term}
             </h1>
+          </div>
+        </div>
+      </section>
+
+      {/* A-Z Navigation Bar */}
+      <section className="py-6 bg-background border-b sticky top-[72px] z-30">
+        <div className="container">
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link href="/glosario">
+              <button className="px-4 h-10 rounded-lg font-semibold transition-all text-sm bg-primary/10 text-primary hover:bg-primary/20">
+                Todos
+              </button>
+            </Link>
+            {alphabet.map((letter) => {
+              const isAvailable = availableLetters.includes(letter);
+              const isCurrent = letter === currentLetter;
+              const termsForLetter = termsByLetter[letter];
+              return (
+                <div key={letter} className="relative group">
+                  <button
+                    disabled={!isAvailable}
+                    className={`w-10 h-10 rounded-lg font-semibold transition-all ${
+                      isAvailable
+                        ? isCurrent
+                          ? "bg-primary text-white shadow-lg scale-110"
+                          : "bg-primary/10 text-primary hover:bg-primary/20 hover:scale-105"
+                        : "bg-muted text-muted-foreground/30 cursor-not-allowed"
+                    }`}
+                  >
+                    {letter}
+                  </button>
+                  {isAvailable && termsForLetter && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl border border-border p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                      <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">
+                        Letra {letter} — {termsForLetter.length} término{termsForLetter.length !== 1 ? "s" : ""}
+                      </p>
+                      <div className="max-h-48 overflow-y-auto space-y-1">
+                        {termsForLetter.map((t) => (
+                          <Link
+                            key={t.slug}
+                            href={`/glosario/${t.slug}`}
+                          >
+                            <div className={`px-3 py-1.5 rounded-md text-sm transition-colors cursor-pointer ${
+                              t.slug === slug
+                                ? "bg-primary/10 text-primary font-medium"
+                                : "hover:bg-muted text-foreground/80"
+                            }`}>
+                              {t.term}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
