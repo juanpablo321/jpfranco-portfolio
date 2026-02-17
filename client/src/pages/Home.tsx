@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import GlossarySection from "@/components/GlossarySection";
+import { BookOpen, ArrowRight as ArrowRightIcon } from "lucide-react";
 import {
   Award,
   BarChart3,
@@ -533,8 +533,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Glosario Section */}
-      <GlossarySection />
+      {/* Glosario Teaser Section */}
+      <section id="glosario" className="corp-white-section corp-section">
+        <div className="container">
+          <div className="text-center mb-12">
+            <p className="corp-label text-primary mb-4">Glosario</p>
+            <h2 className="mb-6">Diccionario de Marketing Digital</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Explora nuestro glosario completo con más de 70 términos esenciales de
+              marketing digital, eCommerce y transformación digital.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
+            {["A/B Testing", "eCommerce", "SEO", "Lead Generation", "Omnichannel", "ROI", "CRO", "VTEX"].map((term) => (
+              <div
+                key={term}
+                className="px-4 py-3 rounded-lg bg-primary/5 border border-primary/10 text-center"
+              >
+                <span className="text-sm font-medium text-primary">{term}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a href="/glosario">
+              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg">
+                <BookOpen className="w-5 h-5 mr-2" />
+                Explorar Glosario Completo
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Contact Section - Purple gradient background */}
       <section id="contacto" className="corp-section text-white" style={{ background: 'linear-gradient(135deg, oklch(0.40 0.18 310) 0%, oklch(0.50 0.20 310) 40%, oklch(0.55 0.18 330) 70%, oklch(0.60 0.16 50) 100%)' }}>

@@ -9,6 +9,8 @@ import Blog from "./pages/Blog";
 import BlogArticle from "./pages/BlogArticle";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Glossary from "./pages/Glossary";
+import GlossaryTermPage from "./pages/GlossaryTerm";
 
 
 function Router() {
@@ -17,6 +19,8 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogArticle} />
+      <Route path="/glosario" component={Glossary} />
+      <Route path="/glosario/:slug" component={GlossaryTermPage} />
       <Route path="/privacidad" component={Privacy} />
       <Route path="/terminos" component={Terms} />
       <Route path="/404" component={NotFound} />

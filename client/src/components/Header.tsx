@@ -88,12 +88,12 @@ export default function Header() {
             >
               Experiencia
             </button>
-            <button
-              onClick={() => scrollToSection("glosario")}
+            <a
+              href="/glosario"
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
               Glosario
-            </button>
+            </a>
             <a
               href="/blog"
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
@@ -155,12 +155,13 @@ export default function Header() {
           >
             Experiencia
           </button>
-          <button
-            onClick={() => scrollToSection("glosario")}
+          <a
+            href="/glosario"
+            onClick={() => setIsMobileMenuOpen(false)}
             className="text-xl font-medium text-foreground hover:text-primary transition-colors"
           >
             Glosario
-          </button>
+          </a>
           <a
             href="/blog"
             onClick={() => setIsMobileMenuOpen(false)}

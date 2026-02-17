@@ -50,21 +50,25 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Servicios</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Enlaces</h4>
             <ul className="space-y-2 text-base">
+              <li>
+                <a href="/glosario" className="text-muted-foreground hover:text-primary transition-colors">
+                  Glosario de Marketing
+                </a>
+              </li>
+              <li>
+                <a href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
+                  Blog
+                </a>
+              </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                 Consultoría eCommerce
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                 Expansión Internacional
-              </li>
-              <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                Análisis de Datos y BI
-              </li>
-              <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                Generación de Leads B2B
               </li>
             </ul>
           </div>
