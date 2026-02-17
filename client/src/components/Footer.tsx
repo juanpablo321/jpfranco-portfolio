@@ -65,8 +65,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/herramientas" className="text-muted-foreground hover:text-primary transition-colors">
-                  Herramientas SEO
+                <a href="/herramientas/analizador-seo" className="text-muted-foreground hover:text-primary transition-colors">
+                  Analizador SEO
                 </a>
               </li>
               <li>
@@ -74,11 +74,39 @@ export default function Footer() {
                   Sobre Mí
                 </a>
               </li>
-              <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                Consultoría eCommerce
+              <li>
+                <a
+                  href="/#servicios"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const serviciosSection = document.getElementById('servicios');
+                    if (serviciosSection) {
+                      serviciosSection.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = '/#servicios';
+                    }
+                  }}
+                  className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                >
+                  Servicios
+                </a>
               </li>
-              <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                Expansión Internacional
+              <li>
+                <a
+                  href="/#contacto"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const contactoSection = document.getElementById('contacto');
+                    if (contactoSection) {
+                      contactoSection.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = '/#contacto';
+                    }
+                  }}
+                  className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                >
+                  Contacto
+                </a>
               </li>
             </ul>
           </div>
