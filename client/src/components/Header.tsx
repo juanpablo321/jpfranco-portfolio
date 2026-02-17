@@ -89,10 +89,10 @@ export default function Header() {
               Experiencia
             </button>
             <button
-              onClick={() => scrollToSection("expertise")}
+              onClick={() => scrollToSection("glosario")}
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
-              Expertise
+              Glosario
             </button>
             <a
               href="/blog"
@@ -156,10 +156,10 @@ export default function Header() {
             Experiencia
           </button>
           <button
-            onClick={() => scrollToSection("expertise")}
+            onClick={() => scrollToSection("glosario")}
             className="text-xl font-medium text-foreground hover:text-primary transition-colors"
           >
-            Expertise
+            Glosario
           </button>
           <a
             href="/blog"
