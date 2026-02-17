@@ -13,6 +13,7 @@ import Glossary from "./pages/Glossary";
 import GlossaryTermPage from "./pages/GlossaryTerm";
 import Herramientas from "./pages/Herramientas";
 import SeoAnalyzer from "./pages/SeoAnalyzer";
+import SobreMi from "./pages/SobreMi";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/glosario/:slug" component={GlossaryTermPage} />
       <Route path="/herramientas" component={Herramientas} />
       <Route path="/herramientas/analizador-seo" component={SeoAnalyzer} />
+      <Route path="/sobre-mi" component={SobreMi} />
       <Route path="/privacidad" component={Privacy} />
       <Route path="/terminos" component={Terms} />
       <Route path="/404" component={NotFound} />

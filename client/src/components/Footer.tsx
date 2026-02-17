@@ -69,6 +69,11 @@ export default function Footer() {
                   Herramientas SEO
                 </a>
               </li>
+              <li>
+                <a href="/sobre-mi" className="text-muted-foreground hover:text-primary transition-colors">
+                  Sobre Mí
+                </a>
+              </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                 Consultoría eCommerce
               </li>

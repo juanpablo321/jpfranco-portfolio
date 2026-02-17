@@ -1,15 +1,20 @@
 /* Professional Corporate Header
  * Clean white background
  * Simple black text navigation
+ * Secondary dropdown menu with "Más" for Sobre mí and other secondary items
  * Working mobile hamburger menu
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
+import { ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,9 +36,22 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
-    // Small delay to allow menu close animation
     setTimeout(() => {
       const element = document.getElementById(id);
       if (element) {
@@ -51,6 +69,20 @@ export default function Header() {
   const handleLogoClick = () => {
     setIsMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleDropdownEnter = () => {
+    if (dropdownTimeout.current) {
+      clearTimeout(dropdownTimeout.current);
+      dropdownTimeout.current = null;
+    }
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownLeave = () => {
+    dropdownTimeout.current = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 200);
   };
 
   return (
@@ -82,12 +114,6 @@ export default function Header() {
             >
               Servicios
             </button>
-            <button
-              onClick={() => scrollToSection("experiencia")}
-              className="text-base font-normal text-foreground hover:text-primary transition-colors"
-            >
-              Experiencia
-            </button>
             <a
               href="/glosario"
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
@@ -112,6 +138,43 @@ export default function Header() {
             >
               Contacto
             </button>
+
+            {/* Secondary Menu - "Más" dropdown */}
+            <div
+              ref={dropdownRef}
+              className="relative"
+              onMouseEnter={handleDropdownEnter}
+              onMouseLeave={handleDropdownLeave}
+            >
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="text-base font-normal text-foreground hover:text-primary transition-colors flex items-center gap-1"
+              >
+                Más
+                <ChevronDown
+                  size={16}
+                  className={`transition-transform duration-200 ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown */}
+              <div
+                className={`absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 transition-all duration-200 ${
+                  isDropdownOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                }`}
+              >
+                <a
+                  href="/sobre-mi"
+                  className="block px-4 py-2.5 text-base text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
+                >
+                  Sobre Mí
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -155,12 +218,6 @@ export default function Header() {
           >
             Servicios
           </button>
-          <button
-            onClick={() => scrollToSection("experiencia")}
-            className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Experiencia
-          </button>
           <a
             href="/glosario"
             onClick={() => setIsMobileMenuOpen(false)}
@@ -188,6 +245,18 @@ export default function Header() {
           >
             Contacto
           </button>
+
+          {/* Secondary section divider */}
+          <div className="w-16 h-px bg-gray-200"></div>
+
+          <a
+            href="/sobre-mi"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
+          >
+            Sobre Mí
+          </a>
+
           <a
             href="https://wa.me/573235812748"
             target="_blank"

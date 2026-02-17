@@ -7,3 +7,9 @@
 - [x] Update navigation (Header, Footer, Home) to include Herramientas
 - [x] Test full SEO Analyzer flow end-to-end
 - [x] Write vitest tests for SEO analyzer backend (4/4 passed)
+- [x] Rename Experiencia to Sobre mí
+- [x] Create standalone /sobre-mi page with Experiencia content
+- [x] Move Sobre mí to secondary menu in Header navigation
+- [x] Update App.tsx routes and Footer links
+- [x] Remove Experiencia section from Home.tsx
+- [x] Test navigation flow
