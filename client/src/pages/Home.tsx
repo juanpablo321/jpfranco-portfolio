@@ -1,5 +1,5 @@
-/* Professional Corporate Home Page (Simon Sinek Inspired)
- * Clean, trustworthy design with solid blue backgrounds
+/* Professional Corporate Home Page
+ * Orange & Purple palette - warm, energetic, creative
  * Asymmetric layouts: text left, image right
  * White outline CTAs
  * Generous spacing and clear typography
@@ -31,10 +31,11 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero Section - Blue background with asymmetric layout */}
+      {/* Hero Section - Purple gradient background with asymmetric layout */}
       <section
         id="hero"
-        className="corp-blue-section min-h-screen relative overflow-hidden"
+        className="min-h-screen relative overflow-hidden text-white"
+        style={{ background: 'linear-gradient(135deg, oklch(0.40 0.18 310) 0%, oklch(0.50 0.20 310) 40%, oklch(0.55 0.18 330) 70%, oklch(0.60 0.16 50) 100%)' }}
       >
         <div className="container relative z-10 flex items-end min-h-screen pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end w-full">
@@ -697,8 +698,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section - Blue background */}
-      <section id="contacto" className="corp-blue-section corp-section">
+      {/* Contact Section - Purple gradient background */}
+      <section id="contacto" className="corp-section text-white" style={{ background: 'linear-gradient(135deg, oklch(0.40 0.18 310) 0%, oklch(0.50 0.20 310) 40%, oklch(0.55 0.18 330) 70%, oklch(0.60 0.16 50) 100%)' }}>
         <div className="container">
           <div className="text-center mb-16">
             <p className="corp-label text-white/80 mb-4">Contacto</p>

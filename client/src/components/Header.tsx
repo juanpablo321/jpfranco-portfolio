@@ -68,7 +68,7 @@ export default function Header() {
             className="flex items-center hover:opacity-80 transition-opacity z-50"
           >
             <img
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/khJkEFbJFeiDPXxI.png"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/THbfxgrdVUtqnOEA.png"
               alt="Juan Pablo Franco"
               className="h-12 w-auto"
             />
