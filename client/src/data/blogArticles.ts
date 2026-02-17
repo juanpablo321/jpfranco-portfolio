@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "comercio-conversacional-agentic-commerce-ia-b2b-2026",
+    title: "Comercio Conversacional y Agentic Commerce: Cómo la IA Está Transformando las Compras B2B en 2026",
+    excerpt: "El comercio B2B está viviendo una doble revolución impulsada por la inteligencia artificial: el comercio conversacional humaniza la interacción a través de WhatsApp y chatbots, mientras que el agentic commerce automatiza las decisiones de compra con agentes autónomos. Descubre cómo preparar tu empresa para esta transformación.",
+    category: "Inteligencia Artificial",
+    date: "17 de Febrero, 2026",
+    readTime: "11 min",
+    image: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&h=675&fit=crop",
+    keywords: ["comercio conversacional B2B", "agentic commerce", "agentes de IA para ventas", "WhatsApp Business B2B", "automatización compras B2B", "GEO optimización motores generativos", "IA conversacional eCommerce", "transformación digital ventas", "comercio digital B2B 2026", "inteligencia artificial procurement"]
+  },
+  {
     slug: "integracion-sistemas-legacy-comercio-digital-2026",
     title: "¿Por Qué Fracasan las Integraciones de Sistemas Legacy con Plataformas de Comercio Digital? El Problema No Es Técnico",
     excerpt: "La mayoría de proyectos de integración entre sistemas antiguos y plataformas de comercio digital fracasan por una razón que casi nadie admite: el enfoque está mal. Descubre por qué la resistencia cultural, no la tecnología, es el verdadero obstáculo.",
