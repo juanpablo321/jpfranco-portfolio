@@ -12,7 +12,7 @@ import Terms from "./pages/Terms";
 import Glossary from "./pages/Glossary";
 import GlossaryTermPage from "./pages/GlossaryTerm";
 import Herramientas from "./pages/Herramientas";
-import MarketIntelligence from "./pages/SeoAnalyzer";
+import MarketIntelligence from "./pages/MarketIntelligence";
 import SobreMi from "./pages/SobreMi";
 
 function Router() {

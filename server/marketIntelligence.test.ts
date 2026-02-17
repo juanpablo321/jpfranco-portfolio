@@ -362,6 +362,13 @@ describe("marketIntelligence.analyze", () => {
 
     // Check apiAvailable flag
     expect(typeof (result as any).apiAvailable).toBe("boolean");
+
+    // Check cache-related fields
+    expect(typeof (result as any).fromCache).toBe("boolean");
+    expect((result as any).cacheStats).toBeDefined();
+    expect((result as any).cacheStats.ttlHours).toBe(24);
+    expect((result as any).cacheStats.maxEntries).toBe(500);
+    expect((result as any).cacheStats.entries).toBeGreaterThanOrEqual(1);
   }, 30000); // 30s timeout for LLM call
 
   it("handles URL with protocol prefix", async () => {
@@ -392,5 +399,30 @@ describe("marketIntelligence.analyze", () => {
     expect(result.country).toBe("mx");
     expect(result.countryLabel).toBe("México");
     expect(result.competitors.length).toBeGreaterThanOrEqual(2);
+  }, 30000);
+
+  it("returns cached data on second call for same domain", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    // First call (may or may not be cached from previous tests)
+    const result1 = await caller.marketIntelligence.analyze({
+      url: "exito.com",
+      country: "co",
+      industry: "retail-ecommerce",
+    });
+
+    // Second call should be from cache
+    const result2 = await caller.marketIntelligence.analyze({
+      url: "exito.com",
+      country: "co",
+      industry: "retail-ecommerce",
+    });
+
+    expect((result2 as any).fromCache).toBe(true);
+    // Site metrics should be identical (same cached data)
+    expect(result2.siteMetrics.domain).toBe(result1.siteMetrics.domain);
+    expect(result2.siteMetrics.globalRank).toBe(result1.siteMetrics.globalRank);
+    expect(result2.siteMetrics.totalVisits).toBe(result1.siteMetrics.totalVisits);
   }, 30000);
 });

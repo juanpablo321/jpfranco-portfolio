@@ -51,3 +51,9 @@
 - [x] Update all navigation links (Header, Footer, Herramientas page)
 - [x] Update internal references (no blog/article references found)
 - [x] Test all renamed links work correctly
+- [x] Implement 24h in-memory cache for SimilarWeb API calls (per domain)
+- [x] Remove legacy seoAnalyzer router and unify SEO features into marketIntelligence
+- [x] Add Google PageSpeed API key support via GOOGLE_PAGESPEED_API_KEY env variable
+- [x] Update frontend - renamed SeoAnalyzer.tsx to MarketIntelligence.tsx
+- [x] Write tests for cache module (14 new tests, 50 total, all passing)
+- [x] Save checkpoint with all optimizations (note: SimilarWeb API credits exhausted - code verified correct)

@@ -2,7 +2,6 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
-import { seoAnalyzerRouter } from "./routers/seoAnalyzer";
 import { marketIntelligenceRouter } from "./routers/marketIntelligence";
 
 export const appRouter = router({
@@ -19,7 +18,6 @@ export const appRouter = router({
     }),
   }),
 
-  seoAnalyzer: seoAnalyzerRouter,
   marketIntelligence: marketIntelligenceRouter,
 });
 

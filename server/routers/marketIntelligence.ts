@@ -2,6 +2,7 @@ import { z } from "zod";
 import { publicProcedure, router } from "../_core/trpc";
 import { callDataApi } from "../_core/dataApi";
 import { invokeLLM } from "../_core/llm";
+import { similarWebCache } from "../cache";
 import {
   INDUSTRIES,
   COUNTRIES,
@@ -44,7 +45,20 @@ function getDateRange() {
 // API responses come wrapped in { meta: {...}, <data_key>: [...] }
 // The callDataApi helper returns the full parsed JSON object.
 
-async function fetchSiteMetrics(domain: string): Promise<{ metrics: SiteMetrics; apiAvailable: boolean }> {
+async function fetchSiteMetrics(domain: string): Promise<{ metrics: SiteMetrics; apiAvailable: boolean; fromCache: boolean }> {
+  // Check cache first (24h TTL)
+  const cacheKey = `sw:${domain}`;
+  const cached = similarWebCache.get(cacheKey);
+  if (cached) {
+    console.log(`[MarketIntelligence] Cache HIT for ${domain} (cached at ${cached.cachedAt})`);
+    return {
+      metrics: cached.metrics as unknown as SiteMetrics,
+      apiAvailable: cached.apiAvailable,
+      fromCache: true,
+    };
+  }
+  console.log(`[MarketIntelligence] Cache MISS for ${domain} — calling SimilarWeb APIs`);
+
   const { startDate, endDate } = getDateRange();
 
   const metrics: SiteMetrics = {
@@ -238,7 +252,15 @@ async function fetchSiteMetrics(domain: string): Promise<{ metrics: SiteMetrics;
     }
   }
 
-  return { metrics, apiAvailable };
+  // Store in cache (24h TTL)
+  similarWebCache.set(cacheKey, {
+    metrics: metrics as unknown as Record<string, unknown>,
+    apiAvailable,
+    cachedAt: new Date().toISOString(),
+  });
+  console.log(`[MarketIntelligence] Cached results for ${domain} (apiAvailable: ${apiAvailable})`);
+
+  return { metrics, apiAvailable, fromCache: false };
 }
 
 // ─── Competitor Generation ──────────────────────────────────────────────────
@@ -527,8 +549,8 @@ export const marketIntelligenceRouter = router({
       if (!countryOption) throw new Error("País no válido");
       if (!industryConfig) throw new Error("Industria no válida");
 
-      // Fetch real metrics from SimilarWeb
-      const { metrics: siteMetrics, apiAvailable } = await fetchSiteMetrics(domain);
+      // Fetch real metrics from SimilarWeb (with 24h cache)
+      const { metrics: siteMetrics, apiAvailable, fromCache } = await fetchSiteMetrics(domain);
 
       // Generate competitor list from industry benchmarks
       const competitors = generateCompetitors(industry, country, domain);
@@ -547,7 +569,7 @@ export const marketIntelligenceRouter = router({
         apiAvailable
       );
 
-      const result: MarketIntelligenceResult & { apiAvailable: boolean } = {
+      const result: MarketIntelligenceResult & { apiAvailable: boolean; fromCache: boolean; cacheStats: { entries: number; maxEntries: number; ttlHours: number } } = {
         domain,
         url: url.startsWith("http") ? url : `https://${url}`,
         country,
@@ -560,6 +582,12 @@ export const marketIntelligenceRouter = router({
         benchmarks,
         insights,
         apiAvailable,
+        fromCache,
+        cacheStats: {
+          entries: similarWebCache.stats().entries,
+          maxEntries: similarWebCache.stats().maxEntries,
+          ttlHours: Math.round(similarWebCache.stats().ttlMs / (1000 * 60 * 60)),
+        },
       };
 
       return result;

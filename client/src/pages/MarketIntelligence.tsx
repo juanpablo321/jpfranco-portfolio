@@ -592,6 +592,21 @@ export default function SeoAnalyzer() {
               </div>
             </div>
 
+            {/* Cache Indicator Banner */}
+            {(data as any).fromCache && (data as any).apiAvailable && (
+              <div className="rounded-xl border border-blue-200 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-800 p-4 mb-8 flex items-start gap-3">
+                <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-blue-800 dark:text-blue-300">
+                    Datos cargados desde caché
+                  </p>
+                  <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">
+                    Estas métricas fueron obtenidas previamente y se actualizarán automáticamente en las próximas 24 horas. Esto reduce el consumo de créditos de API.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* API Availability Banner */}
             {!(data as any).apiAvailable && (
               <div className="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800 p-4 mb-8 flex items-start gap-3">
