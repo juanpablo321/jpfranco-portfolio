@@ -64,6 +64,11 @@ export default function Footer() {
                   Blog
                 </a>
               </li>
+              <li>
+                <a href="/herramientas" className="text-muted-foreground hover:text-primary transition-colors">
+                  Herramientas SEO
+                </a>
+              </li>
               <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                 Consultoría eCommerce
               </li>
