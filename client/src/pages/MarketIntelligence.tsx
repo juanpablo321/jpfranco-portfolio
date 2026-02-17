@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EmailOtpGate from "@/components/EmailOtpGate";
 import { trpc } from "@/lib/trpc";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
@@ -355,6 +356,7 @@ export default function SeoAnalyzer() {
     <div className="min-h-screen bg-background">
       <Header />
 
+      <EmailOtpGate>
       {/* Hero / Input Section */}
       <section
         className="pt-32 pb-16 text-white"
@@ -892,6 +894,8 @@ export default function SeoAnalyzer() {
           </div>
         </section>
       )}
+
+      </EmailOtpGate>
 
       <Footer />
     </div>
