@@ -36,3 +36,8 @@
 - [x] Write vitest tests for market intelligence backend (39 tests passing)
 - [x] End-to-end testing and checkpoint
 - [x] Fix blogContent.ts HTML-to-Markdown conversion error
+- [x] Add "Conclusiones Clave" (Key Takeaways) section to all 26 blog articles
+- [x] Generate summaries for each of the 26 blog posts
+- [x] Insert Key Takeaways into blogContent.ts
+- [x] Verify rendering of Key Takeaways in blog article pages
+- [x] Save checkpoint with updated blog content
