@@ -18,3 +18,9 @@
 - [x] Mobile hamburger menu groups both levels with visual separation
 - [x] Remove the "Más" dropdown from Header
 - [x] Add hash-based scroll handling for cross-page navigation
+- [ ] Research trending topics in B2B marketing/eCommerce/AI/digital expansion
+- [ ] Select a topic not covered in existing 24 blog articles
+- [x] Generate complete SEO/GEO-optimized article (2000+ words, 10 keywords)
+- [ ] Add article metadata to blogArticles.ts
+- [ ] Add article content to blogContent.ts
+- [ ] Save checkpoint to publish the new article
