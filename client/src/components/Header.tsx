@@ -1,20 +1,17 @@
 /* Professional Corporate Header
- * Clean white background
- * Simple black text navigation
- * Secondary dropdown menu with "Más" for Sobre mí and other secondary items
- * Working mobile hamburger menu
+ * Two-tier navigation:
+ *   - Top bar: small secondary strip with Sobre mí, Servicios, Contacto
+ *   - Main bar: logo + primary nav (Glosario, Herramientas, Blog)
+ * Mobile: hamburger menu groups both tiers with visual separation
  */
 
-import { useState, useEffect, useRef } from "react";
-import { Link } from "wouter";
-import { ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,26 +33,22 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
-  // Close dropdown when clicking outside
+  // Close mobile menu on route change
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    setIsMobileMenuOpen(false);
+  }, [location]);
 
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
+    // If not on home page, navigate there first
+    if (location !== "/") {
+      window.location.href = `/#${id}`;
+      return;
+    }
     setTimeout(() => {
       const element = document.getElementById(id);
       if (element) {
-        const offset = 80;
+        const offset = 100; // account for both bars
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
         window.scrollTo({
@@ -68,21 +61,9 @@ export default function Header() {
 
   const handleLogoClick = () => {
     setIsMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleDropdownEnter = () => {
-    if (dropdownTimeout.current) {
-      clearTimeout(dropdownTimeout.current);
-      dropdownTimeout.current = null;
+    if (location === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    setIsDropdownOpen(true);
-  };
-
-  const handleDropdownLeave = () => {
-    dropdownTimeout.current = setTimeout(() => {
-      setIsDropdownOpen(false);
-    }, 200);
   };
 
   return (
@@ -91,8 +72,35 @@ export default function Header() {
         isScrolled || isMobileMenuOpen ? "shadow-md" : ""
       }`}
     >
+      {/* ─── Secondary Top Bar ─── */}
+      <div className="hidden md:block bg-gray-50 border-b border-gray-100">
+        <div className="container">
+          <div className="flex items-center justify-end gap-6 h-8">
+            <a
+              href="/sobre-mi"
+              className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Sobre Mí
+            </a>
+            <button
+              onClick={() => scrollToSection("servicios")}
+              className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Servicios
+            </button>
+            <button
+              onClick={() => scrollToSection("contacto")}
+              className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Contacto
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Main Navigation Bar ─── */}
       <div className="container">
-        <nav className="flex items-center justify-between h-20">
+        <nav className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             href="/"
@@ -102,18 +110,12 @@ export default function Header() {
             <img
               src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/THbfxgrdVUtqnOEA.png"
               alt="Juan Pablo Franco"
-              className="h-12 w-auto"
+              className="h-11 w-auto"
             />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Primary Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <button
-              onClick={() => scrollToSection("servicios")}
-              className="text-base font-normal text-foreground hover:text-primary transition-colors"
-            >
-              Servicios
-            </button>
             <a
               href="/glosario"
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
@@ -132,49 +134,6 @@ export default function Header() {
             >
               Blog
             </a>
-            <button
-              onClick={() => scrollToSection("contacto")}
-              className="text-base font-normal text-foreground hover:text-primary transition-colors"
-            >
-              Contacto
-            </button>
-
-            {/* Secondary Menu - "Más" dropdown */}
-            <div
-              ref={dropdownRef}
-              className="relative"
-              onMouseEnter={handleDropdownEnter}
-              onMouseLeave={handleDropdownLeave}
-            >
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="text-base font-normal text-foreground hover:text-primary transition-colors flex items-center gap-1"
-              >
-                Más
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-200 ${
-                    isDropdownOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Dropdown */}
-              <div
-                className={`absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 transition-all duration-200 ${
-                  isDropdownOpen
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 -translate-y-2 pointer-events-none"
-                }`}
-              >
-                <a
-                  href="/sobre-mi"
-                  className="block px-4 py-2.5 text-base text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
-                >
-                  Sobre Mí
-                </a>
-              </div>
-            </div>
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -203,65 +162,74 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* ─── Mobile Menu Overlay ─── */}
       <div
-        className={`md:hidden fixed inset-0 top-20 bg-white transition-all duration-300 ${
+        className={`md:hidden fixed inset-0 top-16 bg-white transition-all duration-300 ${
           isMobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col items-center justify-center gap-8 pt-12 px-6">
-          <button
-            onClick={() => scrollToSection("servicios")}
-            className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Servicios
-          </button>
-          <a
-            href="/glosario"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Glosario
-          </a>
-          <a
-            href="/herramientas"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Herramientas
-          </a>
-          <a
-            href="/blog"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Blog
-          </a>
-          <button
-            onClick={() => scrollToSection("contacto")}
-            className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Contacto
-          </button>
+        <div className="flex flex-col items-center pt-10 px-6">
+          {/* Secondary items first (smaller, muted) */}
+          <div className="flex items-center gap-6 mb-6">
+            <a
+              href="/sobre-mi"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Sobre Mí
+            </a>
+            <span className="text-gray-200">|</span>
+            <button
+              onClick={() => scrollToSection("servicios")}
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Servicios
+            </button>
+            <span className="text-gray-200">|</span>
+            <button
+              onClick={() => scrollToSection("contacto")}
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Contacto
+            </button>
+          </div>
 
-          {/* Secondary section divider */}
-          <div className="w-16 h-px bg-gray-200"></div>
+          {/* Divider */}
+          <div className="w-20 h-px bg-gray-200 mb-8"></div>
 
-          <a
-            href="/sobre-mi"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            Sobre Mí
-          </a>
+          {/* Primary navigation items (larger) */}
+          <div className="flex flex-col items-center gap-7">
+            <a
+              href="/glosario"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Glosario
+            </a>
+            <a
+              href="/herramientas"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Herramientas
+            </a>
+            <a
+              href="/blog"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Blog
+            </a>
+          </div>
 
+          {/* CTA */}
           <a
             href="https://wa.me/573235812748"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-medium hover:bg-primary hover:text-white transition-colors"
+            className="mt-10 inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-medium hover:bg-primary hover:text-white transition-colors"
           >
             Agendar Consultoría
           </a>

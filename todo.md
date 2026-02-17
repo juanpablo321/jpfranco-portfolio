@@ -13,3 +13,8 @@
 - [x] Update App.tsx routes and Footer links
 - [x] Remove Experiencia section from Home.tsx
 - [x] Test navigation flow
+- [x] Redesign Header with secondary top bar strip (Sobre mí, Servicios, Contacto)
+- [x] Main nav keeps logo, Glosario, Herramientas, Blog only
+- [x] Mobile hamburger menu groups both levels with visual separation
+- [x] Remove the "Más" dropdown from Header
+- [x] Add hash-based scroll handling for cross-page navigation
