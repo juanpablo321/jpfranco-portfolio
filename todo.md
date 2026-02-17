@@ -46,3 +46,8 @@
 - [x] Rebuild backend with correct SimilarWeb API response parsing
 - [x] Test with Colombian retail websites (panamericana.com.co: 444.2K visits, #28,947 rank)
 - [x] Save checkpoint with working Market Intelligence tool
+- [x] Rename "Analizador SEO" to "Inteligencia de Mercado" across entire website
+- [x] Update route from /herramientas/analizador-seo to /herramientas/inteligencia-de-mercado
+- [x] Update all navigation links (Header, Footer, Herramientas page)
+- [x] Update internal references (no blog/article references found)
+- [x] Test all renamed links work correctly

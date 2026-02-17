@@ -12,7 +12,7 @@ import Terms from "./pages/Terms";
 import Glossary from "./pages/Glossary";
 import GlossaryTermPage from "./pages/GlossaryTerm";
 import Herramientas from "./pages/Herramientas";
-import SeoAnalyzer from "./pages/SeoAnalyzer";
+import MarketIntelligence from "./pages/SeoAnalyzer";
 import SobreMi from "./pages/SobreMi";
 
 function Router() {
@@ -25,7 +25,7 @@ function Router() {
       <Route path="/glosario" component={Glossary} />
       <Route path="/glosario/:slug" component={GlossaryTermPage} />
       <Route path="/herramientas" component={Herramientas} />
-      <Route path="/herramientas/analizador-seo" component={SeoAnalyzer} />
+      <Route path="/herramientas/inteligencia-de-mercado" component={MarketIntelligence} />
       <Route path="/sobre-mi" component={SobreMi} />
       <Route path="/privacidad" component={Privacy} />
       <Route path="/terminos" component={Terms} />

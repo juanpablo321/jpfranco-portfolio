@@ -65,8 +65,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/herramientas/analizador-seo" className="text-muted-foreground hover:text-primary transition-colors">
-                  Analizador SEO
+                <a href="/herramientas/inteligencia-de-mercado" className="text-muted-foreground hover:text-primary transition-colors">
+                  Inteligencia de Mercado
                 </a>
               </li>
               <li>

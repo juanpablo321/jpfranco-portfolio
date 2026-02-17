@@ -5,18 +5,18 @@ import { Link } from "wouter";
 
 const tools = [
   {
-    title: "Analizador de SEO",
+    title: "Inteligencia de Mercado",
     description:
-      "Analiza cualquier sitio web y obtén un reporte completo con score SEO, velocidad, meta tags, estructura HTML, datos de tráfico y recomendaciones accionables.",
+      "Analiza cualquier sitio web y compáralo contra los líderes de tu industria en Colombia y Latinoamérica. Métricas reales de tráfico, benchmarking y análisis competitivo.",
     icon: Search,
-    href: "/herramientas/analizador-seo",
+    href: "/herramientas/inteligencia-de-mercado",
     available: true,
     features: [
-      "Score SEO compuesto (0-100)",
-      "Core Web Vitals y velocidad",
-      "Análisis de meta tags y estructura",
-      "Datos de tráfico (SimilarWeb)",
-      "Recomendaciones priorizadas",
+      "Tráfico mensual y engagement (SimilarWeb)",
+      "Benchmarking vs. líderes de la industria",
+      "Análisis de competidores directos",
+      "Distribución geográfica del tráfico",
+      "Insights estratégicos con IA",
     ],
   },
   {
@@ -88,8 +88,8 @@ export default function Herramientas() {
           </h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             Herramientas profesionales gratuitas para analizar, optimizar y
-            mejorar tu presencia digital. Impulsadas por datos reales de Google
-            PageSpeed y SimilarWeb.
+            mejorar tu presencia digital. Impulsadas por datos reales de
+            SimilarWeb e inteligencia artificial.
           </p>
         </div>
       </section>
