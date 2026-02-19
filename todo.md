@@ -66,3 +66,4 @@
 - [x] Store verified emails in database with timestamps
 - [x] Write vitest tests for OTP verification flow (17 tests, 69 total, all passing)
 - [x] End-to-end testing and checkpoint
+- [x] Temporarily remove hero image from Home page
