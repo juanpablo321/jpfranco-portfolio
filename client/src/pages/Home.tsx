@@ -59,28 +59,65 @@ export default function Home() {
         className="min-h-screen relative overflow-hidden text-white"
         style={{ background: 'linear-gradient(135deg, oklch(0.40 0.18 310) 0%, oklch(0.50 0.20 310) 40%, oklch(0.55 0.18 330) 70%, oklch(0.60 0.16 50) 100%)' }}
       >
-        <div className="container relative z-10 flex items-center justify-center min-h-screen">
-          <div className="max-w-3xl text-center space-y-6 lg:space-y-8">
-            <h1 className="text-white">
-              Estratega de Expansión Digital
-            </h1>
-            <p className="text-lg md:text-2xl text-white/90 leading-relaxed">
-              Transformando negocios a través de estrategias de comercio digital
-              basadas en datos en Colombia y el mundo.
-            </p>
-            <div className="pt-4 pb-4 flex justify-center">
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("contacto")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="corp-button-outline text-lg px-8 py-4"
-              >
-                Agendar Consultoría Gratuita
-              </button>
+        <div className="container relative z-10 flex items-end min-h-screen pt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end w-full">
+            {/* Left: Text Content */}
+            <div className="space-y-6 lg:space-y-8 pb-0 lg:pb-24 pt-20">
+              <h1 className="text-white text-center lg:text-left">
+                Estratega de Expansión Digital
+              </h1>
+              <p className="text-lg md:text-2xl text-white/90 leading-relaxed text-center lg:text-left">
+                Transformando negocios a través de estrategias de comercio digital
+                basadas en datos en Colombia y el mundo.
+              </p>
+              <div className="pt-4 pb-4 flex justify-center lg:justify-start">
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById("contacto")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  className="corp-button-outline text-lg px-8 py-4"
+                >
+                  Agendar Consultoría Gratuita
+                </button>
+              </div>
+              {/* Mobile Hero Image - positioned after CTA, bottom-aligned with blue section */}
+              <div className="lg:hidden flex justify-center pt-4">
+                <picture>
+                  <source
+                    srcSet="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/sObOtItWrUXUypjv.webp"
+                    type="image/webp"
+                  />
+                  <img
+                    src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/tqHoMdHlBsLGwZGk.png"
+                    alt="Juan Pablo Franco"
+                    loading="eager"
+                    fetchPriority="high"
+                    className="w-auto object-contain object-bottom drop-shadow-2xl"
+                    style={{ height: '320px', marginBottom: '-1px' }}
+                  />
+                </picture>
+              </div>
             </div>
-            {/* Hero image temporarily removed */}
+
+            {/* Right: Professional Image - Desktop only, bottom aligned with section */}
+            <div className="hidden lg:flex justify-end items-end self-end">
+              <picture>
+                <source
+                  srcSet="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/sObOtItWrUXUypjv.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663334573136/tqHoMdHlBsLGwZGk.png"
+                  alt="Juan Pablo Franco"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-auto object-contain object-bottom drop-shadow-2xl"
+                  style={{ height: 'calc(100vh - 80px)', maxHeight: '900px' }}
+                />
+              </picture>
+            </div>
           </div>
         </div>
       </section>

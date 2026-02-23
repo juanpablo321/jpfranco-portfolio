@@ -11,16 +11,6 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
-    slug: "composable-commerce-ia-ecommerce-b2b-2026",
-    title: "Composable Commerce e IA: La Dupla que Redefine el Futuro del eCommerce B2B en 2026",
-    excerpt: "Descubre cómo las arquitecturas modulares de composable commerce, combinadas con la inteligencia artificial, están desmantelando las plataformas monolíticas y construyendo el futuro del comercio digital B2B con pricing dinámico, personalización avanzada y agentes autónomos.",
-    category: "Expansión Digital",
-    date: "18 de Febrero, 2026",
-    readTime: "10 min",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=675&fit=crop",
-    keywords: ["composable commerce B2B", "arquitectura modular eCommerce", "headless commerce empresarial", "inteligencia artificial eCommerce B2B", "VTEX plataforma composable", "transformación digital B2B 2026", "MACH architecture comercio digital", "pricing dinámico IA B2B", "personalización eCommerce inteligencia artificial", "plataformas comercio digital modulares"]
-  },
-  {
     slug: "comercio-conversacional-agentes-ia-ventas-b2b-2026",
     title: "Comercio Conversacional: Cómo los Agentes de IA Están Transformando las Ventas B2B en 2026",
     excerpt: "Descubre cómo los agentes de IA autónomos están revolucionando las ventas B2B a través del comercio conversacional: calificación inteligente, configuración asistida, negociación automatizada y reactivación de oportunidades.",
