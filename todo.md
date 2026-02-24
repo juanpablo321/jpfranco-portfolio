@@ -71,3 +71,10 @@
 - [x] Add article metadata to blogArticles.ts
 - [x] Add article content to blogContent.ts
 - [x] Test blog article rendering and save checkpoint
+- [x] Audit all SimilarWeb references in codebase
+- [x] Remove SimilarWeb API calls from marketIntelligence router
+- [x] Adapt Market Intelligence tool to work without SimilarWeb data
+- [x] Update/remove SimilarWeb cache module
+- [x] Update frontend to reflect removed metrics
+- [x] Run tests and fix breakages (68 tests, all passing)
+- [x] Document impact of SimilarWeb removal

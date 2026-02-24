@@ -1,7 +1,6 @@
 /**
  * In-memory cache with configurable TTL.
- * Used primarily to cache SimilarWeb API responses (24h default)
- * to reduce credit consumption for repeated domain lookups.
+ * General-purpose cache for API responses.
  *
  * Cache is per-process and resets on server restart.
  */
@@ -88,16 +87,6 @@ export class MemoryCache<T = unknown> {
 }
 
 // ─── Singleton caches ──────────────────────────────────────────────────────
-
-/** SimilarWeb API response cache (24h TTL, max 500 domains) */
-export const similarWebCache = new MemoryCache<{
-  metrics: Record<string, unknown>;
-  apiAvailable: boolean;
-  cachedAt: string;
-}>({
-  ttlMs: 24 * 60 * 60 * 1000, // 24 hours
-  maxEntries: 500,
-});
 
 /** PageSpeed API response cache (12h TTL, max 200 URLs) */
 export const pageSpeedCache = new MemoryCache<Record<string, unknown>>({

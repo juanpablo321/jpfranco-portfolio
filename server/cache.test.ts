@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { MemoryCache, similarWebCache, pageSpeedCache } from "./cache";
+import { MemoryCache, pageSpeedCache } from "./cache";
 
 describe("MemoryCache", () => {
   let cache: MemoryCache<string>;
@@ -91,30 +91,18 @@ describe("MemoryCache", () => {
 });
 
 describe("Singleton caches", () => {
-  it("similarWebCache should have 24h TTL and 500 max entries", () => {
-    const stats = similarWebCache.stats();
-    expect(stats.ttlMs).toBe(24 * 60 * 60 * 1000);
-    expect(stats.maxEntries).toBe(500);
-  });
-
   it("pageSpeedCache should have 12h TTL and 200 max entries", () => {
     const stats = pageSpeedCache.stats();
     expect(stats.ttlMs).toBe(12 * 60 * 60 * 1000);
     expect(stats.maxEntries).toBe(200);
   });
 
-  it("similarWebCache should store and retrieve complex objects", () => {
-    const testData = {
-      metrics: { domain: "test.com", visits: 1000 } as Record<string, unknown>,
-      apiAvailable: true,
-      cachedAt: new Date().toISOString(),
-    };
-    similarWebCache.set("test:test.com", testData);
-    const retrieved = similarWebCache.get("test:test.com");
+  it("pageSpeedCache should store and retrieve data", () => {
+    const testData = { score: 95, metrics: { fcp: 1.2 } } as Record<string, unknown>;
+    pageSpeedCache.set("test:example.com", testData);
+    const retrieved = pageSpeedCache.get("test:example.com");
     expect(retrieved).toEqual(testData);
-    expect(retrieved?.apiAvailable).toBe(true);
-    expect(retrieved?.cachedAt).toBeDefined();
     // Cleanup
-    similarWebCache.delete("test:test.com");
+    pageSpeedCache.delete("test:example.com");
   });
 });

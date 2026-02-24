@@ -12,10 +12,9 @@ const tools = [
     href: "/herramientas/inteligencia-de-mercado",
     available: true,
     features: [
-      "Tráfico mensual y engagement (SimilarWeb)",
+      "Benchmarking de tráfico y engagement por industria",
       "Benchmarking vs. líderes de la industria",
       "Análisis de competidores directos",
-      "Distribución geográfica del tráfico",
       "Insights estratégicos con IA",
     ],
   },
@@ -89,7 +88,7 @@ export default function Herramientas() {
           <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             Herramientas profesionales gratuitas para analizar, optimizar y
             mejorar tu presencia digital. Impulsadas por datos reales de
-            SimilarWeb e inteligencia artificial.
+            benchmarks de industria e inteligencia artificial.
           </p>
         </div>
       </section>

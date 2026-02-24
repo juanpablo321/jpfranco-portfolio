@@ -20,16 +20,10 @@ import {
   BarChart3,
   ArrowLeft,
   Loader2,
-  Users,
   Clock,
-  MousePointerClick,
-  FileStack,
   Trophy,
   Target,
   Lightbulb,
-  ArrowUpRight,
-  ArrowDownRight,
-  Minus,
   Building2,
   AlertCircle,
   Info,
@@ -73,46 +67,6 @@ ChartJS.register(
   LineElement,
   Filler
 );
-
-// ─── Metric Card Component ──────────────────────────────────────────────────
-
-function MetricCard({
-  label,
-  value,
-  icon: Icon,
-  subtitle,
-  trend,
-}: {
-  label: string;
-  value: string;
-  icon: React.ElementType;
-  subtitle?: string;
-  trend?: "up" | "down" | "neutral";
-}) {
-  return (
-    <div className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow">
-      <div className="flex items-center gap-2 mb-3">
-        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-          <Icon className="w-4 h-4 text-primary" />
-        </div>
-        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-          {label}
-        </span>
-      </div>
-      <div className="flex items-end gap-2">
-        <p className="text-2xl font-bold">{value}</p>
-        {trend && (
-          <span className={`text-xs font-medium flex items-center gap-0.5 mb-1 ${
-            trend === "up" ? "text-green-600" : trend === "down" ? "text-red-500" : "text-muted-foreground"
-          }`}>
-            {trend === "up" ? <ArrowUpRight size={12} /> : trend === "down" ? <ArrowDownRight size={12} /> : <Minus size={12} />}
-          </span>
-        )}
-      </div>
-      {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
-    </div>
-  );
-}
 
 // ─── Benchmark Bar Component ────────────────────────────────────────────────
 
@@ -492,7 +446,7 @@ export default function SeoAnalyzer() {
                 <h3 className="font-semibold mb-2">Métricas de Tráfico</h3>
                 <p className="text-sm text-muted-foreground">
                   Visitas mensuales, tasa de rebote, duración de sesión y
-                  distribución geográfica del tráfico con datos de SimilarWeb.
+                  distribución geográfica del tráfico basada en benchmarks de industria.
                 </p>
               </div>
               <div className="text-center p-6 rounded-xl border bg-card">
@@ -529,7 +483,7 @@ export default function SeoAnalyzer() {
               Analizando {url}...
             </h3>
             <p className="text-muted-foreground max-w-md mx-auto">
-              Consultando datos de tráfico de SimilarWeb y comparando contra los
+              Comparando contra los benchmarks y
               líderes de{" "}
               {INDUSTRIES.find((i) => i.id === industry)?.label || "la industria"}{" "}
               en{" "}
@@ -594,62 +548,17 @@ export default function SeoAnalyzer() {
               </div>
             </div>
 
-            {/* Cache Indicator Banner */}
-            {(data as any).fromCache && (data as any).apiAvailable && (
-              <div className="rounded-xl border border-blue-200 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-800 p-4 mb-8 flex items-start gap-3">
-                <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-blue-800 dark:text-blue-300">
-                    Datos cargados desde caché
-                  </p>
-                  <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">
-                    Estas métricas fueron obtenidas previamente y se actualizarán automáticamente en las próximas 24 horas. Esto reduce el consumo de créditos de API.
-                  </p>
-                </div>
+            {/* Info Banner */}
+            <div className="rounded-xl border border-blue-200 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-800 p-4 mb-8 flex items-start gap-3">
+              <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-blue-800 dark:text-blue-300">
+                  Análisis basado en benchmarks de industria
+                </p>
+                <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">
+                  Este análisis compara tu sitio contra los líderes de la industria en {data.countryLabel} utilizando datos de referencia del mercado e insights generados por inteligencia artificial.
+                </p>
               </div>
-            )}
-
-            {/* API Availability Banner */}
-            {!(data as any).apiAvailable && (
-              <div className="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800 p-4 mb-8 flex items-start gap-3">
-                <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
-                    Datos en vivo temporalmente no disponibles
-                  </p>
-                  <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">
-                    Las métricas de tráfico del sitio no están disponibles en este momento. El benchmarking, competidores e insights estratégicos se generan con datos de la industria y análisis de IA.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* KPI Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <MetricCard
-                label="Visitas Mensuales"
-                value={formatNumber(data.siteMetrics.totalVisits)}
-                icon={Users}
-                subtitle="Últimos 3 meses"
-              />
-              <MetricCard
-                label="Tasa de Rebote"
-                value={formatPercent(data.siteMetrics.bounceRate)}
-                icon={MousePointerClick}
-                subtitle="Promedio mundial"
-              />
-              <MetricCard
-                label="Duración Sesión"
-                value={formatDuration(data.siteMetrics.avgSessionDuration)}
-                icon={Clock}
-                subtitle="Promedio por visita"
-              />
-              <MetricCard
-                label="Páginas / Visita"
-                value={data.siteMetrics.pagesPerVisit?.toFixed(1) ?? "N/D"}
-                icon={FileStack}
-                subtitle="Promedio por sesión"
-              />
             </div>
 
             {/* Two Column Layout: Charts + Benchmarking */}
