@@ -66,3 +66,8 @@
 - [x] Store verified emails in database with timestamps
 - [x] Write vitest tests for OTP verification flow (17 tests, 69 total, all passing)
 - [x] End-to-end testing and checkpoint
+- [x] Research trending AI/B2B marketing topics (avoid overlap with existing 27 articles)
+- [x] Write new SEO/AEO/GEO-optimized blog article (~3000 words, 14 min read)
+- [x] Add article metadata to blogArticles.ts
+- [x] Add article content to blogContent.ts
+- [x] Test blog article rendering and save checkpoint

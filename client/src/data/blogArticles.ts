@@ -11,6 +11,16 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: "preparar-catalogo-b2b-agentes-compra-ia-comercio-agentico-2026",
+    title: "Cómo Preparar tu Catálogo B2B para los Agentes de Compra con IA: Guía Práctica de Comercio Agéntico 2026",
+    excerpt: "El 90% de las compras B2B serán gestionadas por agentes de IA en tres años. Descubre las 4 brechas críticas que debes cerrar en tu catálogo, precios y sistemas para no ser invisible ante los agentes de compra autónomos que ya están operando.",
+    category: "Inteligencia Artificial",
+    date: "24 de Febrero, 2026",
+    readTime: "14 min",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=675&fit=crop",
+    keywords: ["comercio agéntico", "agentic commerce B2B", "agentes de compra IA", "catálogo B2B para IA", "AI purchasing agents", "preparar eCommerce para agentes IA", "Universal Commerce Protocol", "datos estructurados B2B", "API precios B2B", "transformación digital comercio 2026", "schema.org producto B2B", "automatización procurement IA"]
+  },
+  {
     slug: "comercio-conversacional-agentes-ia-ventas-b2b-2026",
     title: "Comercio Conversacional: Cómo los Agentes de IA Están Transformando las Ventas B2B en 2026",
     excerpt: "Descubre cómo los agentes de IA autónomos están revolucionando las ventas B2B a través del comercio conversacional: calificación inteligente, configuración asistida, negociación automatizada y reactivación de oportunidades.",
