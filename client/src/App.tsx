@@ -12,6 +12,7 @@ import Terms from "./pages/Terms";
 import Glossary from "./pages/Glossary";
 import GlossaryTermPage from "./pages/GlossaryTerm";
 import SobreMi from "./pages/SobreMi";
+import Studio from "./pages/Studio";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -25,6 +26,8 @@ function Router() {
       <Route path="/sobre-mi" component={SobreMi} />
       <Route path="/privacidad" component={Privacy} />
       <Route path="/terminos" component={Terms} />
+      <Route path="/studio" component={Studio} />
+      <Route path="/studio/:rest*" component={Studio} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

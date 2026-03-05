@@ -105,3 +105,19 @@
 - [x] Run migration and verify all articles in Sanity Studio
 - [ ] Remove static blogArticles.ts and blogContent.ts files
 - [x] Run tests and save checkpoint
+
+## Sanity Studio y Assets
+
+- [ ] Instalar y configurar Sanity Studio en el proyecto
+- [ ] Definir esquema de blog (blogPost) en Sanity Studio
+- [ ] Exponer Sanity Studio en una ruta del sitio (ej: /studio)
+- [x] Descargar imágenes de Unsplash de los 27 artículos
+- [x] Subir imágenes a Sanity Assets via API
+- [x] Actualizar documentos de Sanity para referenciar imágenes propias
+- [x] server/sanity.ts ya usa mainImage de Sanity correctamente
+
+## Sanity Studio - Opción A (Redirección al studio en sanity.io)
+
+- [x] Reemplazar Studio.tsx con página de redirección al studio en sanity.io
+- [x] Limpiar shims y paquetes innecesarios del intento de embebido
+- [x] Subir imágenes de artículos a Sanity Assets y actualizar documentos

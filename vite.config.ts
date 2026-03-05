@@ -159,6 +159,7 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "client", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+
     },
   },
   envDir: path.resolve(import.meta.dirname),
@@ -168,6 +169,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
+
   server: {
     host: true,
     allowedHosts: [
@@ -180,8 +182,9 @@ export default defineConfig({
       "127.0.0.1",
     ],
     fs: {
-      strict: true,
+      strict: false,
       deny: ["**/.*"],
+      allow: [".."],
     },
   },
 });
