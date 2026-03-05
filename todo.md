@@ -78,3 +78,20 @@
 - [x] Update frontend to reflect removed metrics
 - [x] Run tests and fix breakages (68 tests, all passing)
 - [x] Document impact of SimilarWeb removal
+- [x] Audit all Herramientas-related files and cost-bearing dependencies
+- [x] Remove Herramientas page and MarketIntelligence page
+- [x] Remove Herramientas routes from App.tsx
+- [x] Remove navigation links to Herramientas from Header/Footer
+- [x] Remove marketIntelligence router and related server code
+- [x] Remove emailOtp router and OTP verification system
+- [x] Remove Resend dependency and email sending code
+- [x] Remove LLM integration (invokeLLM usage in market intelligence)
+- [x] Remove Data API / SimilarWeb shared types
+- [x] Remove EmailOtpGate component
+- [x] Remove cache module (only used by market intelligence)
+- [x] Clean up database tables (otp_codes, verified_emails)
+- [x] Remove shared/marketIntelligence.ts types
+- [x] Remove unused npm packages (resend, chart.js, react-chartjs-2)
+- [x] Remove related test files
+- [x] Update Header/Footer to remove Herramientas references
+- [x] Run tests and verify site works correctly (1 test passing, 0 TS errors, site loads correctly)

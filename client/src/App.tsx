@@ -11,8 +11,6 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Glossary from "./pages/Glossary";
 import GlossaryTermPage from "./pages/GlossaryTerm";
-import Herramientas from "./pages/Herramientas";
-import MarketIntelligence from "./pages/MarketIntelligence";
 import SobreMi from "./pages/SobreMi";
 
 function Router() {
@@ -24,8 +22,6 @@ function Router() {
       <Route path="/blog/:slug" component={BlogArticle} />
       <Route path="/glosario" component={Glossary} />
       <Route path="/glosario/:slug" component={GlossaryTermPage} />
-      <Route path="/herramientas" component={Herramientas} />
-      <Route path="/herramientas/inteligencia-de-mercado" component={MarketIntelligence} />
       <Route path="/sobre-mi" component={SobreMi} />
       <Route path="/privacidad" component={Privacy} />
       <Route path="/terminos" component={Terms} />

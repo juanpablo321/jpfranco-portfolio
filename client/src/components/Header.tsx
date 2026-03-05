@@ -1,7 +1,7 @@
 /* Professional Corporate Header
  * Two-tier navigation:
  *   - Top bar: small secondary strip with Sobre mí, Servicios, Contacto
- *   - Main bar: logo + primary nav (Glosario, Herramientas, Blog)
+ *   - Main bar: logo + primary nav (Glosario, Blog)
  * Mobile: hamburger menu groups both tiers with visual separation
  */
 
@@ -123,12 +123,6 @@ export default function Header() {
               Glosario
             </a>
             <a
-              href="/herramientas"
-              className="text-base font-normal text-foreground hover:text-primary transition-colors"
-            >
-              Herramientas
-            </a>
-            <a
               href="/blog"
               className="text-base font-normal text-foreground hover:text-primary transition-colors"
             >
@@ -207,13 +201,6 @@ export default function Header() {
               className="text-xl font-medium text-foreground hover:text-primary transition-colors"
             >
               Glosario
-            </a>
-            <a
-              href="/herramientas"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-            >
-              Herramientas
             </a>
             <a
               href="/blog"

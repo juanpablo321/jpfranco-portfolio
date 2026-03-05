@@ -64,11 +64,7 @@ export default function Footer() {
                   Blog
                 </a>
               </li>
-              <li>
-                <a href="/herramientas/inteligencia-de-mercado" className="text-muted-foreground hover:text-primary transition-colors">
-                  Inteligencia de Mercado
-                </a>
-              </li>
+
               <li>
                 <a href="/sobre-mi" className="text-muted-foreground hover:text-primary transition-colors">
                   Sobre Mí
