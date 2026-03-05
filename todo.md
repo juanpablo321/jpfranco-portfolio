@@ -95,3 +95,13 @@
 - [x] Remove related test files
 - [x] Update Header/Footer to remove Herramientas references
 - [x] Run tests and verify site works correctly (1 test passing, 0 TS errors, site loads correctly)
+- [x] Configure SANITY_PROJECT_ID and SANITY_API_TOKEN secrets
+- [x] Install @sanity/client in the project
+- [x] Create server/sanity.ts helper module
+- [x] Create tRPC procedures for blog.getAll and blog.getBySlug
+- [x] Update Blog.tsx frontend to consume Sanity data via tRPC
+- [x] Update BlogArticle.tsx frontend to consume Sanity data via tRPC
+- [x] Write migration script to import 28 articles to Sanity
+- [x] Run migration and verify all articles in Sanity Studio
+- [ ] Remove static blogArticles.ts and blogContent.ts files
+- [x] Run tests and save checkpoint

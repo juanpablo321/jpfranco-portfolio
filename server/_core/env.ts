@@ -10,4 +10,7 @@ export const ENV = {
   googlePageSpeedApiKey: process.env.GOOGLE_PAGESPEED_API_KEY ?? "",
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   resendFromEmail: process.env.RESEND_FROM_EMAIL ?? "Franco Digital <onboarding@resend.dev>",
+  sanityProjectId: process.env.SANITY_PROJECT_ID ?? "",
+  sanityApiToken: process.env.SANITY_API_TOKEN ?? "",
+  sanityDataset: process.env.SANITY_DATASET ?? "production",
 };

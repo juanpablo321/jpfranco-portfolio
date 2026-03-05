@@ -1,48 +1,110 @@
 /* Blog Article Page Template - Premium Reading Experience
  * Professional Corporate Style with refined typography
  * SEO-optimized with single H1, proper heading hierarchy
- * Content is embedded at build time via blogContent.ts
+ * Content sourced from Sanity CMS via tRPC, rendered with @portabletext/react
  */
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link, useRoute } from "wouter";
-import { articles } from "@/data/blogArticles";
-import { blogContent } from "@/data/blogContent";
-import { useEffect, useMemo, useState } from "react";
-import { marked } from "marked";
+import { trpc } from "@/lib/trpc";
+import { useEffect, useState } from "react";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { useSEO } from "@/hooks/useSEO";
+
+// Fallback placeholder image
+const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=675&fit=crop";
+
+// Custom Portable Text components to match the existing blog-content CSS styles
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    h1: ({ children }) => <h1 className="text-3xl font-bold mt-10 mb-4">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-2xl font-bold mt-10 mb-4">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-xl font-bold mt-8 mb-3">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-lg font-bold mt-6 mb-2">{children}</h4>,
+    normal: ({ children }) => <p className="mb-5 leading-relaxed">{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-primary pl-6 my-6 italic text-muted-foreground">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc list-outside pl-6 mb-5 space-y-2">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal list-outside pl-6 mb-5 space-y-2">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    number: ({ children }) => <li className="leading-relaxed">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+    code: ({ children }) => (
+      <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>
+    ),
+    link: ({ children, value }) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+      >
+        {children}
+      </a>
+    ),
+  },
+  types: {
+    image: ({ value }) => {
+      const imageUrl = value?.asset?.url;
+      if (!imageUrl) return null;
+      return (
+        <figure className="my-8">
+          <img
+            src={imageUrl}
+            alt={value?.alt || ""}
+            className="w-full rounded-lg"
+            loading="lazy"
+          />
+          {value?.caption && (
+            <figcaption className="text-center text-sm text-muted-foreground mt-2">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
+  },
+};
 
 export default function BlogArticle() {
   const [, params] = useRoute("/blog/:slug");
-  const article = articles.find((a) => a.slug === params?.slug);
+  const slug = params?.slug ?? "";
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  const { data: article, isLoading, error } = trpc.blog.getBySlug.useQuery(
+    { slug },
+    { enabled: !!slug }
+  );
+
+  // Fetch all articles for related articles section
+  const { data: allArticles = [] } = trpc.blog.getAll.useQuery();
 
   // Dynamic SEO meta tags for each article
   useSEO({
     title: article ? `${article.title} | Juan Pablo Franco` : "Artículo no encontrado | Juan Pablo Franco",
     description: article?.excerpt || "Artículo no encontrado en el blog de Juan Pablo Franco.",
-    url: `/blog/${params?.slug || ""}`,
-    image: article?.image,
+    url: `/blog/${slug}`,
+    image: article?.imageUrl,
     type: "article",
     keywords: article?.keywords,
     author: "Juan Pablo Franco",
     publishedDate: article?.date,
   });
 
-  const htmlContent = useMemo(() => {
-    if (!article) return "";
-    const markdown = blogContent[article.slug];
-    if (!markdown) return "<p>El contenido del artículo no está disponible en este momento.</p>";
-    const cleanedMarkdown = markdown
-      .replace(/^# .+\n/, '')
-      .replace(/^# /gm, '## ');
-    return marked.parse(cleanedMarkdown) as string;
-  }, [article]);
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [params?.slug]);
+  }, [slug]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +116,41 @@ export default function BlogArticle() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!article) {
+  // Format date from ISO string to Spanish locale
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    try {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-white">
+        <Header />
+        <main className="flex-1 pt-32 pb-20">
+          <div className="container">
+            <div className="max-w-[720px] mx-auto animate-pulse space-y-6">
+              <div className="h-4 bg-muted rounded w-1/4" />
+              <div className="h-8 bg-muted rounded w-full" />
+              <div className="h-8 bg-muted rounded w-4/5" />
+              <div className="h-4 bg-muted rounded w-full" />
+              <div className="h-4 bg-muted rounded w-3/4" />
+              <div className="aspect-[16/9] bg-muted rounded-xl" />
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Error or not found state
+  if (error || !article) {
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
@@ -62,7 +158,10 @@ export default function BlogArticle() {
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl font-bold mb-6">Artículo no encontrado</h1>
-              <Link href="/blog" className="text-primary hover:underline">
+              <p className="text-muted-foreground mb-8">
+                El artículo que buscas no existe o ha sido eliminado.
+              </p>
+              <Link href="/blog" className="text-primary hover:underline font-semibold">
                 Volver al blog
               </Link>
             </div>
@@ -73,7 +172,7 @@ export default function BlogArticle() {
     );
   }
 
-  const relatedArticles = articles
+  const relatedArticles = allArticles
     .filter((a) => a.slug !== article.slug && a.category === article.category)
     .slice(0, 3);
 
@@ -109,9 +208,9 @@ export default function BlogArticle() {
               <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary bg-primary/8 rounded-full">
                 {article.category}
               </span>
-              <span className="text-sm text-muted-foreground">{article.date}</span>
+              <span className="text-sm text-muted-foreground">{formatDate(article.date)}</span>
               <span className="text-muted-foreground/40">·</span>
-              <span className="text-sm text-muted-foreground">{article.readTime} de lectura</span>
+              <span className="text-sm text-muted-foreground">{article.readTime} min de lectura</span>
             </div>
 
             {/* Title - Single H1 */}
@@ -140,20 +239,24 @@ export default function BlogArticle() {
           <div className="max-w-[960px] mx-auto mb-12 md:mb-16">
             <div className="relative overflow-hidden rounded-xl">
               <img
-                src={article.image}
+                src={article.imageUrl || FALLBACK_IMAGE}
                 alt={article.title}
                 className="w-full h-auto aspect-[16/9] object-cover"
               />
             </div>
           </div>
 
-          {/* Article Content - Premium Typography */}
+          {/* Article Content - Portable Text */}
           <div className="max-w-[720px] mx-auto">
-            <div
-              className="blog-content"
-              id={`article-content-${article.slug}`}
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
+            <div className="blog-content" id={`article-content-${article.slug}`}>
+              {article.body && Array.isArray(article.body) && article.body.length > 0 ? (
+                <PortableText value={article.body as any} components={portableTextComponents} />
+              ) : (
+                <p className="text-muted-foreground">
+                  El contenido del artículo no está disponible en este momento.
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Keywords */}
@@ -217,7 +320,7 @@ export default function BlogArticle() {
                     <article className="group cursor-pointer">
                       <div className="aspect-[16/9] overflow-hidden rounded-lg mb-4">
                         <img
-                          src={relatedArticle.image}
+                          src={relatedArticle.imageUrl || FALLBACK_IMAGE}
                           alt={relatedArticle.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -229,7 +332,7 @@ export default function BlogArticle() {
                         {relatedArticle.title}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {relatedArticle.readTime} de lectura
+                        {relatedArticle.readTime} min de lectura
                       </p>
                     </article>
                   </Link>
